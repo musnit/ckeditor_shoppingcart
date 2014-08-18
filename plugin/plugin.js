@@ -17,23 +17,11 @@ CKEDITOR.plugins.add( 'shoppingcart', {
 
       template: '<div id="shoppingcart">' + 'loadingGif' + '</div>',
 
-      button: 'Add shopping cart',
-
       upcast: function( element ) {
         return element.name == 'div' && element.hasClass( 'shoppingcart' );
       },
 
       init: function(){
-        //resetFromXML
-        //gotoPage...
-        ///changedropdown
-        //?
-
-    //    loadXml(success {
-    //      this.element.$ ... Handlebars.templates.cart(cartJSON); 
-    //      this.data('xmlIsLoading', false);
-    //    });
-
 
         widget = this;
         divInserter = function(data){
@@ -41,15 +29,27 @@ CKEDITOR.plugins.add( 'shoppingcart', {
         };
 
         //test
-        //ShoppingCartPlugin.getProductsXML = function(AI, successCallback){
-        //  data = Handlebars.templates.productsxml();
-        //  successCallback(data);
-        //};
-        //SCVOAccountID = 'D4874F13-9422-4C3B-B734-E117495A9BAE';
+        ShoppingCartPlugin.getProductsXML = function(AI, successCallback){
+          data = Handlebars.templates.productsxml();
+          successCallback(data);
+        };
+        SCVOAccountID = 'D4874F13-9422-4C3B-B734-E117495A9BAE';
         //endtest
 
         ShoppingCartPlugin.initialize(SCVOAccountID, divInserter);
       }
+    });
+
+    editor.ui.addButton( 'ShoppingCart', {
+
+      // The text part of the button (if available) and tooptip.
+      label: 'Insert Shopping Cart',
+
+      // The command to execute on click.
+      command: 'shoppingcart',
+
+      // The button placement in the toolbar (toolbar group name).
+      toolbar: 'insert'
     });
   }
 } );

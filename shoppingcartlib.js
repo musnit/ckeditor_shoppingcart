@@ -993,6 +993,14 @@ function program1(depth0,data) {
   buffer += "\n</div>";
   return buffer;
   });
+templates['categoriesxml'] = template(function (Handlebars,depth0,helpers,partials,data) {
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
+  
+
+
+  return "<XML><data><Categories><Category><ProdCatID>{5146CEAF-1E9E-4833-BEBE-43B7AEA6FBA6}</ProdCatID><CatName>Hats</CatName></Category><Category><ProdCatID>{60AC0D7E-3EB0-430F-B5E6-917639C86067}</ProdCatID><CatName>Midgets</CatName></Category><Category><ProdCatID>{7FCCF23A-58E2-45DD-9E3A-AA195047663E}</ProdCatID><CatName>Plates</CatName></Category><Category><ProdCatID>{6139709A-086A-48D0-8704-25916E7E5BAC}</ProdCatID><CatName>Spoons</CatName></Category><Category><ProdCatID>{2AA04345-03E0-44BE-BB7A-7566D1EC732E}</ProdCatID><CatName>Teaspoons</CatName></Category></Categories></data></XML>";
+  });
 templates['productsxml'] = template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};

@@ -993,6 +993,14 @@ function program1(depth0,data) {
   buffer += "\n</div>";
   return buffer;
   });
+templates['categoriesxml'] = template(function (Handlebars,depth0,helpers,partials,data) {
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
+  
+
+
+  return "<XML><data><Categories><Category><ProdCatID>{5146CEAF-1E9E-4833-BEBE-43B7AEA6FBA6}</ProdCatID><CatName>Hats</CatName></Category><Category><ProdCatID>{60AC0D7E-3EB0-430F-B5E6-917639C86067}</ProdCatID><CatName>Midgets</CatName></Category><Category><ProdCatID>{7FCCF23A-58E2-45DD-9E3A-AA195047663E}</ProdCatID><CatName>Plates</CatName></Category><Category><ProdCatID>{6139709A-086A-48D0-8704-25916E7E5BAC}</ProdCatID><CatName>Spoons</CatName></Category><Category><ProdCatID>{2AA04345-03E0-44BE-BB7A-7566D1EC732E}</ProdCatID><CatName>Teaspoons</CatName></Category></Categories></data></XML>";
+  });
 templates['productsxml'] = template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
@@ -1049,23 +1057,11 @@ CKEDITOR.plugins.add( 'shoppingcart', {
 
       template: '<div id="shoppingcart">' + 'loadingGif' + '</div>',
 
-      button: 'Add shopping cart',
-
       upcast: function( element ) {
         return element.name == 'div' && element.hasClass( 'shoppingcart' );
       },
 
       init: function(){
-        //resetFromXML
-        //gotoPage...
-        ///changedropdown
-        //?
-
-    //    loadXml(success {
-    //      this.element.$ ... Handlebars.templates.cart(cartJSON); 
-    //      this.data('xmlIsLoading', false);
-    //    });
-
 
         widget = this;
         divInserter = function(data){
@@ -1073,15 +1069,27 @@ CKEDITOR.plugins.add( 'shoppingcart', {
         };
 
         //test
-        //ShoppingCartPlugin.getProductsXML = function(AI, successCallback){
-        //  data = Handlebars.templates.productsxml();
-        //  successCallback(data);
-        //};
-        //SCVOAccountID = 'D4874F13-9422-4C3B-B734-E117495A9BAE';
+        ShoppingCartPlugin.getProductsXML = function(AI, successCallback){
+          data = Handlebars.templates.productsxml();
+          successCallback(data);
+        };
+        SCVOAccountID = 'D4874F13-9422-4C3B-B734-E117495A9BAE';
         //endtest
 
         ShoppingCartPlugin.initialize(SCVOAccountID, divInserter);
       }
+    });
+
+    editor.ui.addButton( 'ShoppingCart', {
+
+      // The text part of the button (if available) and tooptip.
+      label: 'Insert Shopping Cart',
+
+      // The command to execute on click.
+      command: 'shoppingcart',
+
+      // The button placement in the toolbar (toolbar group name).
+      toolbar: 'insert'
     });
   }
 } );
