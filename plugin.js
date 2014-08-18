@@ -1073,14 +1073,14 @@ CKEDITOR.plugins.add( 'shoppingcart', {
         };
 
         //test
-        ShoppingCartPlugin.getProductsXML = function(AI, successCallback){
-          data = Handlebars.templates.productsxml();
-          successCallback(data);
-        };
-        AI = 'D4874F13-9422-4C3B-B734-E117495A9BAE';
+        //ShoppingCartPlugin.getProductsXML = function(AI, successCallback){
+        //  data = Handlebars.templates.productsxml();
+        //  successCallback(data);
+        //};
+        //SCVOAccountID = 'D4874F13-9422-4C3B-B734-E117495A9BAE';
         //endtest
 
-        ShoppingCartPlugin.initialize(AI, divInserter);
+        ShoppingCartPlugin.initialize(SCVOAccountID, divInserter);
       }
     });
   }
