@@ -1,0 +1,4 @@
+CKEditor shopping cart plugin (Tested on CKEditor 4.4.3)
+
+This plugin requires:
+  CKEditor Widget Plugin (4.4.3) - to get this working you need to download it and download the CKEditor lineutils plugin, and add them to your plugins folder and config file.
