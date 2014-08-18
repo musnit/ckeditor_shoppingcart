@@ -6,17 +6,16 @@
 <script>
 
 divInserter = function(data){
-  $('#'+divID).html(Handlebars.templates.cart(jQuery.xml2json(data)));
+  $('#shoppingcart').html(Handlebars.templates.cart(jQuery.xml2json(data)));
 };
 
-ShoppingCartPlugin.getProductsXML = function(AI, successCallback){
-  data = Handlebars.templates.productsxml();
-  successCallback(data);
-};
-AI = 'D4874F13-9422-4C3B-B734-E117495A9BAE';
+//test
+//ShoppingCartPlugin.getProductsXML = function(AI, successCallback){
+//  data = Handlebars.templates.productsxml();
+//  successCallback(data);
+//};
+//SCVOAccountID = 'D4874F13-9422-4C3B-B734-E117495A9BAE';
 //endtest
 
-divID = 'shoppingcart';
-
-ShoppingCartPlugin.initialize(AI, divID, divInserter);
+ShoppingCartPlugin.initialize(SCVOAccountID, divInserter);
 </script>

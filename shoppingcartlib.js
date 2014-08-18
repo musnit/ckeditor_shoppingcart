@@ -774,8 +774,8 @@ Handlebars.registerHelper("each_on_current_page", function(array, options) {
 ShoppingCartPlugin = {
     currentPage: 1,
     productsPerPage: 9,
-    initialize: function(AI, divID, successCallback){
-      this.getProductsXML(AI, divInserter);
+    initialize: function(AI, successCallback){
+      this.getProductsXML(AI, successCallback);
     },
     getProductsXML: function(AI, successCallback){
       $.ajax({

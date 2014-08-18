@@ -34,13 +34,13 @@ CKEDITOR.plugins.add( 'shoppingcart', {
     //      this.data('xmlIsLoading', false);
     //    });
 
-        //test
 
         widget = this;
         divInserter = function(data){
           $(widget.element.$).html(Handlebars.templates.cart(jQuery.xml2json(data)));
         };
 
+        //test
         ShoppingCartPlugin.getProductsXML = function(AI, successCallback){
           data = Handlebars.templates.productsxml();
           successCallback(data);
@@ -48,9 +48,7 @@ CKEDITOR.plugins.add( 'shoppingcart', {
         AI = 'D4874F13-9422-4C3B-B734-E117495A9BAE';
         //endtest
 
-        divID = 'shoppingcart';
-
-        ShoppingCartPlugin.initialize(AI, divID, divInserter);
+        ShoppingCartPlugin.initialize(AI, divInserter);
       }
     });
   }
