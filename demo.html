@@ -1,12 +1,13 @@
+<link rel="stylesheet" type="text/css" href="css/shoppingcart.css">
 
 <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="shoppingcartlib.js"></script>
-<div id="shoppingcart"></div>
+<div id="shopping-cart"></div>
 
 <script>
 
 divInserter = function(data){
-  $('#shoppingcart').html(Handlebars.templates.cart(jQuery.xml2json(data)));
+  $('#shopping-cart').html(Handlebars.templates.cart(jQuery.xml2json(data)));
 };
 
 //test

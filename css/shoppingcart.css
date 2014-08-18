@@ -1,0 +1,34 @@
+#shopping-cart {
+  max-width: 850px;
+  max-height: 850px;
+}
+
+#shopping-cart .product{
+  width: 25%;
+  height: 50%;
+}
+
+#shopping-cart .product-image{
+  max-width: 180px;
+  max-height: 180px;
+  display: block;
+  margin: auto;
+}
+
+#shopping-cart .product-name{
+  font-weight: bold;
+}
+
+#shopping-cart .product-short-description{
+  color: rgb(133, 133, 133);
+}
+
+#shopping-cart .product-price{
+  color: rgb(213, 146, 5);
+  font-size: large;
+}
+
+#shopping-cart .product-addtocart-button{
+}
+
+

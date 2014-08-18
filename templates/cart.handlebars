@@ -1,5 +1,12 @@
-<div class="products">
-  {{#each_on_current_page products.Product}}
-    {{> product}}
-  {{/each_on_current_page}}
-</div>
+<table class="products">
+  <tr>
+    {{#each_on_current_page_top products.Product}}
+      {{> product}}
+    {{/each_on_current_page_top}}
+  </tr>
+  <tr>
+    {{#each_on_current_page_bottom products.Product}}
+      {{> product}}
+    {{/each_on_current_page_bottom}}
+  </tr>
+</table>

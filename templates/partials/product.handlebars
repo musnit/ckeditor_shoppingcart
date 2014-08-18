@@ -1,8 +1,8 @@
-<div class="product">
-  <span class="item_name">{{ProductName}}</span>
-  <img src={{first Images.Image}} alt={{ProductName}}>
-  <input type="text" value="1" class="item_Quantity"><br>
-  <span class="item_price">{{ProductPrice}}</span><br>
-  <a class="item_add build-addtocart-button"> Add to Cart </a>
+<td class="product">
+  <img class="product-image" src={{first Images.Image}} alt={{ProductName}}>
+  <div class="product-name">{{ProductName}}</div>
+  <div class="product-short-description">{{ProductShortDescription}}</div>
+  <span class="product-price">{{currency_symbol}}{{ProductPrice}}</span><br>
+  <a class="product-addtocart-button">Add to Cart</a>
   <div class="build-cart-animation" style="display:none">1</div>
-</div>
+</td>

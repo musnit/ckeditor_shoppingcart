@@ -12,13 +12,13 @@ CKEDITOR.plugins.add( 'shoppingcart', {
     // Register the shoppingcart widget.
     editor.widgets.add( 'shoppingcart', {
       // Minimum HTML which is required by this widget to work.
-      requiredContent: 'div(shoppingcart)',
-      allowedContent: 'div(shoppingcart)',
+      requiredContent: 'div(shopping-cart)',
+      allowedContent: 'div(shopping-cart)',
 
-      template: '<div id="shoppingcart">' + 'loadingGif' + '</div>',
+      template: '<div id="shopping-cart">' + 'loadingGif' + '</div>',
 
       upcast: function( element ) {
-        return element.name == 'div' && element.hasClass( 'shoppingcart' );
+        return element.name == 'div' && element.hasClass( 'shopping-cart' );
       },
 
       init: function(){
@@ -29,11 +29,11 @@ CKEDITOR.plugins.add( 'shoppingcart', {
         };
 
         //test
-        ShoppingCartPlugin.getProductsXML = function(AI, successCallback){
-          data = Handlebars.templates.productsxml();
-          successCallback(data);
-        };
-        SCVOAccountID = 'D4874F13-9422-4C3B-B734-E117495A9BAE';
+       // ShoppingCartPlugin.getProductsXML = function(AI, successCallback){
+       //   data = Handlebars.templates.productsxml();
+       //   successCallback(data);
+       // };
+       // SCVOAccountID = 'D4874F13-9422-4C3B-B734-E117495A9BAE';
         //endtest
 
         ShoppingCartPlugin.initialize(SCVOAccountID, divInserter);

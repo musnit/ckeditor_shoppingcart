@@ -558,12 +558,12 @@ Handlebars.registerHelper("each_with_index", function(array, options) {
  
 });
 
-Handlebars.registerHelper("each_on_current_page", function(array, options) {
+Handlebars.registerHelper("each_on_current_page_top", function(array, options) {
   var buffer = "";
   currentPage = ShoppingCartPlugin.currentPage;
   productsPerPage = ShoppingCartPlugin.productsPerPage;
   startIndex = (currentPage-1)*productsPerPage;
-  endIndex = startIndex + productsPerPage;
+  endIndex = startIndex + Math.ceil(productsPerPage/2);
   for (var i = 0, j = array.length; i < j; i++) {
     var item = array[i];
     
@@ -575,6 +575,28 @@ Handlebars.registerHelper("each_on_current_page", function(array, options) {
   // return the finished buffer
   return buffer;
  
+});
+Handlebars.registerHelper("each_on_current_page_bottom", function(array, options) {
+  var buffer = "";
+  currentPage = ShoppingCartPlugin.currentPage;
+  productsPerPage = ShoppingCartPlugin.productsPerPage;
+  startIndex = (currentPage-1)*productsPerPage + Math.ceil(productsPerPage/2);
+  endIndex = startIndex + Math.floor(productsPerPage/2);
+  for (var i = 0, j = array.length; i < j; i++) {
+    var item = array[i];
+    
+    if (startIndex <= i && i < endIndex) {
+      buffer += options.fn(item);
+    }
+  }
+ 
+  // return the finished buffer
+  return buffer;
+ 
+});
+
+Handlebars.registerHelper("currency_symbol", function(options) {
+  return typeof Build !== 'undefined'? Build.cartPrefix || '$' : '$';
 });
 
 /*
@@ -773,7 +795,7 @@ Handlebars.registerHelper("each_on_current_page", function(array, options) {
 
 ShoppingCartPlugin = {
     currentPage: 1,
-    productsPerPage: 9,
+    productsPerPage: 8,
     initialize: function(AI, successCallback){
       this.getProductsXML(AI, successCallback);
     },
@@ -980,17 +1002,20 @@ helpers = this.merge(helpers, Handlebars.helpers); partials = this.merge(partial
 function program1(depth0,data) {
   
   var buffer = "", stack1;
-  buffer += "\n    ";
+  buffer += "\n      ";
   stack1 = self.invokePartial(partials.product, 'product', depth0, helpers, partials, data);
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n  ";
+  buffer += "\n    ";
   return buffer;
   }
 
-  buffer += "<div class=\"products\">\n  ";
-  stack1 = (helper = helpers.each_on_current_page || (depth0 && depth0.each_on_current_page),options={hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data},helper ? helper.call(depth0, ((stack1 = (depth0 && depth0.products)),stack1 == null || stack1 === false ? stack1 : stack1.Product), options) : helperMissing.call(depth0, "each_on_current_page", ((stack1 = (depth0 && depth0.products)),stack1 == null || stack1 === false ? stack1 : stack1.Product), options));
+  buffer += "<table class=\"products\">\n  <tr>\n    ";
+  stack1 = (helper = helpers.each_on_current_page_top || (depth0 && depth0.each_on_current_page_top),options={hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data},helper ? helper.call(depth0, ((stack1 = (depth0 && depth0.products)),stack1 == null || stack1 === false ? stack1 : stack1.Product), options) : helperMissing.call(depth0, "each_on_current_page_top", ((stack1 = (depth0 && depth0.products)),stack1 == null || stack1 === false ? stack1 : stack1.Product), options));
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n</div>";
+  buffer += "\n  </tr>\n  <tr>\n    ";
+  stack1 = (helper = helpers.each_on_current_page_bottom || (depth0 && depth0.each_on_current_page_bottom),options={hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data},helper ? helper.call(depth0, ((stack1 = (depth0 && depth0.products)),stack1 == null || stack1 === false ? stack1 : stack1.Product), options) : helperMissing.call(depth0, "each_on_current_page_bottom", ((stack1 = (depth0 && depth0.products)),stack1 == null || stack1 === false ? stack1 : stack1.Product), options));
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\n  </tr>\n</table>";
   return buffer;
   });
 templates['categoriesxml'] = template(function (Handlebars,depth0,helpers,partials,data) {
@@ -1016,24 +1041,31 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 Handlebars.partials['product'] = template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
-  var buffer = "", stack1, helper, options, functionType="function", escapeExpression=this.escapeExpression, helperMissing=helpers.helperMissing;
+  var buffer = "", stack1, helper, options, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, functionType="function";
 
 
-  buffer += "<div class=\"product\">\n  <span class=\"item_name\">";
-  if (helper = helpers.ProductName) { stack1 = helper.call(depth0, {hash:{},data:data}); }
-  else { helper = (depth0 && depth0.ProductName); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
-  buffer += escapeExpression(stack1)
-    + "</span>\n  <img src="
+  buffer += "<td class=\"product\">\n  <img class=\"product-image\" src="
     + escapeExpression((helper = helpers.first || (depth0 && depth0.first),options={hash:{},data:data},helper ? helper.call(depth0, ((stack1 = (depth0 && depth0.Images)),stack1 == null || stack1 === false ? stack1 : stack1.Image), options) : helperMissing.call(depth0, "first", ((stack1 = (depth0 && depth0.Images)),stack1 == null || stack1 === false ? stack1 : stack1.Image), options)))
     + " alt=";
   if (helper = helpers.ProductName) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.ProductName); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + ">\n  <input type=\"text\" value=\"1\" class=\"item_Quantity\"><br>\n  <span class=\"item_price\">";
+    + ">\n  <div class=\"product-name\">";
+  if (helper = helpers.ProductName) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.ProductName); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "</div>\n  <div class=\"product-short-description\">";
+  if (helper = helpers.ProductShortDescription) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.ProductShortDescription); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "</div>\n  <span class=\"product-price\">";
+  if (helper = helpers.currency_symbol) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.currency_symbol); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1);
   if (helper = helpers.ProductPrice) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.ProductPrice); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + "</span><br>\n  <a class=\"item_add build-addtocart-button\"> Add to Cart </a>\n  <div class=\"build-cart-animation\" style=\"display:none\">1</div>\n</div>";
+    + "</span><br>\n  <a class=\"product-addtocart-button\">Add to Cart</a>\n  <div class=\"build-cart-animation\" style=\"display:none\">1</div>\n</td>";
   return buffer;
   });
 })();
