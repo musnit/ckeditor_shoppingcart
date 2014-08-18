@@ -9,17 +9,13 @@ CKEDITOR.plugins.add( 'shoppingcart', {
 
   // The plugin initialization logic goes inside this method.
   init: function( editor ) {
-    window.ShoppingCartPlugin = {};
-    ShoppingCartPlugin.currentPage = 1;
-    ShoppingCartPlugin.productsPerPage = 9;
-
     // Register the shoppingcart widget.
     editor.widgets.add( 'shoppingcart', {
       // Minimum HTML which is required by this widget to work.
       requiredContent: 'div(shoppingcart)',
       allowedContent: 'div(shoppingcart)',
 
-      template: '<div class="shoppingcart">' + Handlebars.templates.cart(jQuery.xml2json(Handlebars.templates.productsxml())) + '</div>',
+      template: '<div id="shoppingcart">' + 'loadingGif' + '</div>',
 
       button: 'Add shopping cart',
 
@@ -37,37 +33,25 @@ CKEDITOR.plugins.add( 'shoppingcart', {
     //      this.element.$ ... Handlebars.templates.cart(cartJSON); 
     //      this.data('xmlIsLoading', false);
     //    });
-       // this.loadFromXML();
-      },
-      loadFromXML: function(){
-        this.setData('xmlIsLoading', true);
-        
-        AI = 'D4874F13-9422-4C3B-B734-E117495A9BAE';
 
-        log = function(data){
-          console.log(data);
+        //test
+
+        widget = this;
+        divInserter = function(data){
+          $(widget.element.$).html(Handlebars.templates.cart(jQuery.xml2json(data)));
         };
-        
-        this.getCategories(AI, log);
 
-      },
-      getCategories: function(AI, successCallback){
-        $.ajax({
-            type: 'POST',
-            url: 'http://www.awesomedemosite.com/virtualoffice/menuEngine/getproductsgeneral.asp',
-            processData: false,
-            contentType: 'application/x-www-form-urlencoded',
-            async: false,
-            data: 'AI=' + AI,
-            success: function(data) {
-              successCallback(data);
-            },
-            error:function (xhr, ajaxOptions, thrownError){
-                alert(xhr.status);
-                alert(thrownError);
-            }
-        });
+        ShoppingCartPlugin.getProductsXML = function(AI, successCallback){
+          data = Handlebars.templates.productsxml();
+          successCallback(data);
+        };
+        AI = 'D4874F13-9422-4C3B-B734-E117495A9BAE';
+        //endtest
+
+        divID = 'shoppingcart';
+
+        ShoppingCartPlugin.initialize(AI, divID, divInserter);
       }
-    } );
+    });
   }
 } );

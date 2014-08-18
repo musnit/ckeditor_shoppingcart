@@ -25,6 +25,9 @@ echo Adding handlebars partials...
 cat tmp/partial_templates.js >> tmp/plugin_compiled.js
 echo  "\n" >> tmp/plugin_compiled.js
 
+echo Copying to shoppingcartlib.js
+cp tmp/plugin_compiled.js shoppingcartlib.js
+
 echo Adding plugin...
 cat plugin/plugin.js >> tmp/plugin_compiled.js
 
