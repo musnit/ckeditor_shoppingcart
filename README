@@ -2,3 +2,15 @@ CKEditor shopping cart plugin (Tested on CKEditor 4.4.3)
 
 This plugin requires:
   CKEditor Widget Plugin (4.4.3) - to get this working you need to download it and download the CKEditor lineutils plugin, and add them to your plugins folder and config file.
+
+Usage:
+  Add the whole shoppingcart folder to your CKEditor plugins directory and CKEditor config file.
+  Configure the plgin with:
+    ...
+
+Info on how it works internally (if it needs to be changed):
+  The actual CKEditor plugin is in plugin/plugin.js
+  The handlebars library used is in ./lib
+  The handlebars templates for the cart are in ./templates
+  These are all then complied into a plugin.js that CKEditor uses, by running the compile bash script.
+  This was done so that the plugin could be added easily as is, with all libraries and compilation included.
