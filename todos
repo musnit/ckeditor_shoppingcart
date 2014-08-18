@@ -1,0 +1,29 @@
+todos:
+
+settings - choose categories ?default?
+name, desc, price, image = link
+
+change category - pages too :3
+
+fade animation maybe
+
+animations - compare simplecart shelf item divs. looks for class names for simplecart. animation = build cart animation
+
+animation call to setup
+?simplecart call to setup?
+
+click small image = fades in over big image
+up to 4 possible images
+if 1 only large else show minis too else nothing
+
+must be responsive - css media queries for nice sizes
+
+right click menu
+ - change categories
+ - open builds normal shopping cart config (must update when this changed)
+
+must update when normal build products cart change
+
+loading gifs
+
+Build.cartPrefix
