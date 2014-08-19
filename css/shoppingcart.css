@@ -31,4 +31,17 @@
 #shopping-cart .product-addtocart-button{
 }
 
+#shopping-cart .page-link{
+  text-decoration: none;
+  color: #868686;
+}
 
+#shopping-cart .current-page-link{
+  text-decoration: underline;
+  font-weight: bold;
+  color: black;
+}
+
+#shopping-cart .pages{
+  font-weight: bold;
+}
