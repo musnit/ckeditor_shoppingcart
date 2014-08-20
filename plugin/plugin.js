@@ -22,21 +22,22 @@ CKEDITOR.plugins.add( 'shoppingcart', {
       },
 
       init: function(){
+      //stubs for local testing
+      ShoppingCartPlugin.getProductsXML = function(AI, successCallback){
+        data = Handlebars.templates.productsxml();
+        ShoppingCartPlugin.productsCallback(data);
+        ShoppingCartPlugin.insertIntoDiv();
+      };
+      ShoppingCartPlugin.getCategoriesXML = function(AI, successCallback){
+        data = Handlebars.templates.categoriesxml();
+        ShoppingCartPlugin.categoriesCallback(data);
+        ShoppingCartPlugin.insertIntoDiv();
+      };
+      SCVOAccountID = 'D4874F13-9422-4C3B-B734-E117495A9BAE';
 
-        widget = this;
-        divInserter = function(data){
-          $(widget.element.$).html(Handlebars.templates.cart(jQuery.xml2json(data)));
-        };
+      divToInsert = $(this.element.$);
+      ShoppingCartPlugin.initialize(SCVOAccountID, divToInsert);
 
-        //test
-       // ShoppingCartPlugin.getProductsXML = function(AI, successCallback){
-       //   data = Handlebars.templates.productsxml();
-       //   successCallback(data);
-       // };
-       // SCVOAccountID = 'D4874F13-9422-4C3B-B734-E117495A9BAE';
-        //endtest
-
-        ShoppingCartPlugin.initialize(SCVOAccountID, divInserter);
       }
     });
 

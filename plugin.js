@@ -534,6 +534,10 @@ Handlebars.registerHelper('first', function(items, options) {
   return items[0];
 });
 
+Handlebars.registerHelper('currentCategory', function(options) {
+  return ShoppingCartPlugin.currentCategory;
+});
+
 Handlebars.registerHelper('currentPageProducts', function(items, options) {
   currentPage = ShoppingCartPlugin.currentPage;
   productsPerPage = ShoppingCartPlugin.productsPerPage;
@@ -811,51 +815,100 @@ Handlebars.registerHelper("currency_symbol", function(options) {
 })(jQuery);
 
 ShoppingCartPlugin = {
-    currentPage: 1,
-    productsPerPage: 8,
-    initialize: function(AI, successCallback){
-      this.AI = AI;
-      this.successCallback = successCallback;
-      this.getProductsXML(AI, successCallback);
-    },
-    getProductsXML: function(AI, successCallback){
-      $.ajax({
-          type: 'POST',
-          url: 'http://www.awesomedemosite.com/virtualoffice/menuEngine/getproductsgeneral.asp',
-          processData: false,
-          contentType: 'application/x-www-form-urlencoded',
-          async: false,
-          data: 'AI=' + AI,
-          success: function(data) {
-            successCallback(data);
-          },
-          error:function (xhr, ajaxOptions, thrownError){
-              alert(xhr.status);
-              alert(thrownError);
-          }
-      });
-    },
-    getCategoriesXML: function(AI, successCallback){
-      $.ajax({
-          type: 'POST',
-          url: 'http://www.awesomedemosite.com/virtualoffice/menuEngine/getproductcatsgeneral.asp',
-          processData: false,
-          contentType: 'application/x-www-form-urlencoded',
-          async: false,
-          data: 'AI=' + AI,
-          success: function(data) {
-            successCallback(data);
-          },
-          error:function (xhr, ajaxOptions, thrownError){
-              alert(xhr.status);
-              alert(thrownError);
-          }
-      });
-    },
-    changePage: function(pageNumber){
-      this.currentPage = pageNumber;
-      this.initialize(this.AI, this.successCallback);
+  currentPage: 1,
+  productsPerPage: 8,
+  initialize: function(AI, divToInsert){
+    this.AI = AI;
+    this.divToInsert = divToInsert;
+    this.getProductsXML(AI);
+    this.getCategoriesXML(AI);
+  },
+  productsCallback: function(data){
+    this.productsJSON = jQuery.xml2json(data);
+    this.products = this.productsJSON.products.Product;
+  },
+  categoriesCallback: function(data){
+    this.categoriesJSON = jQuery.xml2json(data);
+    this.categories = this.categoriesJSON.data.Categories.Category;
+    this.currentCategory = this.categories[0];
+    this.currentCategory.isCurrentCategory = true;
+  },
+  divInserter: function(data){
+    divToInsert.html(Handlebars.templates.cart(jQuery.xml2json(data)));
+    ShoppingCartPlugin.productsXml = data;
+  },
+  getProductsXML: function(AI){
+    shoppingCart = this;
+    $.ajax({
+        type: 'POST',
+        url: 'http://www.awesomedemosite.com/virtualoffice/menuEngine/getproductsgeneral.asp',
+        processData: false,
+        contentType: 'application/x-www-form-urlencoded',
+        async: false,
+        data: 'AI=' + AI,
+        success: function(data) {
+          shoppingCart.productsCallback(data);
+          shoppingCart.insertIntoDiv();
+        },
+        error:function (xhr, ajaxOptions, thrownError){
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+  },
+  getCategoriesXML: function(AI, successCallback){
+    shoppingCart = this;
+    $.ajax({
+        type: 'POST',
+        url: 'http://www.awesomedemosite.com/virtualoffice/menuEngine/getproductcatsgeneral.asp',
+        processData: false,
+        contentType: 'application/x-www-form-urlencoded',
+        async: false,
+        data: 'AI=' + AI,
+        success: function(data) {
+          shoppingCart.categoriesCallback(data);
+          shoppingCart.insertIntoDiv();
+        },
+        error:function (xhr, ajaxOptions, thrownError){
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+  },
+  getProductsForCategory: function(category){
+    return this.products.filter(function(product){
+      if (product.Categories.CategoryID === ShoppingCartPlugin.currentCategory.ProdCatID){
+        return true;
+      }
+      return false;
+    });
+  },
+  dataIsLoaded: function(){
+    return this.categories && this.products;
+  },
+  insertIntoDiv: function() {
+    if(this.dataIsLoaded()){
+      this.currentProducts = this.getProductsForCategory(this.currentCategory);
+      this.divToInsert.html(Handlebars.templates.cart(this));
     }
+  },
+  changePage: function(pageNumber){
+    this.currentPage = pageNumber;
+    this.insertIntoDiv();
+  },
+  changeCategory: function(select){
+    this.currentCategory.isCurrentCategory = false;
+    this.currentCategory = this.categories.filter(function(category){
+      if (select.value === category.ProdCatID){
+        return true;
+      }
+      return false;
+    })[0];
+    this.currentCategory.isCurrentCategory = true;
+    this.currentPage = 1;
+
+    this.insertIntoDiv();
+  }
 };
 
 /*	This work is licensed under Creative Commons GNU LGPL License.
@@ -1020,9 +1073,28 @@ function xml2json(xml, tab) {
 templates['cart'] = template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); partials = this.merge(partials, Handlebars.partials); data = data || {};
-  var buffer = "", stack1, helper, options, self=this, functionType="function", escapeExpression=this.escapeExpression, helperMissing=helpers.helperMissing;
+  var buffer = "", stack1, helper, options, functionType="function", escapeExpression=this.escapeExpression, self=this, helperMissing=helpers.helperMissing;
 
 function program1(depth0,data) {
+  
+  var buffer = "", stack1;
+  buffer += "\n    <option value="
+    + escapeExpression(((stack1 = (depth0 && depth0.ProdCatID)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + " ";
+  stack1 = helpers['if'].call(depth0, (depth0 && depth0.isCurrentCategory), {hash:{},inverse:self.noop,fn:self.program(2, program2, data),data:data});
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += ">"
+    + escapeExpression(((stack1 = (depth0 && depth0.CatName)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</option>\n  ";
+  return buffer;
+  }
+function program2(depth0,data) {
+  
+  
+  return "selected";
+  }
+
+function program4(depth0,data) {
   
   var buffer = "", stack1;
   buffer += "\n      ";
@@ -1032,16 +1104,16 @@ function program1(depth0,data) {
   return buffer;
   }
 
-function program3(depth0,data) {
+function program6(depth0,data) {
   
   var buffer = "", stack1;
   buffer += "\n  ";
-  stack1 = helpers['if'].call(depth0, (depth0 && depth0.currentPage), {hash:{},inverse:self.program(6, program6, data),fn:self.program(4, program4, data),data:data});
+  stack1 = helpers['if'].call(depth0, (depth0 && depth0.currentPage), {hash:{},inverse:self.program(9, program9, data),fn:self.program(7, program7, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "\n";
   return buffer;
   }
-function program4(depth0,data) {
+function program7(depth0,data) {
   
   var buffer = "", stack1, helper;
   buffer += "\n    <a class=\"page-link current-page-link\" title=\"Change to page ";
@@ -1060,7 +1132,7 @@ function program4(depth0,data) {
   return buffer;
   }
 
-function program6(depth0,data) {
+function program9(depth0,data) {
   
   var buffer = "", stack1, helper;
   buffer += "\n    <a class=\"page-link\" title=\"Change to page ";
@@ -1079,14 +1151,18 @@ function program6(depth0,data) {
   return buffer;
   }
 
-  buffer += "<table class=\"products\">\n  <tr>\n    ";
-  stack1 = (helper = helpers.each_on_current_page_top || (depth0 && depth0.each_on_current_page_top),options={hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data},helper ? helper.call(depth0, ((stack1 = (depth0 && depth0.products)),stack1 == null || stack1 === false ? stack1 : stack1.Product), options) : helperMissing.call(depth0, "each_on_current_page_top", ((stack1 = (depth0 && depth0.products)),stack1 == null || stack1 === false ? stack1 : stack1.Product), options));
+  buffer += escapeExpression(((stack1 = ((stack1 = (depth0 && depth0.currentCategory)),stack1 == null || stack1 === false ? stack1 : stack1.CatName)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + " Browse:\n<select onchange=\"ShoppingCartPlugin.changeCategory(this);return false;\">\n  ";
+  stack1 = helpers.each.call(depth0, (depth0 && depth0.categories), {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\n</select>\n<table class=\"products\">\n  <tr>\n    ";
+  stack1 = (helper = helpers.each_on_current_page_top || (depth0 && depth0.each_on_current_page_top),options={hash:{},inverse:self.noop,fn:self.program(4, program4, data),data:data},helper ? helper.call(depth0, (depth0 && depth0.currentProducts), options) : helperMissing.call(depth0, "each_on_current_page_top", (depth0 && depth0.currentProducts), options));
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "\n  </tr>\n  <tr>\n    ";
-  stack1 = (helper = helpers.each_on_current_page_bottom || (depth0 && depth0.each_on_current_page_bottom),options={hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data},helper ? helper.call(depth0, ((stack1 = (depth0 && depth0.products)),stack1 == null || stack1 === false ? stack1 : stack1.Product), options) : helperMissing.call(depth0, "each_on_current_page_bottom", ((stack1 = (depth0 && depth0.products)),stack1 == null || stack1 === false ? stack1 : stack1.Product), options));
+  stack1 = (helper = helpers.each_on_current_page_bottom || (depth0 && depth0.each_on_current_page_bottom),options={hash:{},inverse:self.noop,fn:self.program(4, program4, data),data:data},helper ? helper.call(depth0, (depth0 && depth0.currentProducts), options) : helperMissing.call(depth0, "each_on_current_page_bottom", (depth0 && depth0.currentProducts), options));
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "\n  </tr>\n</table>\n<span class=\"pages\">Pages:</span>\n";
-  stack1 = (helper = helpers.each_page || (depth0 && depth0.each_page),options={hash:{},inverse:self.noop,fn:self.program(3, program3, data),data:data},helper ? helper.call(depth0, ((stack1 = (depth0 && depth0.products)),stack1 == null || stack1 === false ? stack1 : stack1.Product), options) : helperMissing.call(depth0, "each_page", ((stack1 = (depth0 && depth0.products)),stack1 == null || stack1 === false ? stack1 : stack1.Product), options));
+  stack1 = (helper = helpers.each_page || (depth0 && depth0.each_page),options={hash:{},inverse:self.noop,fn:self.program(6, program6, data),data:data},helper ? helper.call(depth0, (depth0 && depth0.currentProducts), options) : helperMissing.call(depth0, "each_page", (depth0 && depth0.currentProducts), options));
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "\n\n";
   return buffer;
@@ -1167,21 +1243,22 @@ CKEDITOR.plugins.add( 'shoppingcart', {
       },
 
       init: function(){
+      //stubs for local testing
+      ShoppingCartPlugin.getProductsXML = function(AI, successCallback){
+        data = Handlebars.templates.productsxml();
+        ShoppingCartPlugin.productsCallback(data);
+        ShoppingCartPlugin.insertIntoDiv();
+      };
+      ShoppingCartPlugin.getCategoriesXML = function(AI, successCallback){
+        data = Handlebars.templates.categoriesxml();
+        ShoppingCartPlugin.categoriesCallback(data);
+        ShoppingCartPlugin.insertIntoDiv();
+      };
+      SCVOAccountID = 'D4874F13-9422-4C3B-B734-E117495A9BAE';
 
-        widget = this;
-        divInserter = function(data){
-          $(widget.element.$).html(Handlebars.templates.cart(jQuery.xml2json(data)));
-        };
+      divToInsert = $(this.element.$);
+      ShoppingCartPlugin.initialize(SCVOAccountID, divToInsert);
 
-        //test
-       // ShoppingCartPlugin.getProductsXML = function(AI, successCallback){
-       //   data = Handlebars.templates.productsxml();
-       //   successCallback(data);
-       // };
-       // SCVOAccountID = 'D4874F13-9422-4C3B-B734-E117495A9BAE';
-        //endtest
-
-        ShoppingCartPlugin.initialize(SCVOAccountID, divInserter);
       }
     });
 
