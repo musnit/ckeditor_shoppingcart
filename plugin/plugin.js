@@ -23,22 +23,83 @@ CKEDITOR.plugins.add( 'shoppingcart', {
         return element.name == 'div' && element.hasClass( 'shopping-cart' );
       },
       init: function(){
-      //stubs for local testing
-      ShoppingCartPlugin.getProductsXML = function(AI, successCallback){
-        data = Handlebars.templates.productsxml();
-        ShoppingCartPlugin.productsCallback(data);
-        ShoppingCartPlugin.insertIntoDiv();
-      };
-      ShoppingCartPlugin.getCategoriesXML = function(AI, successCallback){
-        data = Handlebars.templates.categoriesxml();
-        ShoppingCartPlugin.categoriesCallback(data);
-        ShoppingCartPlugin.insertIntoDiv();
-      };
-      SCVOAccountID = 'D4874F13-9422-4C3B-B734-E117495A9BAE';
+        //stubs for local testing
+        ShoppingCartPlugin.getProductsXML = function(AI, successCallback){
+          data = Handlebars.templates.productsxml();
+          ShoppingCartPlugin.productsCallback(data);
+          ShoppingCartPlugin.insertIntoDiv();
+        };
+        ShoppingCartPlugin.getCategoriesXML = function(AI, successCallback){
+          data = Handlebars.templates.categoriesxml();
+          ShoppingCartPlugin.categoriesCallback(data);
+          ShoppingCartPlugin.insertIntoDiv();
+        };
+        SCVOAccountID = 'D4874F13-9422-4C3B-B734-E117495A9BAE';
 
-      divToInsert = $(this.element.$);
-      ShoppingCartPlugin.initialize(SCVOAccountID, divToInsert);
+        divToInsert = $(this.element.$);
+        ShoppingCartPlugin.initialize(SCVOAccountID, divToInsert);
 
+        editor.addCommand('openEcommerceSettingsModal', {
+          exec: function(editor) {
+            $("#buildModal").buildModal({action: "show", contentURL: "../../../../Content/includes/buildmodal-include-ecommercesettings.html"});
+          }
+        });
+        editor.addCommand('openCategoriesModal', {
+          exec: function(editor) {
+          $("#buildModal").buildModal({action: "show", contentURL: "../../../../Content/includes/buildmodal-include-ecommercecategories.html"});
+          }
+        });
+        editor.addCommand('openProductsModal', {
+          exec: function(editor) {
+          $("#buildModal").buildModal({action: "show", contentURL: "../../../../Content/includes/buildmodal-include-ecommerceproducts.html"});
+          }
+        });
+        editor.addCommand('openShippingModal', {
+          exec: function(editor) {
+          $("#buildModal").buildModal({action: "show", contentURL: "../../../../Content/includes/buildmodal-include-ecommerce-shipping.html"});
+          }
+        });
+
+        if (editor.addMenuItem) {
+          editor.addMenuGroup('shoppingcart');
+
+          editor.addMenuItem('openEcommerceSettingsModalitem', {
+            label: 'Ecommerce Settings',
+            command: 'openEcommerceSettingsModal',
+            group: 'shoppingcart'
+          });
+          editor.addMenuItem('openCategoriesModalitem', {
+            label: 'Categories',
+            command: 'openCategoriesModal',
+            group: 'shoppingcart'
+          });
+          editor.addMenuItem('openProductsModalitem', {
+            label: 'Products',
+            command: 'openProductsModal',
+            group: 'shoppingcart'
+          });
+          editor.addMenuItem('openShippingModalitem', {
+            label: 'Shipping',
+            command: 'openShippingModal',
+            group: 'shoppingcart'
+          });
+        }
+
+        if (editor.contextMenu) {
+          editor.contextMenu.addListener(function(element, selection) {
+            if (element && element.$ && element.$.firstChild && element.$.firstChild.getAttribute && element.$.firstChild.getAttribute('data-widget') === 'shoppingcart'){
+              return {
+                openCategoriesModalitem: CKEDITOR.TRISTATE_ON,
+                openProductsModalitem: CKEDITOR.TRISTATE_ON,
+                openEcommerceSettingsModalitem: CKEDITOR.TRISTATE_ON,
+                openShippingModalitem: CKEDITOR.TRISTATE_ON
+              };
+            }
+            else{
+              return null;
+            }
+          });
+        }
       }
     });
 

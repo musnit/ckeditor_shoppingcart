@@ -830,7 +830,7 @@ ShoppingCartPlugin = {
   categoriesCallback: function(data){
     this.categoriesJSON = jQuery.xml2json(data);
     this.categories = this.categoriesJSON.data.Categories.Category;
-    this.currentCategory = this.categories[1];
+    this.currentCategory = this.categories[0];
     this.currentCategory.isCurrentCategory = true;
   },
   getProductsXML: function(AI){
