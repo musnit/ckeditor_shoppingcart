@@ -11,16 +11,17 @@ CKEDITOR.plugins.add( 'shoppingcart', {
   init: function( editor ) {
     // Register the shoppingcart widget.
     editor.widgets.add( 'shoppingcart', {
-      // Minimum HTML which is required by this widget to work.
-      requiredContent: 'div(shopping-cart)',
-      allowedContent: 'div(shopping-cart)',
+      allowedContent:
+          'div(!shopping-cart);',
 
-      template: '<div id="shopping-cart">' + 'loadingGif' + '</div>',
+      requiredContent: 'div(shopping-cart)',
+
+      template: '<div class="shopping-cart">' + 'loadingGif' + '</div>',
 
       upcast: function( element ) {
+        console.log(element.name);
         return element.name == 'div' && element.hasClass( 'shopping-cart' );
       },
-
       init: function(){
       //stubs for local testing
       ShoppingCartPlugin.getProductsXML = function(AI, successCallback){
