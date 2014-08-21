@@ -830,7 +830,7 @@ ShoppingCartPlugin = {
   categoriesCallback: function(data){
     this.categoriesJSON = jQuery.xml2json(data);
     this.categories = this.categoriesJSON.data.Categories.Category;
-    this.currentCategory = this.categories[0];
+    this.currentCategory = this.categories[1];
     this.currentCategory.isCurrentCategory = true;
   },
   getProductsXML: function(AI){
@@ -1116,7 +1116,7 @@ function program7(depth0,data) {
   if (helper = helpers.pageNumber) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.pageNumber); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + "\" href=\"#\" onclick=\"ShoppingCartPlugin.changePage(";
+    + "\" href=\"#\" onclick=\"window.parent.ShoppingCartPlugin.changePage(";
   if (helper = helpers.pageNumber) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.pageNumber); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
@@ -1135,7 +1135,7 @@ function program9(depth0,data) {
   if (helper = helpers.pageNumber) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.pageNumber); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + "\" href=\"#\" onclick=\"ShoppingCartPlugin.changePage(";
+    + "\" href=\"#\" onclick=\"window.parent.ShoppingCartPlugin.changePage(";
   if (helper = helpers.pageNumber) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.pageNumber); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
@@ -1148,7 +1148,7 @@ function program9(depth0,data) {
   }
 
   buffer += escapeExpression(((stack1 = ((stack1 = (depth0 && depth0.currentCategory)),stack1 == null || stack1 === false ? stack1 : stack1.CatName)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + " Browse:\n<select onchange=\"ShoppingCartPlugin.changeCategory(this);return false;\">\n  ";
+    + " Browse:\n<select class=\"shopping-cart-categories\" onchange=\"ShoppingCartPlugin.changeCategory(this);return false;\">\n  ";
   stack1 = helpers.each.call(depth0, (depth0 && depth0.categories), {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "\n</select>\n<table class=\"products\">\n  <tr>\n    ";
@@ -1229,7 +1229,7 @@ CKEDITOR.plugins.add( 'shoppingcart', {
     // Register the shoppingcart widget.
     editor.widgets.add( 'shoppingcart', {
       allowedContent:
-          'div(!shopping-cart);',
+          'div(!shopping-cart); select(!shopping-cart-categories);',
 
       requiredContent: 'div(shopping-cart)',
 

@@ -1,5 +1,5 @@
 {{currentCategory.CatName}} Browse:
-<select onchange="ShoppingCartPlugin.changeCategory(this);return false;">
+<select class="shopping-cart-categories" onchange="ShoppingCartPlugin.changeCategory(this);return false;">
   {{#each categories}}
     <option value={{this.ProdCatID}} {{#if this.isCurrentCategory}}selected{{/if}}>{{this.CatName}}</option>
   {{/each}}
@@ -19,9 +19,9 @@
 <span class="pages">Pages:</span>
 {{#each_page currentProducts}}
   {{#if currentPage}}
-    <a class="page-link current-page-link" title="Change to page {{pageNumber}}" href="#" onclick="ShoppingCartPlugin.changePage({{pageNumber}});return false;">{{pageNumber}}</a>
+    <a class="page-link current-page-link" title="Change to page {{pageNumber}}" href="#" onclick="window.parent.ShoppingCartPlugin.changePage({{pageNumber}});return false;">{{pageNumber}}</a>
   {{else}}
-    <a class="page-link" title="Change to page {{pageNumber}}" href="#" onclick="ShoppingCartPlugin.changePage({{pageNumber}});return false;">{{pageNumber}}</a>
+    <a class="page-link" title="Change to page {{pageNumber}}" href="#" onclick="window.parent.ShoppingCartPlugin.changePage({{pageNumber}});return false;">{{pageNumber}}</a>
   {{/if}}
 {{/each_page}}
 

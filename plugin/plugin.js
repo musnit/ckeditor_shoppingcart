@@ -12,7 +12,7 @@ CKEDITOR.plugins.add( 'shoppingcart', {
     // Register the shoppingcart widget.
     editor.widgets.add( 'shoppingcart', {
       allowedContent:
-          'div(!shopping-cart);',
+          'div(!shopping-cart); select(!shopping-cart-categories);',
 
       requiredContent: 'div(shopping-cart)',
 
