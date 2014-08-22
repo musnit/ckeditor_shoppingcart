@@ -929,7 +929,11 @@ function program6(depth0,data) {
 function program7(depth0,data) {
   
   var buffer = "", stack1, helper;
-  buffer += "\n    <a class=\"page-link current-page-link\" title=\"Change to page ";
+  buffer += "\n    <a class=\"page-link current-page-link ";
+  if (helper = helpers.theme) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.theme); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "\" title=\"Change to page ";
   if (helper = helpers.pageNumber) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.pageNumber); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
@@ -964,20 +968,32 @@ function program9(depth0,data) {
   return buffer;
   }
 
-  buffer += escapeExpression(((stack1 = ((stack1 = (depth0 && depth0.currentCategory)),stack1 == null || stack1 === false ? stack1 : stack1.CatName)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + " Browse:\n<select class=\"shopping-cart-categories\" onchange=\"ShoppingCartPlugin.changeCategory(this);return false;\">\n  ";
+  buffer += "<span class=\"category-name ";
+  if (helper = helpers.theme) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.theme); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "\">"
+    + escapeExpression(((stack1 = ((stack1 = (depth0 && depth0.currentCategory)),stack1 == null || stack1 === false ? stack1 : stack1.CatName)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</span><span class='category-select ";
+  if (helper = helpers.theme) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.theme); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "'>Browse:\n<select class=\"shopping-cart-categories\" onchange=\"ShoppingCartPlugin.changeCategory(this);return false;\">\n  ";
   stack1 = helpers.each.call(depth0, (depth0 && depth0.categories), {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n</select>\n<table class=\"products\">\n  <tr>\n    ";
+  buffer += "\n</select></span>\n<table class=\"products\">\n  <tr>\n    ";
   stack1 = (helper = helpers.each_on_current_page_top || (depth0 && depth0.each_on_current_page_top),options={hash:{},inverse:self.noop,fn:self.program(4, program4, data),data:data},helper ? helper.call(depth0, (depth0 && depth0.currentProducts), options) : helperMissing.call(depth0, "each_on_current_page_top", (depth0 && depth0.currentProducts), options));
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "\n  </tr>\n  <tr>\n    ";
   stack1 = (helper = helpers.each_on_current_page_bottom || (depth0 && depth0.each_on_current_page_bottom),options={hash:{},inverse:self.noop,fn:self.program(4, program4, data),data:data},helper ? helper.call(depth0, (depth0 && depth0.currentProducts), options) : helperMissing.call(depth0, "each_on_current_page_bottom", (depth0 && depth0.currentProducts), options));
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n  </tr>\n</table>\n<span class=\"pages\">Pages:</span>\n";
+  buffer += "\n  </tr>\n</table>\n<span class=\"pages ";
+  if (helper = helpers.theme) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.theme); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "\">Pages:</span>\n";
   stack1 = (helper = helpers.each_page || (depth0 && depth0.each_page),options={hash:{},inverse:self.noop,fn:self.program(6, program6, data),data:data},helper ? helper.call(depth0, (depth0 && depth0.currentProducts), options) : helperMissing.call(depth0, "each_page", (depth0 && depth0.currentProducts), options));
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n\n";
   return buffer;
   });
 templates['categoriesxml'] = template(function (Handlebars,depth0,helpers,partials,data) {
@@ -1029,7 +1045,11 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   if (helper = helpers.id) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.id); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + "');return false;\">\n  <div class=\"product-name\">";
+    + "');return false;\">\n  <div class=\"product-name ";
+  if (helper = helpers.theme) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.theme); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "\">";
   if (helper = helpers.ProductName) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.ProductName); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
@@ -1037,14 +1057,22 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   if (helper = helpers.ProductShortDescription) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.ProductShortDescription); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + "</div>\n  <span class=\"product-price\">";
+    + "</div>\n  <span class=\"product-price ";
+  if (helper = helpers.theme) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.theme); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "\">";
   if (helper = helpers.currency_symbol) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.currency_symbol); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1);
   if (helper = helpers.ProductPrice) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.ProductPrice); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + "</span><br>\n  <a class=\"product-addtocart-button\">Add to Cart</a>\n  <div class=\"build-cart-animation\" style=\"display:none\">1</div>\n</td>";
+    + "</span><br>\n  <a class=\"product-addtocart-button cart-button cart-button-animate ";
+  if (helper = helpers.theme) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.theme); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "\">Add to Cart</a>\n  <div class=\"build-cart-animation\" style=\"display:none\">1</div>\n</td>";
   return buffer;
   });
 })();
@@ -1056,6 +1084,10 @@ Handlebars.registerHelper('first', function(items, options) {
 
 Handlebars.registerHelper('currentCategory', function(options) {
   return ShoppingCartPlugin.currentCategory;
+});
+
+Handlebars.registerHelper('theme', function(options) {
+  return "dark-theme";
 });
 
 Handlebars.registerHelper('currentPageProducts', function(items, options) {

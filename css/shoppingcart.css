@@ -1,22 +1,27 @@
 .shopping-cart {
-  max-width: 850px;
-  max-height: 850px;
+  width: 950px;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 .shopping-cart .product{
-  width: 25%;
+  width: 227.5px;
   height: 50%;
 }
 
 .shopping-cart .product-image{
-  max-width: 180px;
-  max-height: 180px;
+  max-width: 187px;
+  max-height: 187px;
+  padding: 20px;
   display: block;
-  margin: auto;
 }
 
 .shopping-cart .product-name{
   font-weight: bold;
+}
+
+.shopping-cart .product-name.dark-theme{
+  color:white;
 }
 
 .shopping-cart .product-short-description{
@@ -25,6 +30,11 @@
 
 .shopping-cart .product-price{
   color: rgb(213, 146, 5);
+  font-size: large;
+}
+
+.shopping-cart .product-price.dark-theme{
+  color: white;
   font-size: large;
 }
 
@@ -42,6 +52,115 @@
   color: black;
 }
 
+.shopping-cart .current-page-link.dark-theme{
+  text-decoration: underline;
+  font-weight: bold;
+  color: white;
+}
+
+.pages.dark-theme{
+  color: white;
+}
+
 .shopping-cart .pages{
   font-weight: bold;
+}
+
+.cart-button-animate
+{
+  transition: all 0.1s;
+  -webkit-transition: all 0.1s;
+}
+
+.cart-button
+{
+  padding: 5px 20px;
+  float: left;
+  border-radius: 5px;
+  font-size: 17px;
+  font-weight: bold;
+}
+
+.cart-button.dark-theme
+{
+  background-color: #333333;
+  border-bottom: 5px solid #000000;
+  text-shadow: 0px -2px #000000;
+  color: #FFF;
+}
+
+.cart-button.light-theme
+{
+  background-color: #FFFFFF;
+  border: rgb(133, 133, 133) 2px;
+  border-style: solid;
+  border-bottom: 5px solid rgb(133, 133, 133);
+  text-shadow: 0px -2px #F5F5F5;
+  color: black;
+}
+
+.cart-button:active
+{
+  transform: translate(0px,5px);
+  -webkit-transform: translate(0px,5px);
+}
+
+.cart-button.light-theme:active
+{
+  transform: translate(0px,5px);
+  -webkit-transform: translate(0px,5px);
+  border-bottom: 1px solid #F5F5F5;
+}
+body{background: black;}
+.cart-button.dark-theme:active
+{
+  transform: translate(0px,5px);
+  -webkit-transform: translate(0px,5px);
+  border-bottom: 1px solid #000000;
+}
+
+.category-name{
+  font-weight: bold;
+  font-size: 21px;
+}
+
+.category-select{
+  float: right;
+}
+
+.category-name.dark-theme{
+  color: white;
+}
+
+.category-select.dark-theme{
+  color: white;
+}
+
+.category-select select {
+  margin-left: 12px;
+  padding:7px;
+  width:auto;
+  font-family:arial,tahoma;
+  font-size:16px;
+  text-align:center;
+  text-shadow:0 -1px 0 rgba(0, 0, 0, 0.25);
+  border-radius:3px;
+  -webkit-border-radius:3px;
+  -webkit-appearance: none;
+  border:0;
+  outline:0;
+  -webkit-transition:0.3s ease all;
+     -moz-transition:0.3s ease all;
+      -ms-transition:0.3s ease all;
+       -o-transition:0.3s ease all;
+          transition:0.3s ease all;
+  width: 180;
+  background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='50px' height='50px'><polyline style='fill:rgb(133, 133, 133);' points='46.139,-6.482 25.166,17.49 4.193,-4.481'/></svg>");
+  background-repeat:no-repeat;
+  background-position: right 10px top 15px;
+  background-size: 16px 16px;
+  color: rgb(133, 133, 133);
+  background-color:white;
+  border: rgb(133, 133, 133) 2px;
+  border-style: solid;
 }

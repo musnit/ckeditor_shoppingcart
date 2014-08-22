@@ -1,8 +1,8 @@
 <td class="product">
   <img class="product-image" src={{first Images.Image}} alt={{ProductName}} onclick="window.parent.ShoppingCartPlugin.changeToProduct('{{id}}');return false;">
-  <div class="product-name">{{ProductName}}</div>
+  <div class="product-name {{theme}}">{{ProductName}}</div>
   <div class="product-short-description">{{ProductShortDescription}}</div>
-  <span class="product-price">{{currency_symbol}}{{ProductPrice}}</span><br>
-  <a class="product-addtocart-button">Add to Cart</a>
+  <span class="product-price {{theme}}">{{currency_symbol}}{{ProductPrice}}</span><br>
+  <a class="product-addtocart-button cart-button cart-button-animate {{theme}}">Add to Cart</a>
   <div class="build-cart-animation" style="display:none">1</div>
 </td>
