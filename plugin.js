@@ -999,10 +999,15 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 templates['single_product'] = template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
-  
+  var buffer = "", stack1, helper, functionType="function", escapeExpression=this.escapeExpression;
 
 
-  return "yay!";
+  buffer += "yay!\n";
+  if (helper = helpers.ProductName) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.ProductName); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "\n";
+  return buffer;
   });
 })();
 
@@ -1020,7 +1025,11 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   if (helper = helpers.ProductName) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.ProductName); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + ">\n  <div class=\"product-name\">";
+    + " onclick=\"window.parent.ShoppingCartPlugin.changeToProduct('";
+  if (helper = helpers.id) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.id); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "');return false;\">\n  <div class=\"product-name\">";
   if (helper = helpers.ProductName) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.ProductName); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
@@ -1138,11 +1147,12 @@ ShoppingCartPlugin = {
   initialize: function(AI, divToInsert){
     this.AI = AI;
     this.divToInsert = divToInsert;
+    this.currentContext = this;
     this.getProductsXML(AI);
     this.getCategoriesXML(AI);
   },
   makeCurrentRoute: function(){
-    return this.currentRoute(this);
+    return this.currentRoute(this.currentContext);
   },
   productsCallback: function(data){
     this.productsJSON = jQuery.xml2json(data);
@@ -1224,6 +1234,17 @@ ShoppingCartPlugin = {
     this.currentCategory.isCurrentCategory = true;
     this.currentPage = 1;
 
+    this.insertIntoDiv();
+  },
+  changeToProduct: function(product_id){
+    this.currentRoute = Handlebars.templates.single_product;
+    product = this.products.filter(function(product){
+      if (product.id === product_id){
+        return true;
+      }
+      return false;
+    })[0];
+    this.currentContext = product;
     this.insertIntoDiv();
   }
 };

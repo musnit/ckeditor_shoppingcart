@@ -1,5 +1,5 @@
 <td class="product">
-  <img class="product-image" src={{first Images.Image}} alt={{ProductName}}>
+  <img class="product-image" src={{first Images.Image}} alt={{ProductName}} onclick="window.parent.ShoppingCartPlugin.changeToProduct('{{id}}');return false;">
   <div class="product-name">{{ProductName}}</div>
   <div class="product-short-description">{{ProductShortDescription}}</div>
   <span class="product-price">{{currency_symbol}}{{ProductPrice}}</span><br>
