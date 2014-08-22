@@ -530,96 +530,6 @@ var __module0__ = (function(__dependency1__, __dependency2__, __dependency3__, _
   return __module0__;
 })();
 
-Handlebars.registerHelper('first', function(items, options) {
-  return items[0];
-});
-
-Handlebars.registerHelper('currentCategory', function(options) {
-  return ShoppingCartPlugin.currentCategory;
-});
-
-Handlebars.registerHelper('currentPageProducts', function(items, options) {
-  currentPage = ShoppingCartPlugin.currentPage;
-  productsPerPage = ShoppingCartPlugin.productsPerPage;
-  numOnPreviousPages = (currentPage-1)*productsPerPage;
-  return items.slice(numOnPreviousPages, numOnPreviousPages+productsPerPage);
-});
-
-Handlebars.registerHelper("each_with_index", function(array, options) {
-  var buffer = "";
-  for (var i = 0, j = array.length; i < j; i++) {
-    var item = array[i];
- 
-    // stick an index property onto the item, starting with 1, may make configurable later
-    item.index = i+1;
- 
-    // show the inside of the block
-    buffer += options.fn(item);
-  }
- 
-  // return the finished buffer
-  return buffer;
- 
-});
-
-Handlebars.registerHelper("each_on_current_page_top", function(array, options) {
-  var buffer = "";
-  currentPage = ShoppingCartPlugin.currentPage;
-  productsPerPage = ShoppingCartPlugin.productsPerPage;
-  startIndex = (currentPage-1)*productsPerPage;
-  endIndex = startIndex + Math.ceil(productsPerPage/2);
-  for (var i = 0, j = array.length; i < j; i++) {
-    var item = array[i];
-    
-    if (startIndex <= i && i < endIndex) {
-      buffer += options.fn(item);
-    }
-  }
- 
-  // return the finished buffer
-  return buffer;
- 
-});
-Handlebars.registerHelper("each_on_current_page_bottom", function(array, options) {
-  var buffer = "";
-  currentPage = ShoppingCartPlugin.currentPage;
-  productsPerPage = ShoppingCartPlugin.productsPerPage;
-  startIndex = (currentPage-1)*productsPerPage + Math.ceil(productsPerPage/2);
-  endIndex = startIndex + Math.floor(productsPerPage/2);
-  for (var i = 0, j = array.length; i < j; i++) {
-    var item = array[i];
-    
-    if (startIndex <= i && i < endIndex) {
-      buffer += options.fn(item);
-    }
-  }
- 
-  // return the finished buffer
-  return buffer;
- 
-});
-
-Handlebars.registerHelper("each_page", function(array, options) {
-  var buffer = "";
-  currentPage = ShoppingCartPlugin.currentPage;
-  productsPerPage = ShoppingCartPlugin.productsPerPage;
-  numPages = Math.ceil(array.length/productsPerPage);
-  startIndex = (currentPage-1)*productsPerPage + Math.ceil(productsPerPage/2);
-  endIndex = startIndex + Math.floor(productsPerPage/2);
-  for (var i = 1, j = numPages; i <= j; i++) {
-    var item = {pageNumber: i, currentPage: (currentPage === i)};
-    buffer += options.fn(item);
-  }
- 
-  // return the finished buffer
-  return buffer;
- 
-});
-
-Handlebars.registerHelper("currency_symbol", function(options) {
-  return typeof Build !== 'undefined'? Build.cartPrefix || '$' : '$';
-});
-
 /*
  ### jQuery XML to JSON Plugin v1.3 - 2013-02-18 ###
  * http://www.fyneworks.com/ - diego@fyneworks.com
@@ -813,99 +723,6 @@ Handlebars.registerHelper("currency_symbol", function(options) {
  }); // extend $
 
 })(jQuery);
-
-ShoppingCartPlugin = {
-  currentPage: 1,
-  productsPerPage: 8,
-  initialize: function(AI, divToInsert){
-    this.AI = AI;
-    this.divToInsert = divToInsert;
-    this.getProductsXML(AI);
-    this.getCategoriesXML(AI);
-  },
-  productsCallback: function(data){
-    this.productsJSON = jQuery.xml2json(data);
-    this.products = this.productsJSON.products.Product;
-  },
-  categoriesCallback: function(data){
-    this.categoriesJSON = jQuery.xml2json(data);
-    this.categories = this.categoriesJSON.data.Categories.Category;
-    this.currentCategory = this.categories[0];
-    this.currentCategory.isCurrentCategory = true;
-  },
-  getProductsXML: function(AI){
-    shoppingCart = this;
-    $.ajax({
-        type: 'POST',
-        url: 'http://www.awesomedemosite.com/virtualoffice/menuEngine/getproductsgeneral.asp',
-        processData: false,
-        contentType: 'application/x-www-form-urlencoded',
-        async: false,
-        data: 'AI=' + AI,
-        success: function(data) {
-          shoppingCart.productsCallback(data);
-          shoppingCart.insertIntoDiv();
-        },
-        error:function (xhr, ajaxOptions, thrownError){
-            alert(xhr.status);
-            alert(thrownError);
-        }
-    });
-  },
-  getCategoriesXML: function(AI, successCallback){
-    shoppingCart = this;
-    $.ajax({
-        type: 'POST',
-        url: 'http://www.awesomedemosite.com/virtualoffice/menuEngine/getproductcatsgeneral.asp',
-        processData: false,
-        contentType: 'application/x-www-form-urlencoded',
-        async: false,
-        data: 'AI=' + AI,
-        success: function(data) {
-          shoppingCart.categoriesCallback(data);
-          shoppingCart.insertIntoDiv();
-        },
-        error:function (xhr, ajaxOptions, thrownError){
-            alert(xhr.status);
-            alert(thrownError);
-        }
-    });
-  },
-  getProductsForCategory: function(category){
-    return this.products.filter(function(product){
-      if (product.Categories.CategoryID === ShoppingCartPlugin.currentCategory.ProdCatID){
-        return true;
-      }
-      return false;
-    });
-  },
-  dataIsLoaded: function(){
-    return this.categories && this.products;
-  },
-  insertIntoDiv: function() {
-    if(this.dataIsLoaded()){
-      this.currentProducts = this.getProductsForCategory(this.currentCategory);
-      this.divToInsert.html(Handlebars.templates.cart(this));
-    }
-  },
-  changePage: function(pageNumber){
-    this.currentPage = pageNumber;
-    this.insertIntoDiv();
-  },
-  changeCategory: function(select){
-    this.currentCategory.isCurrentCategory = false;
-    this.currentCategory = this.categories.filter(function(category){
-      if (select.value === category.ProdCatID){
-        return true;
-      }
-      return false;
-    })[0];
-    this.currentCategory.isCurrentCategory = true;
-    this.currentPage = 1;
-
-    this.insertIntoDiv();
-  }
-};
 
 /*	This work is licensed under Creative Commons GNU LGPL License.
 
@@ -1179,6 +996,14 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
   return "<XML><products>\n\n<Product id=\"{6F8592D3-4D7E-4685-9490-6E039DEDAC1B}\">\n\n<SKU><![CDATA[MIDGET-2]]></SKU>\n\n<ProductName><![CDATA[Gustav the Midget]]></ProductName>\n\n<ProductShortDescription><![CDATA[This is another midget.]]></ProductShortDescription>\n\n<ProductDescription><![CDATA[Origo deorum flexi fontes habitabilis coeptis pro caligine parte. Plagae valles tenent tonitrua circumfuso sponte videre. Cuncta undis plagae sic cum et fecit diu alta. Terrenae diverso innabilis utramque. Pronaque levius deducite speciem iunctarum caeleste indigestaque neu. Perveniunt pace effervescere pinus cingebant secrevit.\n]]></ProductDescription>\n\n<ProductPrice><![CDATA[817263.12]]></ProductPrice>\n\n<ProductWeight><![CDATA[65]]></ProductWeight>\n\n\n-<Categories>\n\n<CategoryID><![CDATA[{60AC0D7E-3EB0-430F-B5E6-917639C86067}]]></CategoryID>\n\n</Categories>\n\n\n-<Images>\n\n<Image><![CDATA[http://www.awesomedemosite.com/clientdata/D4874F13-9422-4C3B-B734-E117495A9BAE/files/GustavMidget.jpg]]></Image>\n\n<Image><![CDATA[http://www.awesomedemosite.com/clientdata/D4874F13-9422-4C3B-B734-E117495A9BAE/files/Midget-bodybuilder35JsL.jpg]]></Image>\n\n<Image><![CDATA[]]></Image>\n<Image><![CDATA[]]></Image>\n\n</Images>\n\n</Product>\n\n\n<Product id=\"{6F8592D3-4D7E-4685-9490-6E039DEDAC1B}\">\n\n<SKU><![CDATA[MIDGET-2]]></SKU>\n\n<ProductName><![CDATA[Gustav the Midget]]></ProductName>\n\n<ProductShortDescription><![CDATA[This is another midget.]]></ProductShortDescription>\n\n<ProductDescription><![CDATA[Origo deorum flexi fontes habitabilis coeptis pro caligine parte. Plagae valles tenent tonitrua circumfuso sponte videre. Cuncta undis plagae sic cum et fecit diu alta. Terrenae diverso innabilis utramque. Pronaque levius deducite speciem iunctarum caeleste indigestaque neu. Perveniunt pace effervescere pinus cingebant secrevit.\n]]></ProductDescription>\n\n<ProductPrice><![CDATA[817263.12]]></ProductPrice>\n\n<ProductWeight><![CDATA[65]]></ProductWeight>\n\n\n-<Categories>\n\n<CategoryID><![CDATA[{60AC0D7E-3EB0-430F-B5E6-917639C86067}]]></CategoryID>\n\n</Categories>\n\n\n-<Images>\n\n<Image><![CDATA[http://www.awesomedemosite.com/clientdata/D4874F13-9422-4C3B-B734-E117495A9BAE/files/GustavMidget.jpg]]></Image>\n\n<Image><![CDATA[http://www.awesomedemosite.com/clientdata/D4874F13-9422-4C3B-B734-E117495A9BAE/files/Midget-bodybuilder35JsL.jpg]]></Image>\n\n<Image><![CDATA[]]></Image>\n<Image><![CDATA[]]></Image>\n\n</Images>\n\n</Product>\n\n\n<Product id=\"{6F8592D3-4D7E-4685-9490-6E039DEDAC1B}\">\n\n<SKU><![CDATA[MIDGET-2]]></SKU>\n\n<ProductName><![CDATA[Gustav the Midget]]></ProductName>\n\n<ProductShortDescription><![CDATA[This is another midget.]]></ProductShortDescription>\n\n<ProductDescription><![CDATA[Origo deorum flexi fontes habitabilis coeptis pro caligine parte. Plagae valles tenent tonitrua circumfuso sponte videre. Cuncta undis plagae sic cum et fecit diu alta. Terrenae diverso innabilis utramque. Pronaque levius deducite speciem iunctarum caeleste indigestaque neu. Perveniunt pace effervescere pinus cingebant secrevit.\n]]></ProductDescription>\n\n<ProductPrice><![CDATA[817263.12]]></ProductPrice>\n\n<ProductWeight><![CDATA[65]]></ProductWeight>\n\n\n-<Categories>\n\n<CategoryID><![CDATA[{60AC0D7E-3EB0-430F-B5E6-917639C86067}]]></CategoryID>\n\n</Categories>\n\n\n-<Images>\n\n<Image><![CDATA[http://www.awesomedemosite.com/clientdata/D4874F13-9422-4C3B-B734-E117495A9BAE/files/GustavMidget.jpg]]></Image>\n\n<Image><![CDATA[http://www.awesomedemosite.com/clientdata/D4874F13-9422-4C3B-B734-E117495A9BAE/files/Midget-bodybuilder35JsL.jpg]]></Image>\n\n<Image><![CDATA[]]></Image>\n<Image><![CDATA[]]></Image>\n\n</Images>\n\n</Product>\n\n\n<Product id=\"{6F8592D3-4D7E-4685-9490-6E039DEDAC1B}\">\n\n<SKU><![CDATA[MIDGET-2]]></SKU>\n\n<ProductName><![CDATA[Gustav the Midget]]></ProductName>\n\n<ProductShortDescription><![CDATA[This is another midget.]]></ProductShortDescription>\n\n<ProductDescription><![CDATA[Origo deorum flexi fontes habitabilis coeptis pro caligine parte. Plagae valles tenent tonitrua circumfuso sponte videre. Cuncta undis plagae sic cum et fecit diu alta. Terrenae diverso innabilis utramque. Pronaque levius deducite speciem iunctarum caeleste indigestaque neu. Perveniunt pace effervescere pinus cingebant secrevit.\n]]></ProductDescription>\n\n<ProductPrice><![CDATA[817263.12]]></ProductPrice>\n\n<ProductWeight><![CDATA[65]]></ProductWeight>\n\n\n-<Categories>\n\n<CategoryID><![CDATA[{60AC0D7E-3EB0-430F-B5E6-917639C86067}]]></CategoryID>\n\n</Categories>\n\n\n-<Images>\n\n<Image><![CDATA[http://www.awesomedemosite.com/clientdata/D4874F13-9422-4C3B-B734-E117495A9BAE/files/GustavMidget.jpg]]></Image>\n\n<Image><![CDATA[http://www.awesomedemosite.com/clientdata/D4874F13-9422-4C3B-B734-E117495A9BAE/files/Midget-bodybuilder35JsL.jpg]]></Image>\n\n<Image><![CDATA[]]></Image>\n<Image><![CDATA[]]></Image>\n\n</Images>\n\n</Product>\n\n\n<Product id=\"{6F8592D3-4D7E-4685-9490-6E039DEDAC1B}\">\n\n<SKU><![CDATA[MIDGET-2]]></SKU>\n\n<ProductName><![CDATA[Gustav the Midget]]></ProductName>\n\n<ProductShortDescription><![CDATA[This is another midget.]]></ProductShortDescription>\n\n<ProductDescription><![CDATA[Origo deorum flexi fontes habitabilis coeptis pro caligine parte. Plagae valles tenent tonitrua circumfuso sponte videre. Cuncta undis plagae sic cum et fecit diu alta. Terrenae diverso innabilis utramque. Pronaque levius deducite speciem iunctarum caeleste indigestaque neu. Perveniunt pace effervescere pinus cingebant secrevit.\n]]></ProductDescription>\n\n<ProductPrice><![CDATA[817263.12]]></ProductPrice>\n\n<ProductWeight><![CDATA[65]]></ProductWeight>\n\n\n-<Categories>\n\n<CategoryID><![CDATA[{60AC0D7E-3EB0-430F-B5E6-917639C86067}]]></CategoryID>\n\n</Categories>\n\n\n-<Images>\n\n<Image><![CDATA[http://www.awesomedemosite.com/clientdata/D4874F13-9422-4C3B-B734-E117495A9BAE/files/GustavMidget.jpg]]></Image>\n\n<Image><![CDATA[http://www.awesomedemosite.com/clientdata/D4874F13-9422-4C3B-B734-E117495A9BAE/files/Midget-bodybuilder35JsL.jpg]]></Image>\n\n<Image><![CDATA[]]></Image>\n<Image><![CDATA[]]></Image>\n\n</Images>\n\n</Product>\n\n\n<Product id=\"{6F8592D3-4D7E-4685-9490-6E039DEDAC1B}\">\n\n<SKU><![CDATA[MIDGET-2]]></SKU>\n\n<ProductName><![CDATA[Gustav the Midget]]></ProductName>\n\n<ProductShortDescription><![CDATA[This is another midget.]]></ProductShortDescription>\n\n<ProductDescription><![CDATA[Origo deorum flexi fontes habitabilis coeptis pro caligine parte. Plagae valles tenent tonitrua circumfuso sponte videre. Cuncta undis plagae sic cum et fecit diu alta. Terrenae diverso innabilis utramque. Pronaque levius deducite speciem iunctarum caeleste indigestaque neu. Perveniunt pace effervescere pinus cingebant secrevit.\n]]></ProductDescription>\n\n<ProductPrice><![CDATA[817263.12]]></ProductPrice>\n\n<ProductWeight><![CDATA[65]]></ProductWeight>\n\n\n-<Categories>\n\n<CategoryID><![CDATA[{60AC0D7E-3EB0-430F-B5E6-917639C86067}]]></CategoryID>\n\n</Categories>\n\n\n-<Images>\n\n<Image><![CDATA[http://www.awesomedemosite.com/clientdata/D4874F13-9422-4C3B-B734-E117495A9BAE/files/GustavMidget.jpg]]></Image>\n\n<Image><![CDATA[http://www.awesomedemosite.com/clientdata/D4874F13-9422-4C3B-B734-E117495A9BAE/files/Midget-bodybuilder35JsL.jpg]]></Image>\n\n<Image><![CDATA[]]></Image>\n<Image><![CDATA[]]></Image>\n\n</Images>\n\n</Product>\n\n\n<Product id=\"{6F8592D3-4D7E-4685-9490-6E039DEDAC1B}\">\n\n<SKU><![CDATA[MIDGET-2]]></SKU>\n\n<ProductName><![CDATA[Gustav the Midget]]></ProductName>\n\n<ProductShortDescription><![CDATA[This is another midget.]]></ProductShortDescription>\n\n<ProductDescription><![CDATA[Origo deorum flexi fontes habitabilis coeptis pro caligine parte. Plagae valles tenent tonitrua circumfuso sponte videre. Cuncta undis plagae sic cum et fecit diu alta. Terrenae diverso innabilis utramque. Pronaque levius deducite speciem iunctarum caeleste indigestaque neu. Perveniunt pace effervescere pinus cingebant secrevit.\n]]></ProductDescription>\n\n<ProductPrice><![CDATA[817263.12]]></ProductPrice>\n\n<ProductWeight><![CDATA[65]]></ProductWeight>\n\n\n-<Categories>\n\n<CategoryID><![CDATA[{60AC0D7E-3EB0-430F-B5E6-917639C86067}]]></CategoryID>\n\n</Categories>\n\n\n-<Images>\n\n<Image><![CDATA[http://www.awesomedemosite.com/clientdata/D4874F13-9422-4C3B-B734-E117495A9BAE/files/GustavMidget.jpg]]></Image>\n\n<Image><![CDATA[http://www.awesomedemosite.com/clientdata/D4874F13-9422-4C3B-B734-E117495A9BAE/files/Midget-bodybuilder35JsL.jpg]]></Image>\n\n<Image><![CDATA[]]></Image>\n<Image><![CDATA[]]></Image>\n\n</Images>\n\n</Product>\n\n\n<Product id=\"{6F8592D3-4D7E-4685-9490-6E039DEDAC1B}\">\n\n<SKU><![CDATA[MIDGET-2]]></SKU>\n\n<ProductName><![CDATA[Gustav the Midget]]></ProductName>\n\n<ProductShortDescription><![CDATA[This is another midget.]]></ProductShortDescription>\n\n<ProductDescription><![CDATA[Origo deorum flexi fontes habitabilis coeptis pro caligine parte. Plagae valles tenent tonitrua circumfuso sponte videre. Cuncta undis plagae sic cum et fecit diu alta. Terrenae diverso innabilis utramque. Pronaque levius deducite speciem iunctarum caeleste indigestaque neu. Perveniunt pace effervescere pinus cingebant secrevit.\n]]></ProductDescription>\n\n<ProductPrice><![CDATA[817263.12]]></ProductPrice>\n\n<ProductWeight><![CDATA[65]]></ProductWeight>\n\n\n-<Categories>\n\n<CategoryID><![CDATA[{60AC0D7E-3EB0-430F-B5E6-917639C86067}]]></CategoryID>\n\n</Categories>\n\n\n-<Images>\n\n<Image><![CDATA[http://www.awesomedemosite.com/clientdata/D4874F13-9422-4C3B-B734-E117495A9BAE/files/GustavMidget.jpg]]></Image>\n\n<Image><![CDATA[http://www.awesomedemosite.com/clientdata/D4874F13-9422-4C3B-B734-E117495A9BAE/files/Midget-bodybuilder35JsL.jpg]]></Image>\n\n<Image><![CDATA[]]></Image>\n<Image><![CDATA[]]></Image>\n\n</Images>\n\n</Product>\n\n\n<Product id=\"{6F8592D3-4D7E-4685-9490-6E039DEDAC1B}\">\n\n<SKU><![CDATA[MIDGET-2]]></SKU>\n\n<ProductName><![CDATA[Gustav the Midget]]></ProductName>\n\n<ProductShortDescription><![CDATA[This is another midget.]]></ProductShortDescription>\n\n<ProductDescription><![CDATA[Origo deorum flexi fontes habitabilis coeptis pro caligine parte. Plagae valles tenent tonitrua circumfuso sponte videre. Cuncta undis plagae sic cum et fecit diu alta. Terrenae diverso innabilis utramque. Pronaque levius deducite speciem iunctarum caeleste indigestaque neu. Perveniunt pace effervescere pinus cingebant secrevit.\n]]></ProductDescription>\n\n<ProductPrice><![CDATA[817263.12]]></ProductPrice>\n\n<ProductWeight><![CDATA[65]]></ProductWeight>\n\n\n-<Categories>\n\n<CategoryID><![CDATA[{60AC0D7E-3EB0-430F-B5E6-917639C86067}]]></CategoryID>\n\n</Categories>\n\n\n-<Images>\n\n<Image><![CDATA[http://www.awesomedemosite.com/clientdata/D4874F13-9422-4C3B-B734-E117495A9BAE/files/GustavMidget.jpg]]></Image>\n\n<Image><![CDATA[http://www.awesomedemosite.com/clientdata/D4874F13-9422-4C3B-B734-E117495A9BAE/files/Midget-bodybuilder35JsL.jpg]]></Image>\n\n<Image><![CDATA[]]></Image>\n<Image><![CDATA[]]></Image>\n\n</Images>\n\n</Product>\n\n\n<Product id=\"{6F8592D3-4D7E-4685-9490-6E039DEDAC1B}\">\n\n<SKU><![CDATA[MIDGET-2]]></SKU>\n\n<ProductName><![CDATA[Gustav the Midget]]></ProductName>\n\n<ProductShortDescription><![CDATA[This is another midget.]]></ProductShortDescription>\n\n<ProductDescription><![CDATA[Origo deorum flexi fontes habitabilis coeptis pro caligine parte. Plagae valles tenent tonitrua circumfuso sponte videre. Cuncta undis plagae sic cum et fecit diu alta. Terrenae diverso innabilis utramque. Pronaque levius deducite speciem iunctarum caeleste indigestaque neu. Perveniunt pace effervescere pinus cingebant secrevit.\n]]></ProductDescription>\n\n<ProductPrice><![CDATA[817263.12]]></ProductPrice>\n\n<ProductWeight><![CDATA[65]]></ProductWeight>\n\n\n-<Categories>\n\n<CategoryID><![CDATA[{60AC0D7E-3EB0-430F-B5E6-917639C86067}]]></CategoryID>\n\n</Categories>\n\n\n-<Images>\n\n<Image><![CDATA[http://www.awesomedemosite.com/clientdata/D4874F13-9422-4C3B-B734-E117495A9BAE/files/GustavMidget.jpg]]></Image>\n\n<Image><![CDATA[http://www.awesomedemosite.com/clientdata/D4874F13-9422-4C3B-B734-E117495A9BAE/files/Midget-bodybuilder35JsL.jpg]]></Image>\n\n<Image><![CDATA[]]></Image>\n<Image><![CDATA[]]></Image>\n\n</Images>\n\n</Product>\n\n\n<Product id=\"{6F8592D3-4D7E-4685-9490-6E039DEDAC1B}\">\n\n<SKU><![CDATA[MIDGET-2]]></SKU>\n\n<ProductName><![CDATA[Gustav the Midget]]></ProductName>\n\n<ProductShortDescription><![CDATA[This is another midget.]]></ProductShortDescription>\n\n<ProductDescription><![CDATA[Origo deorum flexi fontes habitabilis coeptis pro caligine parte. Plagae valles tenent tonitrua circumfuso sponte videre. Cuncta undis plagae sic cum et fecit diu alta. Terrenae diverso innabilis utramque. Pronaque levius deducite speciem iunctarum caeleste indigestaque neu. Perveniunt pace effervescere pinus cingebant secrevit.\n]]></ProductDescription>\n\n<ProductPrice><![CDATA[817263.12]]></ProductPrice>\n\n<ProductWeight><![CDATA[65]]></ProductWeight>\n\n\n-<Categories>\n\n<CategoryID><![CDATA[{60AC0D7E-3EB0-430F-B5E6-917639C86067}]]></CategoryID>\n\n</Categories>\n\n\n-<Images>\n\n<Image><![CDATA[http://www.awesomedemosite.com/clientdata/D4874F13-9422-4C3B-B734-E117495A9BAE/files/GustavMidget.jpg]]></Image>\n\n<Image><![CDATA[http://www.awesomedemosite.com/clientdata/D4874F13-9422-4C3B-B734-E117495A9BAE/files/Midget-bodybuilder35JsL.jpg]]></Image>\n\n<Image><![CDATA[]]></Image>\n<Image><![CDATA[]]></Image>\n\n</Images>\n\n</Product>\n\n\n<Product id=\"{6F8592D3-4D7E-4685-9490-6E039DEDAC1B}\">\n\n<SKU><![CDATA[MIDGET-2]]></SKU>\n\n<ProductName><![CDATA[Gustav the Midget]]></ProductName>\n\n<ProductShortDescription><![CDATA[This is another midget.]]></ProductShortDescription>\n\n<ProductDescription><![CDATA[Origo deorum flexi fontes habitabilis coeptis pro caligine parte. Plagae valles tenent tonitrua circumfuso sponte videre. Cuncta undis plagae sic cum et fecit diu alta. Terrenae diverso innabilis utramque. Pronaque levius deducite speciem iunctarum caeleste indigestaque neu. Perveniunt pace effervescere pinus cingebant secrevit.\n]]></ProductDescription>\n\n<ProductPrice><![CDATA[817263.12]]></ProductPrice>\n\n<ProductWeight><![CDATA[65]]></ProductWeight>\n\n\n-<Categories>\n\n<CategoryID><![CDATA[{60AC0D7E-3EB0-430F-B5E6-917639C86067}]]></CategoryID>\n\n</Categories>\n\n\n-<Images>\n\n<Image><![CDATA[http://www.awesomedemosite.com/clientdata/D4874F13-9422-4C3B-B734-E117495A9BAE/files/GustavMidget.jpg]]></Image>\n\n<Image><![CDATA[http://www.awesomedemosite.com/clientdata/D4874F13-9422-4C3B-B734-E117495A9BAE/files/Midget-bodybuilder35JsL.jpg]]></Image>\n\n<Image><![CDATA[]]></Image>\n<Image><![CDATA[]]></Image>\n\n</Images>\n\n</Product>\n\n\n<Product id=\"{6F8592D3-4D7E-4685-9490-6E039DEDAC1B}\">\n\n<SKU><![CDATA[MIDGET-2]]></SKU>\n\n<ProductName><![CDATA[Gustav the Midget]]></ProductName>\n\n<ProductShortDescription><![CDATA[This is another midget.]]></ProductShortDescription>\n\n<ProductDescription><![CDATA[Origo deorum flexi fontes habitabilis coeptis pro caligine parte. Plagae valles tenent tonitrua circumfuso sponte videre. Cuncta undis plagae sic cum et fecit diu alta. Terrenae diverso innabilis utramque. Pronaque levius deducite speciem iunctarum caeleste indigestaque neu. Perveniunt pace effervescere pinus cingebant secrevit.\n]]></ProductDescription>\n\n<ProductPrice><![CDATA[817263.12]]></ProductPrice>\n\n<ProductWeight><![CDATA[65]]></ProductWeight>\n\n\n-<Categories>\n\n<CategoryID><![CDATA[{60AC0D7E-3EB0-430F-B5E6-917639C86067}]]></CategoryID>\n\n</Categories>\n\n\n-<Images>\n\n<Image><![CDATA[http://www.awesomedemosite.com/clientdata/D4874F13-9422-4C3B-B734-E117495A9BAE/files/GustavMidget.jpg]]></Image>\n\n<Image><![CDATA[http://www.awesomedemosite.com/clientdata/D4874F13-9422-4C3B-B734-E117495A9BAE/files/Midget-bodybuilder35JsL.jpg]]></Image>\n\n<Image><![CDATA[]]></Image>\n<Image><![CDATA[]]></Image>\n\n</Images>\n\n</Product>\n\n\n<Product id=\"{6F8592D3-4D7E-4685-9490-6E039DEDAC1B}\">\n\n<SKU><![CDATA[MIDGET-2]]></SKU>\n\n<ProductName><![CDATA[Gustav the Midget]]></ProductName>\n\n<ProductShortDescription><![CDATA[This is another midget.]]></ProductShortDescription>\n\n<ProductDescription><![CDATA[Origo deorum flexi fontes habitabilis coeptis pro caligine parte. Plagae valles tenent tonitrua circumfuso sponte videre. Cuncta undis plagae sic cum et fecit diu alta. Terrenae diverso innabilis utramque. Pronaque levius deducite speciem iunctarum caeleste indigestaque neu. Perveniunt pace effervescere pinus cingebant secrevit.\n]]></ProductDescription>\n\n<ProductPrice><![CDATA[817263.12]]></ProductPrice>\n\n<ProductWeight><![CDATA[65]]></ProductWeight>\n\n\n-<Categories>\n\n<CategoryID><![CDATA[{60AC0D7E-3EB0-430F-B5E6-917639C86067}]]></CategoryID>\n\n</Categories>\n\n\n-<Images>\n\n<Image><![CDATA[http://www.awesomedemosite.com/clientdata/D4874F13-9422-4C3B-B734-E117495A9BAE/files/GustavMidget.jpg]]></Image>\n\n<Image><![CDATA[http://www.awesomedemosite.com/clientdata/D4874F13-9422-4C3B-B734-E117495A9BAE/files/Midget-bodybuilder35JsL.jpg]]></Image>\n\n<Image><![CDATA[]]></Image>\n<Image><![CDATA[]]></Image>\n\n</Images>\n\n</Product>\n\n\n<Product id=\"{6F8592D3-4D7E-4685-9490-6E039DEDAC1B}\">\n\n<SKU><![CDATA[MIDGET-2]]></SKU>\n\n<ProductName><![CDATA[Gustav the Midget]]></ProductName>\n\n<ProductShortDescription><![CDATA[This is another midget.]]></ProductShortDescription>\n\n<ProductDescription><![CDATA[Origo deorum flexi fontes habitabilis coeptis pro caligine parte. Plagae valles tenent tonitrua circumfuso sponte videre. Cuncta undis plagae sic cum et fecit diu alta. Terrenae diverso innabilis utramque. Pronaque levius deducite speciem iunctarum caeleste indigestaque neu. Perveniunt pace effervescere pinus cingebant secrevit.\n]]></ProductDescription>\n\n<ProductPrice><![CDATA[817263.12]]></ProductPrice>\n\n<ProductWeight><![CDATA[65]]></ProductWeight>\n\n\n-<Categories>\n\n<CategoryID><![CDATA[{60AC0D7E-3EB0-430F-B5E6-917639C86067}]]></CategoryID>\n\n</Categories>\n\n\n-<Images>\n\n<Image><![CDATA[http://www.awesomedemosite.com/clientdata/D4874F13-9422-4C3B-B734-E117495A9BAE/files/GustavMidget.jpg]]></Image>\n\n<Image><![CDATA[http://www.awesomedemosite.com/clientdata/D4874F13-9422-4C3B-B734-E117495A9BAE/files/Midget-bodybuilder35JsL.jpg]]></Image>\n\n<Image><![CDATA[]]></Image>\n<Image><![CDATA[]]></Image>\n\n</Images>\n\n</Product>\n\n\n<Product id=\"{6F8592D3-4D7E-4685-9490-6E039DEDAC1B}\">\n\n<SKU><![CDATA[MIDGET-2]]></SKU>\n\n<ProductName><![CDATA[Gustav the Midget]]></ProductName>\n\n<ProductShortDescription><![CDATA[This is another midget.]]></ProductShortDescription>\n\n<ProductDescription><![CDATA[Origo deorum flexi fontes habitabilis coeptis pro caligine parte. Plagae valles tenent tonitrua circumfuso sponte videre. Cuncta undis plagae sic cum et fecit diu alta. Terrenae diverso innabilis utramque. Pronaque levius deducite speciem iunctarum caeleste indigestaque neu. Perveniunt pace effervescere pinus cingebant secrevit.\n]]></ProductDescription>\n\n<ProductPrice><![CDATA[817263.12]]></ProductPrice>\n\n<ProductWeight><![CDATA[65]]></ProductWeight>\n\n\n-<Categories>\n\n<CategoryID><![CDATA[{60AC0D7E-3EB0-430F-B5E6-917639C86067}]]></CategoryID>\n\n</Categories>\n\n\n-<Images>\n\n<Image><![CDATA[http://www.awesomedemosite.com/clientdata/D4874F13-9422-4C3B-B734-E117495A9BAE/files/GustavMidget.jpg]]></Image>\n\n<Image><![CDATA[http://www.awesomedemosite.com/clientdata/D4874F13-9422-4C3B-B734-E117495A9BAE/files/Midget-bodybuilder35JsL.jpg]]></Image>\n\n<Image><![CDATA[]]></Image>\n<Image><![CDATA[]]></Image>\n\n</Images>\n\n</Product>\n\n\n<Product id=\"{6F8592D3-4D7E-4685-9490-6E039DEDAC1B}\">\n\n<SKU><![CDATA[MIDGET-2]]></SKU>\n\n<ProductName><![CDATA[Gustav the Midget]]></ProductName>\n\n<ProductShortDescription><![CDATA[This is another midget.]]></ProductShortDescription>\n\n<ProductDescription><![CDATA[Origo deorum flexi fontes habitabilis coeptis pro caligine parte. Plagae valles tenent tonitrua circumfuso sponte videre. Cuncta undis plagae sic cum et fecit diu alta. Terrenae diverso innabilis utramque. Pronaque levius deducite speciem iunctarum caeleste indigestaque neu. Perveniunt pace effervescere pinus cingebant secrevit.\n]]></ProductDescription>\n\n<ProductPrice><![CDATA[817263.12]]></ProductPrice>\n\n<ProductWeight><![CDATA[65]]></ProductWeight>\n\n\n-<Categories>\n\n<CategoryID><![CDATA[{60AC0D7E-3EB0-430F-B5E6-917639C86067}]]></CategoryID>\n\n</Categories>\n\n\n-<Images>\n\n<Image><![CDATA[http://www.awesomedemosite.com/clientdata/D4874F13-9422-4C3B-B734-E117495A9BAE/files/GustavMidget.jpg]]></Image>\n\n<Image><![CDATA[http://www.awesomedemosite.com/clientdata/D4874F13-9422-4C3B-B734-E117495A9BAE/files/Midget-bodybuilder35JsL.jpg]]></Image>\n\n<Image><![CDATA[]]></Image>\n<Image><![CDATA[]]></Image>\n\n</Images>\n\n</Product>\n\n\n<Product id=\"{6F8592D3-4D7E-4685-9490-6E039DEDAC1B}\">\n\n<SKU><![CDATA[MIDGET-2]]></SKU>\n\n<ProductName><![CDATA[Gustav the Midget]]></ProductName>\n\n<ProductShortDescription><![CDATA[This is another midget.]]></ProductShortDescription>\n\n<ProductDescription><![CDATA[Origo deorum flexi fontes habitabilis coeptis pro caligine parte. Plagae valles tenent tonitrua circumfuso sponte videre. Cuncta undis plagae sic cum et fecit diu alta. Terrenae diverso innabilis utramque. Pronaque levius deducite speciem iunctarum caeleste indigestaque neu. Perveniunt pace effervescere pinus cingebant secrevit.\n]]></ProductDescription>\n\n<ProductPrice><![CDATA[817263.12]]></ProductPrice>\n\n<ProductWeight><![CDATA[65]]></ProductWeight>\n\n\n-<Categories>\n\n<CategoryID><![CDATA[{60AC0D7E-3EB0-430F-B5E6-917639C86067}]]></CategoryID>\n\n</Categories>\n\n\n-<Images>\n\n<Image><![CDATA[http://www.awesomedemosite.com/clientdata/D4874F13-9422-4C3B-B734-E117495A9BAE/files/GustavMidget.jpg]]></Image>\n\n<Image><![CDATA[http://www.awesomedemosite.com/clientdata/D4874F13-9422-4C3B-B734-E117495A9BAE/files/Midget-bodybuilder35JsL.jpg]]></Image>\n\n<Image><![CDATA[]]></Image>\n<Image><![CDATA[]]></Image>\n\n</Images>\n\n</Product>\n\n\n\n\n\n<Product id=\"{A273E228-6872-4422-A557-A87AE1D0E811}\">\n\n<SKU><![CDATA[MIDGET-3]]></SKU>\n\n<ProductName><![CDATA[Harvey]]></ProductName>\n\n<ProductShortDescription><![CDATA[This is Harvey the Midget]]></ProductShortDescription>\n\n<ProductDescription><![CDATA[Origo deorum flexi fontes habitabilis coeptis pro caligine parte. Plagae valles tenent tonitrua circumfuso sponte videre. Cuncta undis plagae sic cum et fecit diu alta. Terrenae diverso innabilis utramque. Pronaque levius deducite speciem iunctarum caeleste indigestaque neu. Perveniunt pace effervescere pinus cingebant secrevit.\n]]></ProductDescription>\n\n<ProductPrice><![CDATA[123]]></ProductPrice>\n\n<ProductWeight><![CDATA[45]]></ProductWeight>\n\n\n-<Categories>\n\n<CategoryID><![CDATA[{60AC0D7E-3EB0-430F-B5E6-917639C86067}]]></CategoryID>\n\n</Categories>\n\n\n-<Images>\n\n<Image><![CDATA[http://www.awesomedemosite.com/clientdata/D4874F13-9422-4C3B-B734-E117495A9BAE/files/harvey.jpeg]]></Image>\n\n<Image><![CDATA[]]></Image>\n\n<Image><![CDATA[]]></Image>\n<Image><![CDATA[]]></Image>\n\n</Images>\n\n</Product>\n\n\n\n\n\n<Product id=\"{6433CFAE-7EFC-433C-B5F4-C568C2EBFED3}\">\n\n<SKU><![CDATA[PLATE-1]]></SKU>\n\n<ProductName><![CDATA[Plate]]></ProductName>\n\n<ProductShortDescription><![CDATA[Just a plate.]]></ProductShortDescription>\n\n<ProductDescription><![CDATA[This is just a plate.]]></ProductDescription>\n\n<ProductPrice><![CDATA[789]]></ProductPrice>\n\n<ProductWeight><![CDATA[10]]></ProductWeight>\n\n\n-<Categories>\n\n<CategoryID><![CDATA[{7FCCF23A-58E2-45DD-9E3A-AA195047663E}]]></CategoryID>\n\n</Categories>\n\n\n-<Images>\n\n<Image><![CDATA[http://www.awesomedemosite.com/clientdata/D4874F13-9422-4C3B-B734-E117495A9BAE/files/plate.JPG]]></Image>\n\n<Image><![CDATA[]]></Image>\n\n<Image><![CDATA[]]></Image>\n<Image><![CDATA[]]></Image>\n\n</Images>\n\n</Product>\n\n\n\n\n\n<Product id=\"{0DE3CB0F-B4EF-4D92-9B4D-569C4070D0A2}\">\n\n<SKU><![CDATA[MIDGET-4]]></SKU>\n\n<ProductName><![CDATA[Sally]]></ProductName>\n\n<ProductShortDescription><![CDATA[This is Sally the Midget]]></ProductShortDescription>\n\n<ProductDescription><![CDATA[Origo deorum flexi fontes habitabilis coeptis pro caligine parte. Plagae valles tenent tonitrua circumfuso sponte videre. Cuncta undis plagae sic cum et fecit diu alta. Terrenae diverso innabilis utramque. Pronaque levius deducite speciem iunctarum caeleste indigestaque neu. Perveniunt pace effervescere pinus cingebant secrevit.]]></ProductDescription>\n\n<ProductPrice><![CDATA[1273]]></ProductPrice>\n\n<ProductWeight><![CDATA[50]]></ProductWeight>\n\n\n-<Categories>\n\n<CategoryID><![CDATA[{60AC0D7E-3EB0-430F-B5E6-917639C86067}]]></CategoryID>\n\n</Categories>\n\n\n-<Images>\n\n<Image><![CDATA[http://www.awesomedemosite.com/clientdata/D4874F13-9422-4C3B-B734-E117495A9BAE/files/sally.jpg]]></Image>\n\n<Image><![CDATA[]]></Image>\n\n<Image><![CDATA[]]></Image>\n<Image><![CDATA[]]></Image>\n\n</Images>\n\n</Product>\n\n\n\n\n\n<Product id=\"{8534E230-0B97-483F-8316-4D1B11FAED0E}\">\n\n<SKU><![CDATA[HAT-2]]></SKU>\n\n<ProductName><![CDATA[Top Hat]]></ProductName>\n\n<ProductShortDescription><![CDATA[This is another hat.]]></ProductShortDescription>\n\n<ProductDescription><![CDATA[This really, really is another hat.]]></ProductDescription>\n\n<ProductPrice><![CDATA[70]]></ProductPrice>\n\n<ProductWeight><![CDATA[30]]></ProductWeight>\n\n\n-<Categories>\n\n<CategoryID><![CDATA[{5146CEAF-1E9E-4833-BEBE-43B7AEA6FBA6}]]></CategoryID>\n\n</Categories>\n\n\n-<Images>\n\n<Image><![CDATA[http://www.awesomedemosite.com/clientdata/D4874F13-9422-4C3B-B734-E117495A9BAE/files/tophat.jpeg]]></Image>\n\n<Image><![CDATA[]]></Image>\n\n<Image><![CDATA[]]></Image>\n<Image><![CDATA[]]></Image>\n\n</Images>\n\n</Product>\n\n\n\n</products></XML>";
   });
+templates['single_product'] = template(function (Handlebars,depth0,helpers,partials,data) {
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
+  
+
+
+  return "yay!";
+  });
 })();
 
 (function() {
@@ -1214,4 +1039,193 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   return buffer;
   });
 })();
+
+
+Handlebars.registerHelper('first', function(items, options) {
+  return items[0];
+});
+
+Handlebars.registerHelper('currentCategory', function(options) {
+  return ShoppingCartPlugin.currentCategory;
+});
+
+Handlebars.registerHelper('currentPageProducts', function(items, options) {
+  currentPage = ShoppingCartPlugin.currentPage;
+  productsPerPage = ShoppingCartPlugin.productsPerPage;
+  numOnPreviousPages = (currentPage-1)*productsPerPage;
+  return items.slice(numOnPreviousPages, numOnPreviousPages+productsPerPage);
+});
+
+Handlebars.registerHelper("each_with_index", function(array, options) {
+  var buffer = "";
+  for (var i = 0, j = array.length; i < j; i++) {
+    var item = array[i];
+ 
+    // stick an index property onto the item, starting with 1, may make configurable later
+    item.index = i+1;
+ 
+    // show the inside of the block
+    buffer += options.fn(item);
+  }
+ 
+  // return the finished buffer
+  return buffer;
+ 
+});
+
+Handlebars.registerHelper("each_on_current_page_top", function(array, options) {
+  var buffer = "";
+  currentPage = ShoppingCartPlugin.currentPage;
+  productsPerPage = ShoppingCartPlugin.productsPerPage;
+  startIndex = (currentPage-1)*productsPerPage;
+  endIndex = startIndex + Math.ceil(productsPerPage/2);
+  for (var i = 0, j = array.length; i < j; i++) {
+    var item = array[i];
+    
+    if (startIndex <= i && i < endIndex) {
+      buffer += options.fn(item);
+    }
+  }
+ 
+  // return the finished buffer
+  return buffer;
+ 
+});
+Handlebars.registerHelper("each_on_current_page_bottom", function(array, options) {
+  var buffer = "";
+  currentPage = ShoppingCartPlugin.currentPage;
+  productsPerPage = ShoppingCartPlugin.productsPerPage;
+  startIndex = (currentPage-1)*productsPerPage + Math.ceil(productsPerPage/2);
+  endIndex = startIndex + Math.floor(productsPerPage/2);
+  for (var i = 0, j = array.length; i < j; i++) {
+    var item = array[i];
+    
+    if (startIndex <= i && i < endIndex) {
+      buffer += options.fn(item);
+    }
+  }
+ 
+  // return the finished buffer
+  return buffer;
+ 
+});
+
+Handlebars.registerHelper("each_page", function(array, options) {
+  var buffer = "";
+  currentPage = ShoppingCartPlugin.currentPage;
+  productsPerPage = ShoppingCartPlugin.productsPerPage;
+  numPages = Math.ceil(array.length/productsPerPage);
+  startIndex = (currentPage-1)*productsPerPage + Math.ceil(productsPerPage/2);
+  endIndex = startIndex + Math.floor(productsPerPage/2);
+  for (var i = 1, j = numPages; i <= j; i++) {
+    var item = {pageNumber: i, currentPage: (currentPage === i)};
+    buffer += options.fn(item);
+  }
+ 
+  // return the finished buffer
+  return buffer;
+ 
+});
+
+Handlebars.registerHelper("currency_symbol", function(options) {
+  return typeof Build !== 'undefined'? Build.cartPrefix || '$' : '$';
+});
+
+ShoppingCartPlugin = {
+  currentPage: 1,
+  productsPerPage: 8,
+  currentRoute: Handlebars.templates.cart,
+  initialize: function(AI, divToInsert){
+    this.AI = AI;
+    this.divToInsert = divToInsert;
+    this.getProductsXML(AI);
+    this.getCategoriesXML(AI);
+  },
+  makeCurrentRoute: function(){
+    return this.currentRoute(this);
+  },
+  productsCallback: function(data){
+    this.productsJSON = jQuery.xml2json(data);
+    this.products = this.productsJSON.products.Product;
+  },
+  categoriesCallback: function(data){
+    this.categoriesJSON = jQuery.xml2json(data);
+    this.categories = this.categoriesJSON.data.Categories.Category;
+    this.currentCategory = this.categories[0];
+    this.currentCategory.isCurrentCategory = true;
+  },
+  getProductsXML: function(AI){
+    shoppingCart = this;
+    $.ajax({
+        type: 'POST',
+        url: 'http://www.awesomedemosite.com/virtualoffice/menuEngine/getproductsgeneral.asp',
+        processData: false,
+        contentType: 'application/x-www-form-urlencoded',
+        async: false,
+        data: 'AI=' + AI,
+        success: function(data) {
+          shoppingCart.productsCallback(data);
+          shoppingCart.insertIntoDiv();
+        },
+        error:function (xhr, ajaxOptions, thrownError){
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+  },
+  getCategoriesXML: function(AI, successCallback){
+    shoppingCart = this;
+    $.ajax({
+        type: 'POST',
+        url: 'http://www.awesomedemosite.com/virtualoffice/menuEngine/getproductcatsgeneral.asp',
+        processData: false,
+        contentType: 'application/x-www-form-urlencoded',
+        async: false,
+        data: 'AI=' + AI,
+        success: function(data) {
+          shoppingCart.categoriesCallback(data);
+          shoppingCart.insertIntoDiv();
+        },
+        error:function (xhr, ajaxOptions, thrownError){
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
+  },
+  getProductsForCategory: function(category){
+    return this.products.filter(function(product){
+      if (product.Categories.CategoryID === ShoppingCartPlugin.currentCategory.ProdCatID){
+        return true;
+      }
+      return false;
+    });
+  },
+  dataIsLoaded: function(){
+    return this.categories && this.products;
+  },
+  insertIntoDiv: function() {
+    if(this.dataIsLoaded()){
+      this.currentProducts = this.getProductsForCategory(this.currentCategory);
+      this.divToInsert.html(this.makeCurrentRoute());
+    }
+  },
+  changePage: function(pageNumber){
+    this.currentPage = pageNumber;
+    this.insertIntoDiv();
+  },
+  changeCategory: function(select){
+    this.currentCategory.isCurrentCategory = false;
+    this.currentCategory = this.categories.filter(function(category){
+      if (select.value === category.ProdCatID){
+        return true;
+      }
+      return false;
+    })[0];
+    this.currentCategory.isCurrentCategory = true;
+    this.currentPage = 1;
+
+    this.insertIntoDiv();
+  }
+};
+
 
