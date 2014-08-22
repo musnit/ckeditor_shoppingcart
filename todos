@@ -13,11 +13,12 @@ click small image = fades in over big image
 up to 4 possible images
 if 1 only large else show minis too else nothing
 
-must be responsive - css media queries for nice sizes
-loading gifs
-make work for end user
-fix css
+must be responsive - css media queries for mobile devices
+verify/make work for end user
+improve css
 add both themes
-make dropdown work in ckeditor
-update shopping cart when products/categories change?
-single product screen
+make dropdown/select work in ckeditor
+?refresh when products/categories change?
+add single product screen
+integrate with simplecart
+?add animations when changing between pages/to single product screen?

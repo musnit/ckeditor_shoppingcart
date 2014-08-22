@@ -16,7 +16,7 @@ CKEDITOR.plugins.add( 'shoppingcart', {
 
       requiredContent: 'div(shopping-cart)',
 
-      template: '<div class="shopping-cart">' + 'loadingGif' + '</div>',
+      template: '<div class="shopping-cart"></div>',
 
       upcast: function( element ) {
         console.log(element.name);

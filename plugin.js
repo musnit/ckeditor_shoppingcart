@@ -1015,14 +1015,74 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 templates['single_product'] = template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
-  var buffer = "", stack1, helper, functionType="function", escapeExpression=this.escapeExpression;
+  var buffer = "", stack1, helper, options, functionType="function", escapeExpression=this.escapeExpression, self=this, helperMissing=helpers.helperMissing;
 
+function program1(depth0,data) {
+  
+  var buffer = "";
+  buffer += "\n      <img class=\"next-product-image\" src="
+    + escapeExpression((typeof depth0 === functionType ? depth0.apply(depth0) : depth0))
+    + " onclick=\"window.parent.ShoppingCartPlugin.changeToImage('"
+    + escapeExpression((typeof depth0 === functionType ? depth0.apply(depth0) : depth0))
+    + "');return false;\">\n    ";
+  return buffer;
+  }
 
-  buffer += "yay!\n";
+  buffer += "<div class='top-section'>\n  <span class=\"product-name-heading ";
+  if (helper = helpers.theme) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.theme); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "\">";
   if (helper = helpers.ProductName) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.ProductName); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + "\n";
+    + "</span><a href=\"#\" onclick=\"window.parent.ShoppingCartPlugin.changeToMain()\" class='home-link'>Back to ";
+  if (helper = helpers.currentCategoryName) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.currentCategoryName); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "</a>\n</div>\n<div class=\"photos-section\">\n  <div><img class=\"first-product-image\" src=";
+  if (helper = helpers.currentMainImageURL) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.currentMainImageURL); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + " alt=";
+  if (helper = helpers.ProductName) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.ProductName); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "></div>\n    ";
+  stack1 = (helper = helpers.each_next_three || (depth0 && depth0.each_next_three),options={hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data},helper ? helper.call(depth0, ((stack1 = (depth0 && depth0.Images)),stack1 == null || stack1 === false ? stack1 : stack1.Image), options) : helperMissing.call(depth0, "each_next_three", ((stack1 = (depth0 && depth0.Images)),stack1 == null || stack1 === false ? stack1 : stack1.Image), options));
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\n</div>\n<div class=\"right-section\">\n  <div class=\"sku\">";
+  if (helper = helpers.SKU) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.SKU); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "</div>\n  <div class=\"long-description ";
+  if (helper = helpers.theme) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.theme); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "\">";
+  if (helper = helpers.ProductDescription) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.ProductDescription); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "</div>\n  <hr>\n  <div class=\"product-price\">";
+  if (helper = helpers.currency_symbol) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.currency_symbol); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1);
+  if (helper = helpers.ProductPrice) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.ProductPrice); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "</div>\n  <hr>\n  <div class=\"quantity-text ";
+  if (helper = helpers.theme) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.theme); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "\">Quantity:</div>\n  <div class=\"add-section\">\n    <input class='quantity-input ";
+  if (helper = helpers.theme) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.theme); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "' type='text' value='1'></input><a class=\"product-addtocart-button cart-button cart-button-animate ";
+  if (helper = helpers.theme) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.theme); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "\">Add to Cart</a>\n  </div>\n</div>";
   return buffer;
   });
 })();
@@ -1082,12 +1142,36 @@ Handlebars.registerHelper('first', function(items, options) {
   return items[0];
 });
 
-Handlebars.registerHelper('currentCategory', function(options) {
-  return ShoppingCartPlugin.currentCategory;
+Handlebars.registerHelper('currentCategoryName', function(options) {
+  return ShoppingCartPlugin.currentCategory.CatName;
 });
 
 Handlebars.registerHelper('theme', function(options) {
   return "dark-theme";
+});
+
+Handlebars.registerHelper('currentMainImageURL', function(options) {
+  return ShoppingCartPlugin.currentMainImageURL;
+});
+
+Handlebars.registerHelper("each_next_three", function(array, options) {
+  var buffer = "";
+  product = ShoppingCartPlugin.currentContext;
+  images = product.Images.Image;
+  mainImage = ShoppingCartPlugin.currentMainImageURL;
+  otherImages = images.filter(function(image){
+    if(image === mainImage || image === ""){
+      return false;
+    }
+    return true;
+  });
+  length = Math.min(otherImages.length, 3);
+  for (var i = 0, j = length; i < j; i++) {
+    var item = otherImages[i];
+    buffer += options.fn(item);
+  }
+  // return the finished buffer
+  return buffer;
 });
 
 Handlebars.registerHelper('currentPageProducts', function(items, options) {
@@ -1277,6 +1361,16 @@ ShoppingCartPlugin = {
       return false;
     })[0];
     this.currentContext = product;
+    this.currentMainImageURL = product.Images.Image[0];
+    this.insertIntoDiv();
+  },
+  changeToMain: function(){
+    this.currentRoute = Handlebars.templates.cart;
+    this.currentContext = this;
+    this.insertIntoDiv();
+  },
+  changeToImage: function(imageURL){
+    this.currentMainImageURL = imageURL;
     this.insertIntoDiv();
   }
 };
@@ -1300,7 +1394,7 @@ CKEDITOR.plugins.add( 'shoppingcart', {
 
       requiredContent: 'div(shopping-cart)',
 
-      template: '<div class="shopping-cart">' + 'loadingGif' + '</div>',
+      template: '<div class="shopping-cart"></div>',
 
       upcast: function( element ) {
         console.log(element.name);
