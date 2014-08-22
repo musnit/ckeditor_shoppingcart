@@ -1,6 +1,5 @@
 todos:
 
-name, desc, price, image = link
 
 fade animation maybe
 
@@ -9,16 +8,13 @@ animations - compare simplecart shelf item divs. looks for class names for simpl
 animation call to setup
 ?simplecart call to setup?
 
-click small image = fades in over big image
-up to 4 possible images
-if 1 only large else show minis too else nothing
-
 must be responsive - css media queries for mobile devices
 verify/make work for end user
-improve css
-add both themes
-make dropdown/select work in ckeditor
-?refresh when products/categories change?
-add single product screen
+make dropdown/select/textfield work in ckeditor
 integrate with simplecart
+name, desc, price, image = link
+
+improve css
+
+?refresh when products/categories change?
 ?add animations when changing between pages/to single product screen?
