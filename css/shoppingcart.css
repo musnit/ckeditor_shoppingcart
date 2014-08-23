@@ -256,3 +256,7 @@
   outline: rgb(201, 201, 1) solid 2px;
   cursor: pointer;
 }
+
+.products {
+  margin-bottom: 5px;
+}

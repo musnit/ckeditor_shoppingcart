@@ -1,8 +1,5 @@
 todos:
 
-
-fade animation maybe
-
 animations - compare simplecart shelf item divs. looks for class names for simplecart. animation = build cart animation
 
 animation call to setup
@@ -12,7 +9,7 @@ must be responsive - css media queries for mobile devices
 verify/make work for end user
 make dropdown/select/textfield work in ckeditor
 integrate with simplecart
-name, desc, price, image = link
+theme chooser
 
 improve css
 
