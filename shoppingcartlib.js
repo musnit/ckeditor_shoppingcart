@@ -1084,7 +1084,7 @@ function program1(depth0,data) {
   if (helper = helpers.theme) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.theme); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + "' type='text' value='1'></input>\n      <a class=\"build-addtocart-button product-addtocart-button cart-button cart-button-animate ";
+    + "' type='text' value='1'></input>\n      <a class=\"build-addtocart-button item_add product-addtocart-button cart-button cart-button-animate ";
   if (helper = helpers.theme) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.theme); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
