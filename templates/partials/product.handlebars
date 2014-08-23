@@ -1,6 +1,8 @@
 <td class="product simpleCart_shelfItem">
   <div class="product-page-links" onclick="window.parent.ShoppingCartPlugin.changeToProduct('{{id}}');return false;">
-    <img class="product-image item_thumb" src={{first Images.Image}} alt={{ProductName}}>
+    <div class="product-image-div">
+      <img class="product-image item_thumb" src={{first Images.Image}} alt={{ProductName}}>
+    </div>
     <div class="product-name item_name {{theme}}">{{ProductName}}</div>
     <div class="product-short-description">{{ProductShortDescription}}</div>
     <span class="product-price item_price {{theme}}">{{currency_symbol}}{{ProductPrice}}</span><br>

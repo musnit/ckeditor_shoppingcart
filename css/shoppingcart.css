@@ -269,3 +269,7 @@
 .hidden-thumbnail {
   display: none;
 }
+
+.product-image-div{
+  height: 227px;
+}
