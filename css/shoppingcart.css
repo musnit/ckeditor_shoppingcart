@@ -263,6 +263,9 @@
 }
 
 .single-item-quantity {
-  visibility: hidden;
-  position: absolute;
+  display: none;
+}
+
+.hidden-thumbnail {
+  display: none;
 }

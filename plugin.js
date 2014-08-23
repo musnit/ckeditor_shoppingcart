@@ -1015,20 +1015,20 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 templates['single_product'] = template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
-  var buffer = "", stack1, helper, options, functionType="function", escapeExpression=this.escapeExpression, self=this, helperMissing=helpers.helperMissing;
+  var buffer = "", stack1, helper, options, functionType="function", escapeExpression=this.escapeExpression, helperMissing=helpers.helperMissing, self=this;
 
 function program1(depth0,data) {
   
   var buffer = "";
-  buffer += "\n      <img class=\"next-product-image\" src="
+  buffer += "\n        <img class=\"next-product-image\" src="
     + escapeExpression((typeof depth0 === functionType ? depth0.apply(depth0) : depth0))
     + " onclick=\"window.parent.ShoppingCartPlugin.changeToImage('"
     + escapeExpression((typeof depth0 === functionType ? depth0.apply(depth0) : depth0))
-    + "');return false;\">\n    ";
+    + "');return false;\">\n      ";
   return buffer;
   }
 
-  buffer += "<div class='top-section'>\n  <span class=\"product-name-heading ";
+  buffer += "<div class=\"single-product simpleCart_shelfItem\">\n  <div class='top-section'>\n    <span class=\"product-name-heading item_name ";
   if (helper = helpers.theme) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.theme); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
@@ -1040,7 +1040,13 @@ function program1(depth0,data) {
   if (helper = helpers.currentCategoryName) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.currentCategoryName); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + "</a>\n</div>\n<div class=\"photos-section\">\n  <div><img class=\"first-product-image\" src=";
+    + "</a>\n  </div>\n  <div class=\"photos-section\">\n    <img class=\"hidden-thumbnail item_thumb\" src="
+    + escapeExpression((helper = helpers.first || (depth0 && depth0.first),options={hash:{},data:data},helper ? helper.call(depth0, ((stack1 = (depth0 && depth0.Images)),stack1 == null || stack1 === false ? stack1 : stack1.Image), options) : helperMissing.call(depth0, "first", ((stack1 = (depth0 && depth0.Images)),stack1 == null || stack1 === false ? stack1 : stack1.Image), options)))
+    + " alt=";
+  if (helper = helpers.ProductName) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.ProductName); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + ">\n    <div><img class=\"first-product-image\" src=";
   if (helper = helpers.currentMainImageURL) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.currentMainImageURL); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
@@ -1048,14 +1054,14 @@ function program1(depth0,data) {
   if (helper = helpers.ProductName) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.ProductName); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + "></div>\n    ";
+    + "></div>\n      ";
   stack1 = (helper = helpers.each_next_three || (depth0 && depth0.each_next_three),options={hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data},helper ? helper.call(depth0, ((stack1 = (depth0 && depth0.Images)),stack1 == null || stack1 === false ? stack1 : stack1.Image), options) : helperMissing.call(depth0, "each_next_three", ((stack1 = (depth0 && depth0.Images)),stack1 == null || stack1 === false ? stack1 : stack1.Image), options));
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n</div>\n<div class=\"right-section\">\n  <div class=\"sku\">";
+  buffer += "\n  </div>\n  <div class=\"right-section\">\n    <div class=\"sku\">";
   if (helper = helpers.SKU) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.SKU); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + "</div>\n  <div class=\"long-description ";
+    + "</div>\n    <div class=\"long-description ";
   if (helper = helpers.theme) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.theme); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
@@ -1063,26 +1069,26 @@ function program1(depth0,data) {
   if (helper = helpers.ProductDescription) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.ProductDescription); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + "</div>\n  <hr>\n  <div class=\"product-price\">";
+    + "</div>\n    <hr>\n    <div class=\"product-price item_price\">";
   if (helper = helpers.currency_symbol) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.currency_symbol); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1);
   if (helper = helpers.ProductPrice) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.ProductPrice); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + "</div>\n  <hr>\n  <div class=\"quantity-text ";
+    + "</div>\n    <hr>\n    <div class=\"quantity-text ";
   if (helper = helpers.theme) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.theme); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + "\">Quantity:</div>\n  <div class=\"add-section\">\n    <input class='quantity-input ";
+    + "\">Quantity:</div>\n    <div class=\"add-section\">\n      <input class='item_Quantity quantity-input ";
   if (helper = helpers.theme) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.theme); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + "' type='text' value='1'></input><a class=\"product-addtocart-button cart-button cart-button-animate ";
+    + "' type='text' value='1'></input>\n      <a class=\"build-addtocart-button product-addtocart-button cart-button cart-button-animate ";
   if (helper = helpers.theme) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.theme); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + "\">Add to Cart</a>\n  </div>\n</div>";
+    + "\"  href=\"javascript:;\">Add to Cart</a>\n      <div class=\"build-cart-animation\" style=\"display:none\">1</div>\n    </div>\n  </div>\n</div>";
   return buffer;
   });
 })();
@@ -1099,7 +1105,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   if (helper = helpers.id) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.id); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + "');return false;\">\n    <img class=\"product-image\" src="
+    + "');return false;\">\n    <img class=\"product-image item_thumb\" src="
     + escapeExpression((helper = helpers.first || (depth0 && depth0.first),options={hash:{},data:data},helper ? helper.call(depth0, ((stack1 = (depth0 && depth0.Images)),stack1 == null || stack1 === false ? stack1 : stack1.Image), options) : helperMissing.call(depth0, "first", ((stack1 = (depth0 && depth0.Images)),stack1 == null || stack1 === false ? stack1 : stack1.Image), options)))
     + " alt=";
   if (helper = helpers.ProductName) { stack1 = helper.call(depth0, {hash:{},data:data}); }
@@ -1128,7 +1134,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   if (helper = helpers.ProductPrice) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.ProductPrice); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + "</span><br>\n  </div>\n  <a class=\"product-addtocart-button cart-button cart-button-animate item_add ";
+    + "</span><br>\n  </div>\n  <a class=\"build-addtocart-button product-addtocart-button cart-button cart-button-animate item_add ";
   if (helper = helpers.theme) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.theme); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
@@ -1333,6 +1339,9 @@ ShoppingCartPlugin = {
     if(this.dataIsLoaded()){
       this.currentProducts = this.getProductsForCategory(this.currentCategory);
       this.divToInsert.html(this.makeCurrentRoute());
+      if (this.CKEditorWidget.isReady()){
+        CreateCartAnimations();
+      }
     }
   },
   changePage: function(pageNumber){
@@ -1397,12 +1406,15 @@ CKEDITOR.plugins.add( 'shoppingcart', {
       template: '<div class="shopping-cart"></div>',
 
       upcast: function( element ) {
-        console.log(element.name);
         return element.name == 'div' && element.hasClass( 'shopping-cart' );
       },
       init: function(){
         divToInsert = $(this.element.$);
+        ShoppingCartPlugin.CKEditorWidget = this;
         ShoppingCartPlugin.initialize(SCVOAccountID, divToInsert);
+        this.on('ready',function(){
+          CreateCartAnimations();
+        });
       }
     });
 
@@ -1420,6 +1432,7 @@ CKEDITOR.plugins.add( 'shoppingcart', {
 
     //stubs for local testing
     if(typeof Build === 'undefined'){
+      CreateCartAnimations = function(){ console.log('creating cart animations...');};
       ShoppingCartPlugin.getProductsXML = function(AI, successCallback){
         data = Handlebars.templates.productsxml();
         ShoppingCartPlugin.productsCallback(data);

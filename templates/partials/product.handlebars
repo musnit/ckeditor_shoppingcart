@@ -1,11 +1,11 @@
 <td class="product simpleCart_shelfItem">
   <div class="product-page-links" onclick="window.parent.ShoppingCartPlugin.changeToProduct('{{id}}');return false;">
-    <img class="product-image" src={{first Images.Image}} alt={{ProductName}}>
+    <img class="product-image item_thumb" src={{first Images.Image}} alt={{ProductName}}>
     <div class="product-name item_name {{theme}}">{{ProductName}}</div>
     <div class="product-short-description">{{ProductShortDescription}}</div>
     <span class="product-price item_price{{theme}}">{{currency_symbol}}{{ProductPrice}}</span><br>
   </div>
-  <a class="product-addtocart-button cart-button cart-button-animate item_add {{theme}}" href="javascript:;">Add to Cart</a>
+  <a class="build-addtocart-button product-addtocart-button cart-button cart-button-animate item_add {{theme}}" href="javascript:;">Add to Cart</a>
   <input type="text" value="1" class="item_Quantity single-item-quantity">
   <div class="build-cart-animation" style="display:none">1</div>
 </td>

@@ -19,12 +19,15 @@ CKEDITOR.plugins.add( 'shoppingcart', {
       template: '<div class="shopping-cart"></div>',
 
       upcast: function( element ) {
-        console.log(element.name);
         return element.name == 'div' && element.hasClass( 'shopping-cart' );
       },
       init: function(){
         divToInsert = $(this.element.$);
+        ShoppingCartPlugin.CKEditorWidget = this;
         ShoppingCartPlugin.initialize(SCVOAccountID, divToInsert);
+        this.on('ready',function(){
+          CreateCartAnimations();
+        });
       }
     });
 
@@ -42,6 +45,7 @@ CKEDITOR.plugins.add( 'shoppingcart', {
 
     //stubs for local testing
     if(typeof Build === 'undefined'){
+      CreateCartAnimations = function(){ console.log('creating cart animations...');};
       ShoppingCartPlugin.getProductsXML = function(AI, successCallback){
         data = Handlebars.templates.productsxml();
         ShoppingCartPlugin.productsCallback(data);

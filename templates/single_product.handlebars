@@ -1,20 +1,25 @@
-<div class='top-section'>
-  <span class="product-name-heading {{theme}}">{{ProductName}}</span><a href="#" onclick="window.parent.ShoppingCartPlugin.changeToMain()" class='home-link'>Back to {{currentCategoryName}}</a>
-</div>
-<div class="photos-section">
-  <div><img class="first-product-image" src={{currentMainImageURL}} alt={{ProductName}}></div>
-    {{#each_next_three Images.Image}}
-      <img class="next-product-image" src={{this}} onclick="window.parent.ShoppingCartPlugin.changeToImage('{{this}}');return false;">
-    {{/each_next_three}}
-</div>
-<div class="right-section">
-  <div class="sku">{{SKU}}</div>
-  <div class="long-description {{theme}}">{{ProductDescription}}</div>
-  <hr>
-  <div class="product-price">{{currency_symbol}}{{ProductPrice}}</div>
-  <hr>
-  <div class="quantity-text {{theme}}">Quantity:</div>
-  <div class="add-section">
-    <input class='quantity-input {{theme}}' type='text' value='1'></input><a class="product-addtocart-button cart-button cart-button-animate {{theme}}">Add to Cart</a>
+<div class="single-product simpleCart_shelfItem">
+  <div class='top-section'>
+    <span class="product-name-heading item_name {{theme}}">{{ProductName}}</span><a href="#" onclick="window.parent.ShoppingCartPlugin.changeToMain()" class='home-link'>Back to {{currentCategoryName}}</a>
+  </div>
+  <div class="photos-section">
+    <img class="hidden-thumbnail item_thumb" src={{first Images.Image}} alt={{ProductName}}>
+    <div><img class="first-product-image" src={{currentMainImageURL}} alt={{ProductName}}></div>
+      {{#each_next_three Images.Image}}
+        <img class="next-product-image" src={{this}} onclick="window.parent.ShoppingCartPlugin.changeToImage('{{this}}');return false;">
+      {{/each_next_three}}
+  </div>
+  <div class="right-section">
+    <div class="sku">{{SKU}}</div>
+    <div class="long-description {{theme}}">{{ProductDescription}}</div>
+    <hr>
+    <div class="product-price item_price">{{currency_symbol}}{{ProductPrice}}</div>
+    <hr>
+    <div class="quantity-text {{theme}}">Quantity:</div>
+    <div class="add-section">
+      <input class='item_Quantity quantity-input {{theme}}' type='text' value='1'></input>
+      <a class="build-addtocart-button product-addtocart-button cart-button cart-button-animate {{theme}}"  href="javascript:;">Add to Cart</a>
+      <div class="build-cart-animation" style="display:none">1</div>
+    </div>
   </div>
 </div>

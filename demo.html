@@ -8,7 +8,6 @@
 
 <script>
 
-
 //stubs for local testing
 ShoppingCartPlugin.getProductsXML = function(AI, successCallback){
   data = Handlebars.templates.productsxml();
@@ -21,7 +20,7 @@ ShoppingCartPlugin.getCategoriesXML = function(AI, successCallback){
   ShoppingCartPlugin.insertIntoDiv();
 };
 SCVOAccountID = 'D4874F13-9422-4C3B-B734-E117495A9BAE';
-
+CreateCartAnimations = function(){ console.log('creating cart animations...');};
 
 divToInsert = $('.shopping-cart');
 ShoppingCartPlugin.initialize(SCVOAccountID, divToInsert);
