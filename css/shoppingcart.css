@@ -80,6 +80,7 @@
   font-size: 17px;
   font-weight: bold;
   cursor: pointer;
+  text-decoration: none;
 }
 
 .cart-button.dark-theme
@@ -259,4 +260,9 @@
 
 .products {
   margin-bottom: 5px;
+}
+
+.single-item-quantity {
+  visibility: hidden;
+  position: absolute;
 }
