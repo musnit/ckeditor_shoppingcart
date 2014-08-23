@@ -1036,7 +1036,7 @@ function program1(depth0,data) {
   if (helper = helpers.ProductName) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.ProductName); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + "</span><a href=\"#\" onclick=\"window.parent.ShoppingCartPlugin.changeToMain()\" class='home-link'>Back to ";
+    + "</span><a href=\"javascript:;\" onclick=\"window.parent.ShoppingCartPlugin.changeToMain()\" class='home-link'>Back to ";
   if (helper = helpers.currentCategoryName) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.currentCategoryName); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
@@ -1339,8 +1339,16 @@ ShoppingCartPlugin = {
     if(this.dataIsLoaded()){
       this.currentProducts = this.getProductsForCategory(this.currentCategory);
       this.divToInsert.html(this.makeCurrentRoute());
-      if (this.CKEditorWidget.isReady()){
+      if (this.CKEditorWidget === undefined){
         CreateCartAnimations();
+      }
+      else if (this.CKEditorWidget.isReady()){
+        CreateCartAnimations();
+      }
+      else{
+        this.CKEditorWidget.on('ready',function(){
+          CreateCartAnimations();
+        });
       }
     }
   },
@@ -1383,5 +1391,12 @@ ShoppingCartPlugin = {
     this.insertIntoDiv();
   }
 };
+
+$( document ).ready(function() {
+  divToInsert = $('.shopping-cart');
+  if(divToInsert.length !== 0){
+    ShoppingCartPlugin.initialize(SCVOAccountID, divToInsert);
+  }
+});
 
 

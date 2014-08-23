@@ -25,9 +25,11 @@ CKEDITOR.plugins.add( 'shoppingcart', {
         divToInsert = $(this.element.$);
         ShoppingCartPlugin.CKEditorWidget = this;
         ShoppingCartPlugin.initialize(SCVOAccountID, divToInsert);
-        this.on('ready',function(){
-          CreateCartAnimations();
-        });
+      },
+      editables: {
+        category: {
+            selector: '.shopping-cart-categories'
+        }
       }
     });
 
