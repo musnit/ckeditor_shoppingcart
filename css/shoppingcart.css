@@ -10,8 +10,7 @@
 }
 
 .shopping-cart .product-image{
-  max-width: 187px;
-  max-height: 187px;
+  height: 187px;
   padding: 20px;
   display: block;
 }
