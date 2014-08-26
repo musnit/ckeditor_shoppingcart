@@ -15,6 +15,7 @@
   height: 187px;
   padding: 20px;
   display: block;
+  max-width: 100%;
 }
 
 .shopping-cart .product-name{
