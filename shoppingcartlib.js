@@ -1153,7 +1153,7 @@ Handlebars.registerHelper('currentCategoryName', function(options) {
 });
 
 Handlebars.registerHelper('theme', function(options) {
-  return "dark-theme";
+  return ShoppingCartPlugin.theme;
 });
 
 Handlebars.registerHelper('currentMainImageURL', function(options) {
@@ -1266,6 +1266,7 @@ ShoppingCartPlugin = {
   currentPage: 1,
   productsPerPage: 8,
   currentRoute: Handlebars.templates.cart,
+  theme: "dark-theme",
   initialize: function(AI, divToInsert){
     this.AI = AI;
     this.divToInsert = divToInsert;

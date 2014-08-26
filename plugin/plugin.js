@@ -12,7 +12,7 @@ CKEDITOR.plugins.add( 'shoppingcart', {
     // Register the shoppingcart widget.
     editor.widgets.add( 'shoppingcart', {
       allowedContent:
-          'div(!shopping-cart); select(!shopping-cart-categories);',
+          'div(!shopping-cart,dark-theme,light-theme);',
 
       requiredContent: 'div(shopping-cart)',
 
@@ -26,11 +26,15 @@ CKEDITOR.plugins.add( 'shoppingcart', {
         ShoppingCartPlugin.CKEditorWidget = this;
         ShoppingCartPlugin.initialize(SCVOAccountID, divToInsert);
       },
+      data: function(){
+        ShoppingCartPlugin.changeToMain();        
+      },
       editables: {
         category: {
             selector: '.shopping-cart-categories'
         }
-      }
+      },
+      dialog: 'shoppingcart'
     });
 
     editor.ui.addButton( 'ShoppingCart', {
@@ -44,6 +48,8 @@ CKEDITOR.plugins.add( 'shoppingcart', {
       // The button placement in the toolbar (toolbar group name).
       toolbar: 'insert'
     });
+
+    CKEDITOR.dialog.add( 'shoppingcart', this.path + 'dialogs/shoppingcart.js' );
 
     //stubs for local testing
     if(typeof Build === 'undefined'){
@@ -63,22 +69,27 @@ CKEDITOR.plugins.add( 'shoppingcart', {
 
     editor.addCommand('openEcommerceSettingsModal', {
       exec: function(editor) {
-        $("#buildModal").buildModal({action: "show", contentURL: "../../../../Content/includes/buildmodal-include-ecommercesettings.html"});
+          $("#buildModal").buildModal({action: "show", contentURL: "../../../../Content/includes/buildmodal-include-ecommercesettings.html"});
       }
     });
     editor.addCommand('openCategoriesModal', {
       exec: function(editor) {
-      $("#buildModal").buildModal({action: "show", contentURL: "../../../../Content/includes/buildmodal-include-ecommercecategories.html"});
+        $("#buildModal").buildModal({action: "show", contentURL: "../../../../Content/includes/buildmodal-include-ecommercecategories.html"});
       }
     });
     editor.addCommand('openProductsModal', {
       exec: function(editor) {
-      $("#buildModal").buildModal({action: "show", contentURL: "../../../../Content/includes/buildmodal-include-ecommerceproducts.html"});
+        $("#buildModal").buildModal({action: "show", contentURL: "../../../../Content/includes/buildmodal-include-ecommerceproducts.html"});
       }
     });
     editor.addCommand('openShippingModal', {
       exec: function(editor) {
-      $("#buildModal").buildModal({action: "show", contentURL: "../../../../Content/includes/buildmodal-include-ecommerce-shipping.html"});
+        $("#buildModal").buildModal({action: "show", contentURL: "../../../../Content/includes/buildmodal-include-ecommerce-shipping.html"});
+      }
+    });
+    editor.addCommand('openShippingModal', {
+      exec: function(editor) {
+        $("#buildModal").buildModal({action: "show", contentURL: "../../../../Content/includes/buildmodal-include-ecommerce-shipping.html"});
       }
     });
 

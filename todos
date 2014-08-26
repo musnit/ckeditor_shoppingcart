@@ -1,9 +1,7 @@
 todos:
 
-must be responsive - css media queries for mobile devices
-make dropdown/select work in ckeditor
 theme chooser
-improve css
+
 
 ?refresh when products/categories change?
 ?add animations when changing between pages/to single product screen?
