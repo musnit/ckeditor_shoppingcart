@@ -1,12 +1,14 @@
 .shopping-cart {
-  width: 950px;
-  padding-left: 10px;
-  padding-right: 10px;
+  width: 98%;
+  padding-left: 1%;
+  padding-right: 1%;
 }
 
 .shopping-cart .product{
-  width: 227.5px;
+  width: 23%;
   height: 50%;
+  padding-left: 1%;
+  padding-right: 1%;
 }
 
 .shopping-cart .product-image{
@@ -259,6 +261,7 @@
 
 .products {
   margin-bottom: 5px;
+  width: 100%;
 }
 
 .single-item-quantity {
@@ -270,5 +273,9 @@
 }
 
 .product-image-div{
-  height: 227px;
+  height: 50%;
+}
+
+.cart-header{
+  overflow: auto;
 }
