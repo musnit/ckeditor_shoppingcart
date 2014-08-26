@@ -96,6 +96,12 @@ CKEDITOR.plugins.add( 'shoppingcart', {
     if (editor.addMenuItem) {
       editor.addMenuGroup('shoppingcart');
 
+      editor.addMenuItem( 'changeTheme', {
+        label: 'Change Theme',
+        command: 'shoppingcart',
+        group: 'shoppingcart'
+      });
+
       editor.addMenuItem('openEcommerceSettingsModalitem', {
         label: 'Ecommerce Settings',
         command: 'openEcommerceSettingsModal',
@@ -122,6 +128,7 @@ CKEDITOR.plugins.add( 'shoppingcart', {
       editor.contextMenu.addListener(function(element, selection) {
         if (element && element.$ && element.$.firstChild && element.$.firstChild.getAttribute && element.$.firstChild.getAttribute('data-widget') === 'shoppingcart'){
           return {
+            changeTheme: CKEDITOR.TRISTATE_ON,
             openCategoriesModalitem: CKEDITOR.TRISTATE_ON,
             openProductsModalitem: CKEDITOR.TRISTATE_ON,
             openEcommerceSettingsModalitem: CKEDITOR.TRISTATE_ON,

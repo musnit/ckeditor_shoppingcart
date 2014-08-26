@@ -17,7 +17,7 @@ CKEDITOR.dialog.add( 'shoppingcart', function( editor ) {
                             [ 'Dark', 'dark-theme' ]
                         ],
                         setup: function( widget ) {
-                            this.setValue( 'light-theme' );
+                            this.setValue( ShoppingCartPlugin.theme );
                         },
                         commit: function( widget ) {
                             ShoppingCartPlugin.theme = this.getValue();
