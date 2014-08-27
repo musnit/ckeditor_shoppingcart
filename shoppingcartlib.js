@@ -891,14 +891,14 @@ helpers = this.merge(helpers, Handlebars.helpers); partials = this.merge(partial
 function program1(depth0,data) {
   
   var buffer = "", stack1;
-  buffer += "\n    <option value="
+  buffer += "\n        <option value="
     + escapeExpression(((stack1 = (depth0 && depth0.ProdCatID)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + " ";
   stack1 = helpers['if'].call(depth0, (depth0 && depth0.isCurrentCategory), {hash:{},inverse:self.noop,fn:self.program(2, program2, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += ">"
     + escapeExpression(((stack1 = (depth0 && depth0.CatName)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "</option>\n  ";
+    + "</option>\n      ";
   return buffer;
   }
 function program2(depth0,data) {
@@ -910,26 +910,26 @@ function program2(depth0,data) {
 function program4(depth0,data) {
   
   var buffer = "", stack1;
-  buffer += "\n    ";
+  buffer += "\n      ";
   stack1 = self.invokePartial(partials.product, 'product', depth0, helpers, partials, data);
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n  ";
+  buffer += "\n    ";
   return buffer;
   }
 
 function program6(depth0,data) {
   
   var buffer = "", stack1;
-  buffer += "\n  ";
+  buffer += "\n      ";
   stack1 = helpers['if'].call(depth0, (depth0 && depth0.currentPage), {hash:{},inverse:self.program(9, program9, data),fn:self.program(7, program7, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n";
+  buffer += "\n    ";
   return buffer;
   }
 function program7(depth0,data) {
   
   var buffer = "", stack1, helper;
-  buffer += "\n    <a class=\"page-link current-page-link ";
+  buffer += "\n        <a class=\"page-link current-page-link ";
   if (helper = helpers.theme) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.theme); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
@@ -945,14 +945,14 @@ function program7(depth0,data) {
   if (helper = helpers.pageNumber) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.pageNumber); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + "</a>\n  ";
+    + "</a>\n      ";
   return buffer;
   }
 
 function program9(depth0,data) {
   
   var buffer = "", stack1, helper;
-  buffer += "\n    <a class=\"page-link\" title=\"Change to page ";
+  buffer += "\n        <a class=\"page-link\" title=\"Change to page ";
   if (helper = helpers.pageNumber) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.pageNumber); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
@@ -964,33 +964,34 @@ function program9(depth0,data) {
   if (helper = helpers.pageNumber) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.pageNumber); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + "</a>\n  ";
+    + "</a>\n      ";
   return buffer;
   }
 
-  buffer += "<div class=\"shopping-cart-header\">\n  <span class=\"category-name ";
+  buffer += "<div class=\"shopping-cart-widget\">\n  <div class=\"shopping-cart-header\">\n    <span class=\"category-name ";
   if (helper = helpers.theme) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.theme); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
     + "\">"
     + escapeExpression(((stack1 = ((stack1 = (depth0 && depth0.currentCategory)),stack1 == null || stack1 === false ? stack1 : stack1.CatName)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "</span><span class='category-select ";
+    + "</span>\n    <span class='category-select ";
   if (helper = helpers.theme) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.theme); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + "'>Browse:\n  <select class=\"shopping-cart-categories\" onchange=\"ShoppingCartPlugin.changeCategory(this);return false;\">\n  ";
+    + "'>\n      <label for=\"shoppingcart-category-select\">Browse:</label>\n      <select name=\"shoppingcart-category-select\" id=\"shoppingcart-category-select\" class=\"shopping-cart-categories\" onchange=\"ShoppingCartPlugin.changeCategory(this);return false;\">\n      ";
   stack1 = helpers.each.call(depth0, (depth0 && depth0.categories), {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n  </select></span>\n</div>\n<div class=\"products\">\n  ";
+  buffer += "\n      </select>\n    </span>\n  </div>\n  <div class=\"products\">\n    ";
   stack1 = (helper = helpers.each_on_current_page || (depth0 && depth0.each_on_current_page),options={hash:{},inverse:self.noop,fn:self.program(4, program4, data),data:data},helper ? helper.call(depth0, (depth0 && depth0.currentProducts), options) : helperMissing.call(depth0, "each_on_current_page", (depth0 && depth0.currentProducts), options));
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n</div>\n<span class=\"pages ";
+  buffer += "\n  </div>\n  <div class=\"shopping-cart-footer\">\n    <span class=\"pages ";
   if (helper = helpers.theme) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.theme); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + "\">Pages:</span>\n";
+    + "\">Pages:</span>\n    ";
   stack1 = (helper = helpers.each_page || (depth0 && depth0.each_page),options={hash:{},inverse:self.noop,fn:self.program(6, program6, data),data:data},helper ? helper.call(depth0, (depth0 && depth0.currentProducts), options) : helperMissing.call(depth0, "each_page", (depth0 && depth0.currentProducts), options));
   if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\n  </div>\n</div>";
   return buffer;
   });
 templates['categoriesxml'] = template(function (Handlebars,depth0,helpers,partials,data) {
@@ -1135,7 +1136,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   if (helper = helpers.theme) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.theme); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + "\" href=\"javascript:;\">Add to Cart</a>\n  <input type=\"text\" value=\"1\" class=\"item_Quantity single-item-quantity\">\n  <div class=\"build-cart-animation\" style=\"display:none\">1</div>\n</div>";
+    + "\" href=\"javascript:;\">\n    <span class=\"value\">Add to Cart</span>\n    <span class=\"glyphicon glyphicon-plus-sign\"></span>\n  </a>\n  <input type=\"text\" value=\"1\" class=\"item_Quantity single-item-quantity\">\n  <div class=\"build-cart-animation\" style=\"display:none\">1</div>\n</div>";
   return buffer;
   });
 })();

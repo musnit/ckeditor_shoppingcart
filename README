@@ -5,12 +5,11 @@ This plugin requires:
 
 Usage:
   Add the whole shoppingcart folder to your CKEditor plugins directory and CKEditor config file.
-  Configure the plgin with:
-    ...
 
 Info on how it works internally (if it needs to be changed):
-  The actual CKEditor plugin is in plugin/plugin.js
-  The handlebars library used is in ./lib
-  The handlebars templates for the cart are in ./templates
-  These are all then complied into a plugin.js that CKEditor uses, by running the compile bash script.
-  This was done so that the plugin could be added easily as is, with all libraries and compilation included.
+  The actual CKEditor plugin and dialog is in plugin/plugin.js and dialog/
+  The external javascript libraries used are in ./vendor
+  The internal javascript cart libraries are in ./lib
+  The handlebars templates (HTML) for the cart are in ./templates
+  These are all then compiled into a plugin.js (for CKEditor users) and shoppingcartlib.js (for end users), by running the compile bash script.
+  This was done so that the plugin could be added easily as is, with all libraries and compilation included. It requires handlebars to be installed via node.
