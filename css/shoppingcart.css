@@ -5,17 +5,26 @@
 }
 
 .shopping-cart .product{
-  width: 23%;
+  width: 22%;
   height: 50%;
   padding-left: 1%;
   padding-right: 1%;
+  display: inline-block;
 }
 
 .shopping-cart .product-image{
-  height: 187px;
-  padding: 20px;
-  display: block;
-  max-width: calc(100% - 40px);
+  display: inline-block;
+  max-height: 100%;
+  max-width: 100%;
+
+  position:absolute;
+
+  left:0;
+  right:0;
+  top:0;
+  bottom:0;
+
+  margin: auto;
 }
 
 .shopping-cart .product-name{
@@ -273,10 +282,13 @@
   display: none;
 }
 
-.product-image-div{
-  height: 50%;
+.shopping-cart .product-image-div {
+  width: 100%;
+  min-height: 200px;
+  position:relative;
+  overflow:hidden;
 }
 
-.cart-header{
+.shopping-cart-header {
   overflow: auto;
 }

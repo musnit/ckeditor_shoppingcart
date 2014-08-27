@@ -1,21 +1,16 @@
-<span class="category-name {{theme}}">{{currentCategory.CatName}}</span><span class='category-select {{theme}}'>Browse:
-<select class="shopping-cart-categories" onchange="ShoppingCartPlugin.changeCategory(this);return false;">
+<div class="shopping-cart-header">
+  <span class="category-name {{theme}}">{{currentCategory.CatName}}</span><span class='category-select {{theme}}'>Browse:
+  <select class="shopping-cart-categories" onchange="ShoppingCartPlugin.changeCategory(this);return false;">
   {{#each categories}}
     <option value={{this.ProdCatID}} {{#if this.isCurrentCategory}}selected{{/if}}>{{this.CatName}}</option>
   {{/each}}
-</select></span>
-<table class="products">
-  <tr>
-    {{#each_on_current_page_top currentProducts}}
-      {{> product}}
-    {{/each_on_current_page_top}}
-  </tr>
-  <tr>
-    {{#each_on_current_page_bottom currentProducts}}
-      {{> product}}
-    {{/each_on_current_page_bottom}}
-  </tr>
-</table>
+  </select></span>
+</div>
+<div class="products">
+  {{#each_on_current_page currentProducts}}
+    {{> product}}
+  {{/each_on_current_page}}
+</div>
 <span class="pages {{theme}}">Pages:</span>
 {{#each_page currentProducts}}
   {{#if currentPage}}

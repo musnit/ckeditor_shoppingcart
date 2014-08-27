@@ -910,10 +910,10 @@ function program2(depth0,data) {
 function program4(depth0,data) {
   
   var buffer = "", stack1;
-  buffer += "\n      ";
+  buffer += "\n    ";
   stack1 = self.invokePartial(partials.product, 'product', depth0, helpers, partials, data);
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n    ";
+  buffer += "\n  ";
   return buffer;
   }
 
@@ -968,7 +968,7 @@ function program9(depth0,data) {
   return buffer;
   }
 
-  buffer += "<span class=\"category-name ";
+  buffer += "<div class=\"shopping-cart-header\">\n  <span class=\"category-name ";
   if (helper = helpers.theme) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.theme); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
@@ -978,16 +978,13 @@ function program9(depth0,data) {
   if (helper = helpers.theme) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.theme); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + "'>Browse:\n<select class=\"shopping-cart-categories\" onchange=\"ShoppingCartPlugin.changeCategory(this);return false;\">\n  ";
+    + "'>Browse:\n  <select class=\"shopping-cart-categories\" onchange=\"ShoppingCartPlugin.changeCategory(this);return false;\">\n  ";
   stack1 = helpers.each.call(depth0, (depth0 && depth0.categories), {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n</select></span>\n<table class=\"products\">\n  <tr>\n    ";
-  stack1 = (helper = helpers.each_on_current_page_top || (depth0 && depth0.each_on_current_page_top),options={hash:{},inverse:self.noop,fn:self.program(4, program4, data),data:data},helper ? helper.call(depth0, (depth0 && depth0.currentProducts), options) : helperMissing.call(depth0, "each_on_current_page_top", (depth0 && depth0.currentProducts), options));
+  buffer += "\n  </select></span>\n</div>\n<div class=\"products\">\n  ";
+  stack1 = (helper = helpers.each_on_current_page || (depth0 && depth0.each_on_current_page),options={hash:{},inverse:self.noop,fn:self.program(4, program4, data),data:data},helper ? helper.call(depth0, (depth0 && depth0.currentProducts), options) : helperMissing.call(depth0, "each_on_current_page", (depth0 && depth0.currentProducts), options));
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n  </tr>\n  <tr>\n    ";
-  stack1 = (helper = helpers.each_on_current_page_bottom || (depth0 && depth0.each_on_current_page_bottom),options={hash:{},inverse:self.noop,fn:self.program(4, program4, data),data:data},helper ? helper.call(depth0, (depth0 && depth0.currentProducts), options) : helperMissing.call(depth0, "each_on_current_page_bottom", (depth0 && depth0.currentProducts), options));
-  if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n  </tr>\n</table>\n<span class=\"pages ";
+  buffer += "\n</div>\n<span class=\"pages ";
   if (helper = helpers.theme) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.theme); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
@@ -1101,7 +1098,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "", stack1, helper, options, functionType="function", escapeExpression=this.escapeExpression, helperMissing=helpers.helperMissing;
 
 
-  buffer += "<td class=\"product simpleCart_shelfItem\">\n  <div class=\"product-page-links\" onclick=\"window.parent.ShoppingCartPlugin.changeToProduct('";
+  buffer += "<div class=\"product simpleCart_shelfItem\">\n  <div class=\"product-page-links\" onclick=\"window.parent.ShoppingCartPlugin.changeToProduct('";
   if (helper = helpers.id) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.id); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
@@ -1138,7 +1135,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   if (helper = helpers.theme) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.theme); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + "\" href=\"javascript:;\">Add to Cart</a>\n  <input type=\"text\" value=\"1\" class=\"item_Quantity single-item-quantity\">\n  <div class=\"build-cart-animation\" style=\"display:none\">1</div>\n</td>";
+    + "\" href=\"javascript:;\">Add to Cart</a>\n  <input type=\"text\" value=\"1\" class=\"item_Quantity single-item-quantity\">\n  <div class=\"build-cart-animation\" style=\"display:none\">1</div>\n</div>";
   return buffer;
   });
 })();
@@ -1204,30 +1201,12 @@ Handlebars.registerHelper("each_with_index", function(array, options) {
  
 });
 
-Handlebars.registerHelper("each_on_current_page_top", function(array, options) {
+Handlebars.registerHelper("each_on_current_page", function(array, options) {
   var buffer = "";
   currentPage = ShoppingCartPlugin.currentPage;
   productsPerPage = ShoppingCartPlugin.productsPerPage;
   startIndex = (currentPage-1)*productsPerPage;
-  endIndex = startIndex + Math.ceil(productsPerPage/2);
-  for (var i = 0, j = array.length; i < j; i++) {
-    var item = array[i];
-    
-    if (startIndex <= i && i < endIndex) {
-      buffer += options.fn(item);
-    }
-  }
- 
-  // return the finished buffer
-  return buffer;
- 
-});
-Handlebars.registerHelper("each_on_current_page_bottom", function(array, options) {
-  var buffer = "";
-  currentPage = ShoppingCartPlugin.currentPage;
-  productsPerPage = ShoppingCartPlugin.productsPerPage;
-  startIndex = (currentPage-1)*productsPerPage + Math.ceil(productsPerPage/2);
-  endIndex = startIndex + Math.floor(productsPerPage/2);
+  endIndex = startIndex + productsPerPage;
   for (var i = 0, j = array.length; i < j; i++) {
     var item = array[i];
     
