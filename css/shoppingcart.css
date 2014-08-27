@@ -6,12 +6,16 @@
 
 .shopping-cart .product{
   width: 22%;
-  height: 50%;
   padding-left: 1%;
   padding-right: 1%;
   display: inline-block;
 }
 
+@media screen and (max-width: 500px) {
+  .shopping-cart .product{
+    width: 47%;
+  }
+}
 .shopping-cart .product-image{
   display: inline-block;
   max-height: 100%;
