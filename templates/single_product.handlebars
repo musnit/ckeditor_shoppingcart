@@ -8,14 +8,20 @@
     <div class="photos-section">
       <img class="hidden-thumbnail item_thumb" src={{first Images.Image}} alt={{ProductName}}>
       <div class="main-photo">
-        <img class="first-product-image" src={{currentMainImageURL}} alt={{ProductName}}>
+        <div class="magnify">
+        <div class="large">
+        </div>
+          <div class="imgbox">
+            <img class="first-product-image thumb" src={{currentMainImageURL}} alt={{ProductName}} />
+          </div>
+        </div>
       </div>
       <div class="small-photos">
-        {{#each Images.Image}}
+        {{#each_next_four Images.Image}}
           <div class="small-photo">
             <img class="next-product-image" src={{this}} onclick="window.parent.ShoppingCartPlugin.changeToImage('{{this}}');return false;">
           </div>
-        {{/each}}
+        {{/each_next_four}}
       </div>
     </div>
     <div class="right-section">

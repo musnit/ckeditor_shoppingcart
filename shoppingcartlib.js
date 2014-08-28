@@ -724,6 +724,84 @@ var __module0__ = (function(__dependency1__, __dependency2__, __dependency3__, _
 
 })(jQuery);
 
+/**
+ *
+ * Author URL - https://twitter.com/ruby_on_tails
+ * Plugin source tutorial - http://codetheory.in/image-zoom-magnifying-glass-effect-with-css3-and-jquery/
+ * Original source tutorial - http://thecodeplayer.com/walkthrough/magnifying-glass-for-images-using-jquery-and-css3
+ * Codepen source code - http://codepen.io/scott23/details/akKqc
+ */
+ 
+insertMagnifier = function(){
+
+	var native_width = 0;
+	var native_height = 0;
+  $(".large").css("background","url('" + $(".thumb").attr("src") + "') no-repeat");
+
+	$(".magnify").mousemove(function(e){
+		//When the user hovers on the image, the script will first calculate
+		//the native dimensions if they don't exist. Only after the native dimensions
+		//are available, the script will show the zoomed version.
+		if(!native_width && !native_height)
+		{
+			//This will create a new image object with the same image as that in .small
+			//We cannot directly get the dimensions from .small because of the 
+			//width specified to 200px in the html. To get the actual dimensions we have
+			//created this image object.
+			var image_object = new Image();
+			image_object.src = $(".thumb").attr("src");
+			
+			//This code is wrapped in the .load function which is important.
+			//width and height of the object would return 0 if accessed before 
+			//the image gets loaded.
+			native_width = image_object.width;
+			native_height = image_object.height;
+		}
+		else
+		{
+			//x/y coordinates of the mouse
+			//This is the position of .magnify with respect to the document.
+			var magnify_offset = $(this).offset();
+			//We will deduct the positions of .magnify from the mouse positions with
+			//respect to the document to get the mouse positions with respect to the 
+			//container(.magnify)
+			var mx = e.pageX - magnify_offset.left;
+			var my = e.pageY - magnify_offset.top;
+			
+			//Finally the code to fade out the glass if the mouse is outside the container
+			if(mx < $(this).width() && my < $(this).height() && mx > 0 && my > 0)
+			{
+				$(".large").fadeIn(100);
+			}
+			else
+			{
+				$(".large").fadeOut(100);
+			}
+			if($(".large").is(":visible"))
+			{
+				//The background position of .large will be changed according to the position
+				//of the mouse over the .small image. So we will get the ratio of the pixel
+				//under the mouse pointer with respect to the image and use that to position the 
+				//large image inside the magnifying glass
+				var rx = Math.round(mx/$(".thumb").width()*native_width - $(".large").width()/2)*-1;
+				var ry = Math.round(my/$(".thumb").height()*native_height - $(".large").height()/2)*-1;
+				var bgp = rx + "px " + ry + "px";
+				
+				//Time to move the magnifying glass with the mouse
+				var px = mx - $(".large").width()/2;
+				var py = my - $(".large").height()/2;
+				
+				//Now the glass moves with the mouse
+				//The logic is to deduct half of the glass's width and height from the 
+				//mouse coordinates to place it with its center at the mouse coordinates
+				
+				//If you hover on the image now, you should see the magnifying glass in action
+				$(".large").css({left: px, top: py, backgroundPosition: bgp});
+			}
+		}
+	});
+};
+
 /*	This work is licensed under Creative Commons GNU LGPL License.
 
 	License: http://creativecommons.org/licenses/LGPL/2.1/
@@ -1045,7 +1123,7 @@ function program1(depth0,data) {
   if (helper = helpers.ProductName) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.ProductName); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + ">\n      <div class=\"main-photo\">\n        <img class=\"first-product-image\" src=";
+    + ">\n      <div class=\"main-photo\">\n        <div class=\"magnify\">\n        <div class=\"large\">\n        </div>\n          <div class=\"imgbox\">\n            <img class=\"first-product-image thumb\" src=";
   if (helper = helpers.currentMainImageURL) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.currentMainImageURL); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
@@ -1053,8 +1131,8 @@ function program1(depth0,data) {
   if (helper = helpers.ProductName) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.ProductName); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + ">\n      </div>\n      <div class=\"small-photos\">\n        ";
-  stack1 = helpers.each.call(depth0, ((stack1 = (depth0 && depth0.Images)),stack1 == null || stack1 === false ? stack1 : stack1.Image), {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
+    + " />\n          </div>\n        </div>\n      </div>\n      <div class=\"small-photos\">\n        ";
+  stack1 = (helper = helpers.each_next_four || (depth0 && depth0.each_next_four),options={hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data},helper ? helper.call(depth0, ((stack1 = (depth0 && depth0.Images)),stack1 == null || stack1 === false ? stack1 : stack1.Image), options) : helperMissing.call(depth0, "each_next_four", ((stack1 = (depth0 && depth0.Images)),stack1 == null || stack1 === false ? stack1 : stack1.Image), options));
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "\n      </div>\n    </div>\n    <div class=\"right-section\">\n      <div class=\"sku\">";
   if (helper = helpers.SKU) { stack1 = helper.call(depth0, {hash:{},data:data}); }
@@ -1143,7 +1221,7 @@ Handlebars.registerHelper('currentMainImageURL', function(options) {
   return ShoppingCartPlugin.currentMainImageURL;
 });
 
-Handlebars.registerHelper("each_next_three", function(array, options) {
+Handlebars.registerHelper("each_next_four", function(array, options) {
   var buffer = "";
   product = ShoppingCartPlugin.currentContext;
   images = product.Images.Image;
@@ -1154,7 +1232,7 @@ Handlebars.registerHelper("each_next_three", function(array, options) {
     }
     return true;
   });
-  length = Math.min(otherImages.length, 3);
+  length = Math.min(otherImages.length, 4);
   for (var i = 0, j = length; i < j; i++) {
     var item = otherImages[i];
     buffer += options.fn(item);
@@ -1317,13 +1395,16 @@ ShoppingCartPlugin = {
       cart.divToInsert.html(cart.makeCurrentRoute());
       if (cart.CKEditorWidget === undefined){
         CreateCartAnimations();
+        insertMagnifier();
       }
       else if (cart.CKEditorWidget.isReady()){
         CreateCartAnimations();
+        insertMagnifier();
       }
       else{
         cart.CKEditorWidget.on('ready',function(){
           CreateCartAnimations();
+        insertMagnifier();
         });
       }
       cart.divToInsert.fadeIn(200);
