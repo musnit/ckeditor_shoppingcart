@@ -393,8 +393,8 @@
 .shopping-cart .next-product-image {
   max-height: 140px;
   margin-top: 15px;
-  margin-right: 15px;
-  max-width: 30%;
+  margin-right: 5px;
+  max-width: 22%;
 }
 
 .shopping-cart .single-item-quantity {
