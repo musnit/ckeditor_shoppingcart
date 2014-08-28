@@ -413,11 +413,13 @@
   -webkit-transform: translate(0px,5px);
 }
 
-.home-arrow-link.glyphicons.circle_arrow_left:before{
+.home-arrow-link.glyphicons.circle_arrow_left:before {
   font-size: 34px;
 }
 
-
+.home-arrow-link {
+  vertical-align: inherit;
+}
 
 /*  ==========================================
     Themes
@@ -549,16 +551,7 @@
 @media screen and (max-width: 768px) {
 
   .shopping-cart .product {
-
     width: 100%;
-    /*padding-right: 1%;*/
-
-  }
-
-  .shopping-cart .shopping-cart-header {
-
-    
-
   }
 
   .shopping-cart .shopping-cart-header .category-name { 
@@ -580,19 +573,12 @@
     display:none;
   }
 
-
-
   .shopping-cart .shopping-cart-header .category-select option { 
     padding: 10px
   }
 
   .shopping-cart .product .cart-button {
     width: 100%;
-  }
-
-  .shopping-cart .product {
- 
-
   }
 
   .shopping-cart .product-name-heading{
@@ -618,6 +604,7 @@
 
   .product-name-heading {
     padding-left: 25%;
+    float: right;
   }
 
 }
