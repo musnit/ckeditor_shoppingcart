@@ -1276,7 +1276,7 @@ ShoppingCartPlugin = {
     if(this.dataIsLoaded()){
       this.currentProducts = this.getProductsForCategory(this.currentCategory);
     cart = this;
-    this.divToInsert.fadeOut("slow", function(){
+    this.divToInsert.fadeOut("fast", function(){
       cart.divToInsert.html(cart.makeCurrentRoute());
       if (cart.CKEditorWidget === undefined){
         CreateCartAnimations();
@@ -1289,7 +1289,7 @@ ShoppingCartPlugin = {
           CreateCartAnimations();
         });
       }
-      cart.divToInsert.fadeIn("slow");
+      cart.divToInsert.fadeIn("fast");
     });
 
 
