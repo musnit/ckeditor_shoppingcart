@@ -1276,7 +1276,11 @@ ShoppingCartPlugin = {
     if(this.dataIsLoaded()){
       this.currentProducts = this.getProductsForCategory(this.currentCategory);
     cart = this;
-    this.divToInsert.fadeOut("fast", function(){
+    divToFade = this.divToInsert;
+    if (this.divToInsert.find('.products').length !== 0){
+      divToFade = this.divToInsert.find('.products');
+    }
+    divToFade.fadeOut(200, function(){
       cart.divToInsert.html(cart.makeCurrentRoute());
       if (cart.CKEditorWidget === undefined){
         CreateCartAnimations();
@@ -1289,7 +1293,7 @@ ShoppingCartPlugin = {
           CreateCartAnimations();
         });
       }
-      cart.divToInsert.fadeIn("fast");
+      cart.divToInsert.fadeIn(200);
     });
 
 
