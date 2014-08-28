@@ -413,7 +413,9 @@
   -webkit-transform: translate(0px,5px);
 }
 
-
+.home-arrow-link.glyphicons.circle_arrow_left:before{
+  font-size: 34px;
+}
 
 
 
@@ -610,6 +612,14 @@
     float: none;
   }
 
+  .home-link {
+    display:none;
+  }
+
+  .product-name-heading {
+    padding-left: 25%;
+  }
+
 }
 
 @media screen and (min-width: 768px) {
@@ -620,6 +630,10 @@
     padding-right: 3%;
     margin-top: 50px;
 
+  }
+
+  .home-arrow-link {
+    display:none;
   }
 
 }

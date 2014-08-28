@@ -1018,11 +1018,15 @@ function program1(depth0,data) {
   if (helper = helpers.theme) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.theme); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + "\">\n  <div class=\"single-product simpleCart_shelfItem\">\n    <div class='top-section'>\n      <span class=\"product-name-heading item_name\">";
+    + "\">\n  <div class=\"single-product simpleCart_shelfItem\">\n    <div class='top-section'>\n      <a href=\"javascript:;\" onclick=\"window.parent.ShoppingCartPlugin.changeToMain()\" class=\"glyphicons ";
+  if (helper = helpers.themeColor) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.themeColor); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + " circle_arrow_left home-arrow-link\"></span>\n      <span class=\"product-name-heading item_name\">";
   if (helper = helpers.ProductName) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.ProductName); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + "</span><a href=\"javascript:;\" onclick=\"window.parent.ShoppingCartPlugin.changeToMain()\" class='home-link'>Back to ";
+    + "</span>\n      <a href=\"javascript:;\" onclick=\"window.parent.ShoppingCartPlugin.changeToMain()\" class='home-link'>Back to ";
   if (helper = helpers.currentCategoryName) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.currentCategoryName); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
