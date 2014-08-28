@@ -1,28 +1,30 @@
-<div class="single-product simpleCart_shelfItem">
-  <div class='top-section'>
-    <span class="product-name-heading item_name">{{ProductName}}</span><a href="javascript:;" onclick="window.parent.ShoppingCartPlugin.changeToMain()" class='home-link'>Back to {{currentCategoryName}}</a>
-  </div>
-  <div class="photos-section">
-    <img class="hidden-thumbnail item_thumb" src={{first Images.Image}} alt={{ProductName}}>
-    <div><img class="first-product-image" src={{currentMainImageURL}} alt={{ProductName}}></div>
-      {{#each_next_three Images.Image}}
-        <img class="next-product-image" src={{this}} onclick="window.parent.ShoppingCartPlugin.changeToImage('{{this}}');return false;">
-      {{/each_next_three}}
-  </div>
-  <div class="right-section">
-    <div class="sku">{{SKU}}</div>
-    <div class="long-description">{{ProductDescription}}</div>
-    <hr>
-    <div class="product-price item_price">{{currency_symbol}}{{ProductPrice}}</div>
-    <hr>
-    <div class="quantity-text">Quantity:</div>
-    <div class="add-section">
-      <input class='item_Quantity quantity-input' type='text' value='1'></input>
-      <a class="build-addtocart-button product-addtocart-button cart-button cart-button-animate item_add" href="javascript:;">
-        <span class="value">Add to Cart</span>
-        <span class="glyphicon glyphicon-plus-sign glyphicons {{themeColor}} circle_plus"></span>
-      </a>
-      <div class="build-cart-animation" style="display:none">1</div>
+<div class="shopping-cart-widget {{theme}}">
+  <div class="single-product simpleCart_shelfItem">
+    <div class='top-section'>
+      <span class="product-name-heading item_name">{{ProductName}}</span><a href="javascript:;" onclick="window.parent.ShoppingCartPlugin.changeToMain()" class='home-link'>Back to {{currentCategoryName}}</a>
+    </div>
+    <div class="photos-section">
+      <img class="hidden-thumbnail item_thumb" src={{first Images.Image}} alt={{ProductName}}>
+      <div><img class="first-product-image" src={{currentMainImageURL}} alt={{ProductName}}></div>
+        {{#each_next_three Images.Image}}
+          <img class="next-product-image" src={{this}} onclick="window.parent.ShoppingCartPlugin.changeToImage('{{this}}');return false;">
+        {{/each_next_three}}
+    </div>
+    <div class="right-section">
+      <div class="sku">{{SKU}}</div>
+      <div class="long-description">{{ProductDescription}}</div>
+      <hr>
+      <div class="product-price item_price">{{currency_symbol}}{{ProductPrice}}</div>
+      <hr>
+      <div class="quantity-text">Quantity:</div>
+      <div class="add-section">
+        <input class='item_Quantity quantity-input' type='text' value='1'></input>
+        <a class="build-addtocart-button product-addtocart-button cart-button cart-button-animate item_add" href="javascript:;">
+          <span class="value">Add to Cart</span>
+          <span class="glyphicon glyphicon-plus-sign glyphicons {{themeColor}} circle_plus"></span>
+        </a>
+        <div class="build-cart-animation" style="display:none">1</div>
+      </div>
     </div>
   </div>
 </div>
