@@ -88,7 +88,10 @@
   display: none;
 }
 
-
+.shopping-cart .circle_plus {
+  padding-left: 12px;
+  margin-left: 6px;
+}
 
 
 
@@ -615,7 +618,7 @@
     width: 100%;
     float: none;
   }
-  
+
 }
 
 @media screen and (min-width: 768px) {
