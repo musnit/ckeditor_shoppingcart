@@ -11,11 +11,11 @@
         <img class="first-product-image" src={{currentMainImageURL}} alt={{ProductName}}>
       </div>
       <div class="small-photos">
-        {{#each_next_three Images.Image}}
+        {{#each Images.Image}}
           <div class="small-photo">
             <img class="next-product-image" src={{this}} onclick="window.parent.ShoppingCartPlugin.changeToImage('{{this}}');return false;">
           </div>
-        {{/each_next_three}}
+        {{/each}}
       </div>
     </div>
     <div class="right-section">

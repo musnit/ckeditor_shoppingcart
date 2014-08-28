@@ -1054,7 +1054,7 @@ function program1(depth0,data) {
   else { helper = (depth0 && depth0.ProductName); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
     + ">\n      </div>\n      <div class=\"small-photos\">\n        ";
-  stack1 = (helper = helpers.each_next_three || (depth0 && depth0.each_next_three),options={hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data},helper ? helper.call(depth0, ((stack1 = (depth0 && depth0.Images)),stack1 == null || stack1 === false ? stack1 : stack1.Image), options) : helperMissing.call(depth0, "each_next_three", ((stack1 = (depth0 && depth0.Images)),stack1 == null || stack1 === false ? stack1 : stack1.Image), options));
+  stack1 = helpers.each.call(depth0, ((stack1 = (depth0 && depth0.Images)),stack1 == null || stack1 === false ? stack1 : stack1.Image), {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "\n      </div>\n    </div>\n    <div class=\"right-section\">\n      <div class=\"sku\">";
   if (helper = helpers.SKU) { stack1 = helper.call(depth0, {hash:{},data:data}); }
@@ -1310,7 +1310,7 @@ ShoppingCartPlugin = {
       divToFade = this.divToInsert.find('.products');
     }
     else if(this.imageChanging){
-      divToFade = this.divToInsert.find('.photos-section');
+      divToFade = this.divToInsert.find('.main-photo');
       this.imageChanging = false;
     }
     divToFade.fadeOut(200, function(){
