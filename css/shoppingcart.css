@@ -44,17 +44,6 @@
 
 
 
-.quantity-input {
-  float: left;
-  padding: 5px;
-  background: none;
-  width: 39px;
-  border-radius: 3px;
-  margin-right: 9px;
-  border: 1px solid rgb(133, 133, 133);
-}
-
-
 
 .right-section .product-price{
   font-size: 30px;
@@ -355,16 +344,6 @@
   margin-bottom: 15px;
 }
 
-
-.light-theme .quantity-text {
-  color: black;
-}
-
-.light-theme .long-description {
-  color: black;
-}
-
-
 .add-section {
   margin-top: 5px;
 }
@@ -373,16 +352,14 @@
   float: left;
   padding: 5px;
   background: none;
-  width: 39px;
+  width: 45px;
   border-radius: 3px;
   margin-right: 9px;
   border: 1px solid rgb(133, 133, 133);
+  height: 33px;
+  width: 50px;
+  border-radius: 4px;
 }
-
-.light-theme .quantity-input{
-  color: black;
-}
-
 
 .right-section .product-price{
   font-size: 30px;
@@ -478,6 +455,17 @@
 }
 
 
+.light-theme .quantity-input{
+  color: black;
+}
+
+.light-theme .quantity-text {
+  color: black;
+}
+
+.light-theme .long-description {
+  color: black;
+}
 
 
 /*  ------------------------------------------
