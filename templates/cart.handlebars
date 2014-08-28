@@ -11,6 +11,11 @@
     </span>
   </div>
   <div class="products">
+    {{#unless currentProducts}}
+      <div class="noproducts-overlay-container">
+        <div class="noproducts-overlay">There are no products in this category.</div>
+      </div>
+    {{/unless}}
     {{#each_on_current_page currentProducts}}
       {{> product}}
     {{/each_on_current_page}}
