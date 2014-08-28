@@ -1054,7 +1054,11 @@ function program1(depth0,data) {
   if (helper = helpers.ProductPrice) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.ProductPrice); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + "</div>\n    <hr>\n    <div class=\"quantity-text\">Quantity:</div>\n    <div class=\"add-section\">\n      <input class='item_Quantity quantity-input' type='text' value='1'></input>\n      <a class=\"build-addtocart-button item_add product-addtocart-button cart-button cart-button-animate\"  href=\"javascript:;\">Add to Cart</a>\n      <div class=\"build-cart-animation\" style=\"display:none\">1</div>\n    </div>\n  </div>\n</div>";
+    + "</div>\n    <hr>\n    <div class=\"quantity-text\">Quantity:</div>\n    <div class=\"add-section\">\n      <input class='item_Quantity quantity-input' type='text' value='1'></input>\n      <a class=\"build-addtocart-button product-addtocart-button cart-button cart-button-animate item_add\" href=\"javascript:;\">\n        <span class=\"value\">Add to Cart</span>\n        <span class=\"glyphicon glyphicon-plus-sign glyphicons ";
+  if (helper = helpers.themeColor) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.themeColor); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + " circle_plus\"></span>\n      </a>\n      <div class=\"build-cart-animation\" style=\"display:none\">1</div>\n    </div>\n  </div>\n</div>";
   return buffer;
   });
 })();
@@ -1096,7 +1100,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   if (helper = helpers.themeColor) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.themeColor); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + " circle-plus\"></span>\n  </a>\n  <input type=\"text\" value=\"1\" class=\"item_Quantity single-item-quantity\">\n  <div class=\"build-cart-animation\" style=\"display:none\">1</div>\n</div>";
+    + " circle_plus\"></span>\n  </a>\n  <input type=\"text\" value=\"1\" class=\"item_Quantity single-item-quantity\">\n  <div class=\"build-cart-animation\" style=\"display:none\">1</div>\n</div>";
   return buffer;
   });
 })();
