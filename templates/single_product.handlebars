@@ -7,10 +7,16 @@
     </div>
     <div class="photos-section">
       <img class="hidden-thumbnail item_thumb" src={{first Images.Image}} alt={{ProductName}}>
-      <div><img class="first-product-image" src={{currentMainImageURL}} alt={{ProductName}}></div>
+      <div class="main-photo">
+        <img class="first-product-image" src={{currentMainImageURL}} alt={{ProductName}}>
+      </div>
+      <div class="small-photos">
         {{#each_next_three Images.Image}}
-          <img class="next-product-image" src={{this}} onclick="window.parent.ShoppingCartPlugin.changeToImage('{{this}}');return false;">
+          <div class="small-photo">
+            <img class="next-product-image" src={{this}} onclick="window.parent.ShoppingCartPlugin.changeToImage('{{this}}');return false;">
+          </div>
         {{/each_next_three}}
+      </div>
     </div>
     <div class="right-section">
       <div class="sku">{{SKU}}</div>
