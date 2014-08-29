@@ -488,6 +488,10 @@
   vertical-align: inherit;
 }
 
+.shopping-cart .single-product .top-section .big-home-arrow-link {
+  padding-right: 40px;
+}
+
 .shopping-cart .single-product .right-section .quantity-text {
   font-weight: bold;
   font-size: 16px;
@@ -507,7 +511,7 @@
 }
 
 .shopping-cart .single-product .photos-section .first-product-image {
-  max-height: 400px;
+  height: 400px;
   max-width: 100%;
 }
 
