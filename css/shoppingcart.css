@@ -23,10 +23,11 @@
   margin-bottom: 15px;
 }
 
-.photos-section {
+.shopping-cart .single-product .photos-section {
   width: 62%;
   margin-right: 3%;
   float: left;
+  text-align: center;
 }
 
 .right-section {
@@ -109,6 +110,10 @@
 /* To solve overlap bug at the edges during magnification */
 .shopping-cart .thumb {
   display: block;
+}
+
+.shopping-cart .magnify {
+  position: relative;
 }
 
 
@@ -497,6 +502,7 @@
   margin-bottom: 5px;
   border-radius: 2px;
   overflow:hidden;
+  display: inline-block;
 
 }
 
