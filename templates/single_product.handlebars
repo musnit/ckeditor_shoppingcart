@@ -1,9 +1,12 @@
 <div class="shopping-cart-widget {{theme}}">
   <div class="single-product simpleCart_shelfItem">
     <div class='top-section'>
-      <a href="javascript:;" onclick="window.parent.ShoppingCartPlugin.changeToMain()" class="glyphicons {{themeColor}} circle_arrow_left home-arrow-link"></a>
+      <a href="javascript:;" onclick="window.parent.ShoppingCartPlugin.changeToMain()" class="glyphicons {{themeColor}} circle_arrow_left single-home-arrow-link"></a>
       <span class="product-name-heading item_name">{{ProductName}}</span>
-      <a href="javascript:;" onclick="window.parent.ShoppingCartPlugin.changeToMain()" class='home-link'>Back to {{currentCategoryName}}</a>
+      <a href="javascript:;" onclick="window.parent.ShoppingCartPlugin.changeToMain()" class='home-link'>
+        <span class="glyphicons {{themeColor}} circle_arrow_left home-arrow-link"></span>
+        Back to {{currentCategoryName}}
+      </a>
     </div>
     <div class="photos-section">
       <img class="hidden-thumbnail item_thumb" src={{first Images.Image}} alt={{ProductName}}>
