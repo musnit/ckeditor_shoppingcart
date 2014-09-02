@@ -450,7 +450,9 @@
   background: #2c75d0;
 }
 
-
+.shopping-cart .single-product .top-section .small-home-link:hover .single-home-arrow-link:before {
+  color: #fff;
+}
 
 .shopping-cart .single-product .add-section {
   margin-top: 5px;
@@ -614,7 +616,17 @@
 
 
 .shopping-cart .single-product .single-home-arrow-link:before {
-  top: -14px;
+  top: -12px;
+  left: 8px;
+  font-size: 19px;
+  color: #2c75d0;
+}
+
+.shopping-cart .single-product .single-home-arrow-link:hover:before {
+  top: -12px;
+  left: 8px;
+  font-size: 19px;
+  color: #fff;
 }
 
 
