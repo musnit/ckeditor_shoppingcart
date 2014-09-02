@@ -390,7 +390,7 @@
 
 .shopping-cart .single-product .top-section .product-name-heading {
   display:inline-block; 
-  line-height: 40px;
+  line-height: 30px;
 } 
 
 .shopping-cart .single-product .top-section .product-price {
@@ -421,8 +421,8 @@
 .shopping-cart .single-product .top-section .small-home-link {
 
   display: inline-block;
-  height: 40px;
-  line-height: 40px;
+  height: 30px;
+  line-height: 30px;
   font-weight: bold;
 
   border-radius: 4px;
