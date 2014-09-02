@@ -545,7 +545,7 @@
 }
 
 .shopping-cart .single-product .photos-section .first-product-image {
-  height: 400px;
+  max-height: 400px;
   max-width: 100%;
 }
 
