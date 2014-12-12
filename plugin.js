@@ -1334,6 +1334,10 @@ ShoppingCartPlugin = {
   productsCallback: function(data){
     this.productsJSON = jQuery.xml2json(data);
     this.products = this.productsJSON.products.Product;
+    if (this.products === undefined){
+      this.products = [];
+      return;
+    }
     if (this.products.constructor !== Array){
       this.products = [this.products];
     }
@@ -1341,6 +1345,10 @@ ShoppingCartPlugin = {
   categoriesCallback: function(data){
     this.categoriesJSON = jQuery.xml2json(data);
     this.categories = this.categoriesJSON.data.Categories.Category;
+    if (this.categories === undefined){
+      this.categories = [];
+      return;
+    }
     if (this.categories.constructor !== Array){
       this.categories = [this.categories];
     }
