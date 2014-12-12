@@ -1345,7 +1345,7 @@ ShoppingCartPlugin = {
     shoppingCart = this;
     $.ajax({
         type: 'POST',
-        url: 'virtualoffice/menuEngine/getproductsgeneral.asp',
+        url: '/virtualoffice/menuEngine/getproductsgeneral.asp',
         processData: false,
         contentType: 'application/x-www-form-urlencoded',
         async: false,
@@ -1364,7 +1364,7 @@ ShoppingCartPlugin = {
     shoppingCart = this;
     $.ajax({
         type: 'POST',
-        url: 'virtualoffice/menuEngine/getproductcatsgeneral.asp',
+        url: '/virtualoffice/menuEngine/getproductcatsgeneral.asp',
         processData: false,
         contentType: 'application/x-www-form-urlencoded',
         async: false,
