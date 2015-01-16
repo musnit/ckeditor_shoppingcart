@@ -957,8 +957,6 @@ function xml2json(xml, tab) {
    var json = X.toJson(X.toObj(X.removeWhite(xml)), xml.nodeName, "\t");
    return "{\n" + tab + (tab ? json.replace(/\t/g, tab) : json.replace(/\t|\n/g, "")) + "\n}";
 }
-
-
 (function() {
   var template = Handlebars.template, templates = Handlebars.templates = Handlebars.templates || {};
 templates['cart'] = template(function (Handlebars,depth0,helpers,partials,data) {
@@ -1150,10 +1148,15 @@ function program1(depth0,data) {
   if (helper = helpers.ProductDescription) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.ProductDescription); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + "</div>\n      <div class=\"product-price item_price\">";
+    + "</div>\n      <div class=\"product-weight item_weight\" style=\"display:none\">";
+  if (helper = helpers.ProductWeight) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.ProductWeight); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "</div>\n      <div class=\"product-price item_price\"><span data-unit=\"currency-symbol\">";
   if (helper = helpers.currency_symbol) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.currency_symbol); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
-  buffer += escapeExpression(stack1);
+  buffer += escapeExpression(stack1)
+    + "</span>";
   if (helper = helpers.ProductPrice) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.ProductPrice); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
@@ -1164,9 +1167,7 @@ function program1(depth0,data) {
     + " circle_plus\"></span>\n        </a>\n        <div class=\"build-cart-animation\" style=\"display:none\">1</div>\n      </div>\n    </div>\n  </div>\n</div>";
   return buffer;
   });
-})();
-
-(function() {
+})();(function() {
   var template = Handlebars.template, templates = Handlebars.templates = Handlebars.templates || {};
 Handlebars.partials['product'] = template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
@@ -1196,10 +1197,11 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   if (helper = helpers.ProductShortDescription) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.ProductShortDescription); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + "</div>\n    <span class=\"product-price item_price\">";
+    + "</div>\n    <span class=\"product-price item_price\"><span data-unit=\"currency-symbol\">";
   if (helper = helpers.currency_symbol) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.currency_symbol); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
-  buffer += escapeExpression(stack1);
+  buffer += escapeExpression(stack1)
+    + "</span>";
   if (helper = helpers.ProductPrice) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.ProductPrice); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
@@ -1211,8 +1213,6 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   return buffer;
   });
 })();
-
-
 Handlebars.registerHelper('first', function(items, options) {
   return items[0];
 });
@@ -1313,7 +1313,7 @@ Handlebars.registerHelper("each_page", function(array, options) {
 });
 
 Handlebars.registerHelper("currency_symbol", function(options) {
-  return typeof Build !== 'undefined'? Build.cartPrefix || '$' : '$';
+  return typeof Build !== 'undefined'? Build.ECommerceSettings.CartCurrencyPrefix || '$' : '$';
 });
 
 ShoppingCartPlugin = {
@@ -1485,5 +1485,3 @@ $( document ).ready(function() {
     ShoppingCartPlugin.initialize(SCVOAccountID, divToInsert);
   }
 });
-
-

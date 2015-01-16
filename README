@@ -12,4 +12,4 @@ Info on how it works internally (if it needs to be changed):
   The internal javascript cart libraries are in ./lib
   The handlebars templates (HTML) for the cart are in ./templates
   These are all then compiled into a plugin.js (for CKEditor users) and shoppingcartlib.js (for end users), by running the compile bash script.
-  This was done so that the plugin could be added easily as is, with all libraries and compilation included. It requires handlebars to be installed via node.
+  This was done so that the plugin could be added easily as is, with all libraries and compilation included. It requires handlebars 1.3.0 to be installed via node.

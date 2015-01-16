@@ -10,28 +10,28 @@ cp vendor/* tmp/vendor
 
 echo Joining and adding vendor libraries...
 awk 'FNR==1{print ""}1' tmp/vendor/* > tmp/plugin_compiled.js
-echo  "\n" >> tmp/plugin_compiled.js
+echo tmp/plugin_compiled.js
 
 echo Compiling handlebars templates...
 handlebars templates/*.handlebars -f tmp/compiled_templates.js
 
 echo Adding handlebars templates...
 cat tmp/compiled_templates.js >> tmp/plugin_compiled.js
-echo  "\n" >> tmp/plugin_compiled.js
+echo tmp/plugin_compiled.js
 
 echo Compiling handlebars partials...
 handlebars -p templates/partials/*.handlebars -f tmp/partial_templates.js
 
 echo Adding handlebars partials...
 cat tmp/partial_templates.js >> tmp/plugin_compiled.js
-echo  "\n" >> tmp/plugin_compiled.js
+echo tmp/plugin_compiled.js
 
 echo Copying libraries...
 cp lib/* tmp/lib
 
 echo Joining and adding libraries...
 awk 'FNR==1{print ""}1' tmp/lib/* >> tmp/plugin_compiled.js
-echo  "\n" >> tmp/plugin_compiled.js
+echo tmp/plugin_compiled.js
 
 echo Copying to shoppingcartlib.js
 cp tmp/plugin_compiled.js shoppingcartlib.js
