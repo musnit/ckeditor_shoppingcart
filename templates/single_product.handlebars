@@ -33,7 +33,8 @@
     <div class="right-section">
       <div class="sku">{{SKU}}</div>
       <div class="long-description">{{ProductDescription}}</div>
-      <div class="product-price item_price">{{currency_symbol}}{{ProductPrice}}</div>
+      <div class="product-weight item_weight" style="display:none">{{ProductWeight}}</div>
+      <div class="product-price item_price"><span data-unit="currency-symbol">{{currency_symbol}}</span>{{ProductPrice}}</div>
       <div class="quantity-text">Quantity:</div>
       <div class="add-section">
         <input class='item_Quantity quantity-input' type='text' value='1'></input>
