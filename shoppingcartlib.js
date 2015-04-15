@@ -959,9 +959,258 @@ function xml2json(xml, tab) {
 }
 
 
+(function() {
+  var template = Handlebars.template, templates = Handlebars.templates = Handlebars.templates || {};
+templates['cart'] = template(function (Handlebars,depth0,helpers,partials,data) {
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); partials = this.merge(partials, Handlebars.partials); data = data || {};
+  var buffer = "", stack1, helper, options, functionType="function", escapeExpression=this.escapeExpression, self=this, helperMissing=helpers.helperMissing;
+
+function program1(depth0,data) {
+  
+  var buffer = "", stack1;
+  buffer += "\n        <option value="
+    + escapeExpression(((stack1 = (depth0 && depth0.ProdCatID)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + " ";
+  stack1 = helpers['if'].call(depth0, (depth0 && depth0.isCurrentCategory), {hash:{},inverse:self.noop,fn:self.program(2, program2, data),data:data});
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += ">"
+    + escapeExpression(((stack1 = (depth0 && depth0.CatName)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</option>\n      ";
+  return buffer;
+  }
+function program2(depth0,data) {
+  
+  
+  return "selected";
+  }
+
+function program4(depth0,data) {
+  
+  
+  return "\n      <div class=\"noproducts-overlay-container\">\n        <div class=\"noproducts-overlay\">There are no products in this category.</div>\n      </div>\n    ";
+  }
+
+function program6(depth0,data) {
+  
+  var buffer = "", stack1;
+  buffer += "\n      ";
+  stack1 = self.invokePartial(partials.product, 'product', depth0, helpers, partials, data);
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\n    ";
+  return buffer;
+  }
+
+function program8(depth0,data) {
+  
+  var buffer = "", stack1;
+  buffer += "\n      ";
+  stack1 = helpers['if'].call(depth0, (depth0 && depth0.currentPage), {hash:{},inverse:self.program(11, program11, data),fn:self.program(9, program9, data),data:data});
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\n    ";
+  return buffer;
+  }
+function program9(depth0,data) {
+  
+  var buffer = "", stack1, helper;
+  buffer += "\n        <a class=\"page-link current-page-link \" title=\"Change to page ";
+  if (helper = helpers.pageNumber) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.pageNumber); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "\" href=\"#\" onclick=\"window.parent.ShoppingCartPlugin.changePage(";
+  if (helper = helpers.pageNumber) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.pageNumber); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + ");return false;\">";
+  if (helper = helpers.pageNumber) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.pageNumber); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "</a>\n      ";
+  return buffer;
+  }
+
+function program11(depth0,data) {
+  
+  var buffer = "", stack1, helper;
+  buffer += "\n        <a class=\"page-link\" title=\"Change to page ";
+  if (helper = helpers.pageNumber) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.pageNumber); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "\" href=\"#\" onclick=\"window.parent.ShoppingCartPlugin.changePage(";
+  if (helper = helpers.pageNumber) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.pageNumber); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + ");return false;\">";
+  if (helper = helpers.pageNumber) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.pageNumber); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "</a>\n      ";
+  return buffer;
+  }
+
+  buffer += "<div class=\"shopping-cart-widget ";
+  if (helper = helpers.theme) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.theme); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "\">\n  <div class=\"shopping-cart-header\">\n    <span class=\"category-name\">"
+    + escapeExpression(((stack1 = ((stack1 = (depth0 && depth0.currentCategory)),stack1 == null || stack1 === false ? stack1 : stack1.CatName)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</span>\n    <span class='category-select '>\n      <label for=\"shoppingcart-category-select\">Browse:</label>\n      <select name=\"shoppingcart-category-select\" id=\"shoppingcart-category-select\" class=\"shopping-cart-categories\" onchange=\"ShoppingCartPlugin.changeCategory(this);return false;\">\n      ";
+  stack1 = helpers.each.call(depth0, (depth0 && depth0.categories), {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\n      </select>\n    </span>\n  </div>\n  <div class=\"products\">\n    ";
+  stack1 = helpers.unless.call(depth0, (depth0 && depth0.currentProducts), {hash:{},inverse:self.noop,fn:self.program(4, program4, data),data:data});
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\n    ";
+  stack1 = (helper = helpers.each_on_current_page || (depth0 && depth0.each_on_current_page),options={hash:{},inverse:self.noop,fn:self.program(6, program6, data),data:data},helper ? helper.call(depth0, (depth0 && depth0.currentProducts), options) : helperMissing.call(depth0, "each_on_current_page", (depth0 && depth0.currentProducts), options));
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\n  </div>\n  <div class=\"shopping-cart-footer\">\n    <span class=\"pages \">Pages:</span>\n    ";
+  stack1 = (helper = helpers.each_page || (depth0 && depth0.each_page),options={hash:{},inverse:self.noop,fn:self.program(8, program8, data),data:data},helper ? helper.call(depth0, (depth0 && depth0.currentProducts), options) : helperMissing.call(depth0, "each_page", (depth0 && depth0.currentProducts), options));
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\n  </div>\n</div>";
+  return buffer;
+  });
+templates['categoriesxml'] = template(function (Handlebars,depth0,helpers,partials,data) {
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
+  
 
 
+  return "<XML><data><Categories><Category><ProdCatID>{2E04C9B1-C0AE-4655-8D78-E67871C21014}</ProdCatID><CatName>Guitar Accessories</CatName></Category><Category><ProdCatID>{5146CEAF-1E9E-4833-BEBE-43B7AEA6FBA6}</ProdCatID><CatName>Hats</CatName></Category><Category><ProdCatID>{7FCCF23A-58E2-45DD-9E3A-AA195047663E}</ProdCatID><CatName>Plates</CatName></Category><Category><ProdCatID>{6139709A-086A-48D0-8704-25916E7E5BAC}</ProdCatID><CatName>Spoons</CatName></Category><Category><ProdCatID>{2AA04345-03E0-44BE-BB7A-7566D1EC732E}</ProdCatID><CatName>Teaspoons</CatName></Category></Categories></data></XML>";
+  });
+templates['productsxml'] = template(function (Handlebars,depth0,helpers,partials,data) {
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
+  
 
+
+  return "<XML><products>\n\n<Product id=\"{E49C0C3D-A77D-4244-83CA-540331A5885F}\">\n\n<SKU><![CDATA[GA-000002]]></SKU>\n\n<ProductName><![CDATA[Amplitube iRig]]></ProductName>\n\n<ProductShortDescription><![CDATA[Origo deorum flexi fontes habitabilis coeptis pro caligine parte.]]></ProductShortDescription>\n\n<ProductDescription><![CDATA[Origo deorum flexi fontes habitabilis coeptis pro caligine parte. Plagae valles tenent tonitrua circumfuso sponte videre. Cuncta undis plagae sic cum et fecit diu alta. Terrenae diverso innabilis utramque. Pronaque levius deducite speciem iunctarum caeleste indigestaque neu. Perveniunt pace effervescere pinus cingebant secrevit.\n\nInnabilis illas caligine fronde triones! Lege qui fuerat induit melioris. Natus aethere caesa adsiduis gravitate. Lucis nabataeaque locis nam. Sed hominum regat temperiemque spisso toto secrevit timebat. Mundo videre sanctius ut umor viseret addidit sui. Utramque descenderat ventis timebat coeperunt retinebat triones praeter.\n\nImagine spisso caligine phoebe sectamque lucis? Distinxit natura radiis reparabat erectos evolvit umor. Aethera glomeravit ardentior frigore subsidere mortales siccis fixo iudicis? His mutastis densior. His non peregrinum astra consistere secuit sidera liberioris. Quam sublime locum securae qui perveniunt undis derecti iners liberioris!]]></ProductDescription>\n\n<ProductPrice><![CDATA[100]]></ProductPrice>\n\n<ProductWeight><![CDATA[0]]></ProductWeight>\n\n\n-<Categories>\n\n<CategoryID><![CDATA[{2E04C9B1-C0AE-4655-8D78-E67871C21014}]]></CategoryID>\n\n</Categories>\n\n\n-<Images>\n\n<Image><![CDATA[http://www.awesomedemosite.com/clientdata/D4874F13-9422-4C3B-B734-E117495A9BAE/files/amplitube-irig.png]]></Image>\n\n<Image><![CDATA[]]></Image>\n\n<Image><![CDATA[]]></Image>\n<Image><![CDATA[]]></Image>\n\n</Images>\n\n</Product>\n\n\n\n\n\n<Product id=\"{6AC38204-09F5-48E9-BFF9-93A3065F0102}\">\n\n<SKU><![CDATA[GUI-000000123]]></SKU>\n\n<ProductName><![CDATA[Amplitube Irig (with images)]]></ProductName>\n\n<ProductShortDescription><![CDATA[This is the product's short description.]]></ProductShortDescription>\n\n<ProductDescription><![CDATA[Origo deorum flexi fontes habitabilis coeptis pro caligine parte. Plagae valles tenent tonitrua circumfuso sponte videre. Cuncta undis plagae sic cum et fecit diu alta. Terrenae diverso innabilis utramque. Pronaque levius deducite speciem iunctarum caeleste indigestaque neu. Perveniunt pace effervescere pinus cingebant secrevit.\n\nInnabilis illas caligine fronde triones! Lege qui fuerat induit melioris. Natus aethere caesa adsiduis gravitate. Lucis nabataeaque locis nam. Sed hominum regat temperiemque spisso toto secrevit timebat. Mundo videre sanctius ut umor viseret addidit sui. Utramque descenderat ventis timebat coeperunt retinebat triones praeter.\n\nImagine spisso caligine phoebe sectamque lucis? Distinxit natura radiis reparabat erectos evolvit umor. Aethera glomeravit ardentior frigore subsidere mortales siccis fixo iudicis? His mutastis densior. His non peregrinum astra consistere secuit sidera liberioris. Quam sublime locum securae qui perveniunt undis derecti iners liberioris!]]></ProductDescription>\n\n<ProductPrice><![CDATA[3000]]></ProductPrice>\n\n<ProductWeight><![CDATA[0]]></ProductWeight>\n\n\n-<Categories>\n\n<CategoryID><![CDATA[{2E04C9B1-C0AE-4655-8D78-E67871C21014}]]></CategoryID>\n\n</Categories>\n\n\n-<Images>\n\n<Image><![CDATA[http://www.awesomedemosite.com/clientdata/D4874F13-9422-4C3B-B734-E117495A9BAE/files/irigpro_webpage_cover_718x450_new_render_white.jpg]]></Image>\n\n<Image><![CDATA[http://www.awesomedemosite.com/clientdata/D4874F13-9422-4C3B-B734-E117495A9BAE/files/comp_combo_718.jpg]]></Image>\n\n<Image><![CDATA[http://www.awesomedemosite.com/clientdata/D4874F13-9422-4C3B-B734-E117495A9BAE/files/iRigPRO_iPhone5_FRONT_4.jpg]]></Image>\n<Image><![CDATA[http://www.awesomedemosite.com/clientdata/D4874F13-9422-4C3B-B734-E117495A9BAE/files/iRigPRO_in_hand_218.jpg]]></Image>\n\n</Images>\n\n</Product>\n\n\n\n\n\n<Product id=\"{C06C1E4A-494D-4AFF-8BE6-53439B6498D2}\">\n\n<SKU><![CDATA[GA-000003]]></SKU>\n\n<ProductName><![CDATA[Amplitube iRig HD]]></ProductName>\n\n<ProductShortDescription><![CDATA[Quam sublime locum securae qui perveniunt undis derecti iners liberioris!]]></ProductShortDescription>\n\n<ProductDescription><![CDATA[Origo deorum flexi fontes habitabilis coeptis pro caligine parte. Plagae valles tenent tonitrua circumfuso sponte videre. Cuncta undis plagae sic cum et fecit diu alta. Terrenae diverso innabilis utramque. Pronaque levius deducite speciem iunctarum caeleste indigestaque neu. Perveniunt pace effervescere pinus cingebant secrevit.\n\nInnabilis illas caligine fronde triones! Lege qui fuerat induit melioris. Natus aethere caesa adsiduis gravitate. Lucis nabataeaque locis nam. Sed hominum regat temperiemque spisso toto secrevit timebat. Mundo videre sanctius ut umor viseret addidit sui. Utramque descenderat ventis timebat coeperunt retinebat triones praeter.\n\nImagine spisso caligine phoebe sectamque lucis? Distinxit natura radiis reparabat erectos evolvit umor. Aethera glomeravit ardentior frigore subsidere mortales siccis fixo iudicis? His mutastis densior. His non peregrinum astra consistere secuit sidera liberioris. Quam sublime locum securae qui perveniunt undis derecti iners liberioris!]]></ProductDescription>\n\n<ProductPrice><![CDATA[3000]]></ProductPrice>\n\n<ProductWeight><![CDATA[3000]]></ProductWeight>\n\n\n-<Categories>\n\n<CategoryID><![CDATA[{2E04C9B1-C0AE-4655-8D78-E67871C21014}]]></CategoryID>\n\n</Categories>\n\n\n-<Images>\n\n<Image><![CDATA[http://www.awesomedemosite.com/clientdata/D4874F13-9422-4C3B-B734-E117495A9BAE/files/amplitube-irig.png]]></Image>\n\n<Image><![CDATA[]]></Image>\n\n<Image><![CDATA[]]></Image>\n<Image><![CDATA[]]></Image>\n\n</Images>\n\n</Product>\n\n\n\n\n\n<Product id=\"{ABC35575-D7EC-4565-B093-A28465A4595E}\">\n\n<SKU><![CDATA[GA-000003]]></SKU>\n\n<ProductName><![CDATA[Amplitube iRig Pro]]></ProductName>\n\n<ProductShortDescription><![CDATA[Origo deorum flexi fontes habitabilis coeptis pro caligine parte.]]></ProductShortDescription>\n\n<ProductDescription><![CDATA[Origo deorum flexi fontes habitabilis coeptis pro caligine parte. Plagae valles tenent tonitrua circumfuso sponte videre. Cuncta undis plagae sic cum et fecit diu alta. Terrenae diverso innabilis utramque. Pronaque levius deducite speciem iunctarum caeleste indigestaque neu. Perveniunt pace effervescere pinus cingebant secrevit.\n\nInnabilis illas caligine fronde triones! Lege qui fuerat induit melioris. Natus aethere caesa adsiduis gravitate. Lucis nabataeaque locis nam. Sed hominum regat temperiemque spisso toto secrevit timebat. Mundo videre sanctius ut umor viseret addidit sui. Utramque descenderat ventis timebat coeperunt retinebat triones praeter.\n\nImagine spisso caligine phoebe sectamque lucis? Distinxit natura radiis reparabat erectos evolvit umor. Aethera glomeravit ardentior frigore subsidere mortales siccis fixo iudicis? His mutastis densior. His non peregrinum astra consistere secuit sidera liberioris. Quam sublime locum securae qui perveniunt undis derecti iners liberioris!]]></ProductDescription>\n\n<ProductPrice><![CDATA[500]]></ProductPrice>\n\n<ProductWeight><![CDATA[0]]></ProductWeight>\n\n\n-<Categories>\n\n<CategoryID><![CDATA[{2E04C9B1-C0AE-4655-8D78-E67871C21014}]]></CategoryID>\n\n</Categories>\n\n\n-<Images>\n\n<Image><![CDATA[http://www.awesomedemosite.com/clientdata/D4874F13-9422-4C3B-B734-E117495A9BAE/files/amplitube-irig.png]]></Image>\n\n<Image><![CDATA[]]></Image>\n\n<Image><![CDATA[]]></Image>\n<Image><![CDATA[]]></Image>\n\n</Images>\n\n</Product>\n\n\n\n\n\n<Product id=\"{42767A1F-2770-4166-B75D-795F22F8A74F}\">\n\n<SKU><![CDATA[Another Cap]]></SKU>\n\n<ProductName><![CDATA[Another Cap]]></ProductName>\n\n<ProductShortDescription><![CDATA[Ummm]]></ProductShortDescription>\n\n<ProductDescription><![CDATA[Long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long description]]></ProductDescription>\n\n<ProductPrice><![CDATA[25]]></ProductPrice>\n\n<ProductWeight><![CDATA[66]]></ProductWeight>\n\n\n-<Categories>\n\n<CategoryID><![CDATA[{5146CEAF-1E9E-4833-BEBE-43B7AEA6FBA6}]]></CategoryID>\n\n</Categories>\n\n\n-<Images>\n\n<Image><![CDATA[http://www.awesomedemosite.com/clientdata/D4874F13-9422-4C3B-B734-E117495A9BAE/files/pdt_fedora2345_38_1.jpg]]></Image>\n\n<Image><![CDATA[]]></Image>\n\n<Image><![CDATA[]]></Image>\n<Image><![CDATA[]]></Image>\n\n</Images>\n\n</Product>\n\n\n\n\n\n<Product id=\"{8567B5F3-BACC-4D21-B8B3-BD5D03C25989}\">\n\n<SKU><![CDATA[HAT-02]]></SKU>\n\n<ProductName><![CDATA[Steampunk Tophat]]></ProductName>\n\n<ProductShortDescription><![CDATA[Steampunk Tophat]]></ProductShortDescription>\n\n<ProductDescription><![CDATA[Origo deorum flexi fontes habitabilis coeptis pro caligine parte. Plagae valles tenent tonitrua circumfuso sponte videre. Cuncta undis plagae sic cum et fecit diu alta. Terrenae diverso innabilis utramque. Pronaque levius deducite speciem iunctarum caeleste indigestaque neu. Perveniunt pace effervescere pinus cingebant secrevit.]]></ProductDescription>\n\n<ProductPrice><![CDATA[500]]></ProductPrice>\n\n<ProductWeight><![CDATA[20]]></ProductWeight>\n\n\n-<Categories>\n\n<CategoryID><![CDATA[]]></CategoryID>\n\n</Categories>\n\n\n-<Images>\n\n<Image><![CDATA[http://www.awesomedemosite.com/clientdata/D4874F13-9422-4C3B-B734-E117495A9BAE/files/steampunk-tophat.jpeg]]></Image>\n\n<Image><![CDATA[]]></Image>\n\n<Image><![CDATA[]]></Image>\n<Image><![CDATA[]]></Image>\n\n</Images>\n\n</Product>\n\n\n\n\n\n<Product id=\"{C991C31D-61DA-45D3-BBEF-B0D09946B1DF}\">\n\n<SKU><![CDATA[GA-000001]]></SKU>\n\n<ProductName><![CDATA[This is a long product name running over several lines.]]></ProductName>\n\n<ProductShortDescription><![CDATA[This is the product's short description which runs over several lines.]]></ProductShortDescription>\n\n<ProductDescription><![CDATA[Origo deorum flexi fontes habitabilis coeptis pro caligine parte. Plagae valles tenent tonitrua circumfuso sponte videre. Cuncta undis plagae sic cum et fecit diu alta. Terrenae diverso innabilis utramque. Pronaque levius deducite speciem iunctarum caeleste indigestaque neu. Perveniunt pace effervescere pinus cingebant secrevit.\n\nInnabilis illas caligine fronde triones! Lege qui fuerat induit melioris. Natus aethere caesa adsiduis gravitate. Lucis nabataeaque locis nam. Sed hominum regat temperiemque spisso toto secrevit timebat. Mundo videre sanctius ut umor viseret addidit sui. Utramque descenderat ventis timebat coeperunt retinebat triones praeter.\n\nImagine spisso caligine phoebe sectamque lucis? Distinxit natura radiis reparabat erectos evolvit umor. Aethera glomeravit ardentior frigore subsidere mortales siccis fixo iudicis? His mutastis densior. His non peregrinum astra consistere secuit sidera liberioris. Quam sublime locum securae qui perveniunt undis derecti iners liberioris!]]></ProductDescription>\n\n<ProductPrice><![CDATA[3000]]></ProductPrice>\n\n<ProductWeight><![CDATA[0]]></ProductWeight>\n\n\n-<Categories>\n\n<CategoryID><![CDATA[{2E04C9B1-C0AE-4655-8D78-E67871C21014}]]></CategoryID>\n\n</Categories>\n\n\n-<Images>\n\n<Image><![CDATA[http://www.awesomedemosite.com/clientdata/D4874F13-9422-4C3B-B734-E117495A9BAE/files/amplitube-irig.png]]></Image>\n\n<Image><![CDATA[]]></Image>\n\n<Image><![CDATA[]]></Image>\n<Image><![CDATA[]]></Image>\n\n</Images>\n\n</Product>\n\n\n\n\n\n<Product id=\"{B4F944C3-F76B-4448-93EE-40B2A7AF546C}\">\n\n<SKU><![CDATA[GA-000005]]></SKU>\n\n<ProductName><![CDATA[This is another product.]]></ProductName>\n\n<ProductShortDescription><![CDATA[Plagae valles tenent tonitrua circumfuso sponte videre.]]></ProductShortDescription>\n\n<ProductDescription><![CDATA[Origo deorum flexi fontes habitabilis coeptis pro caligine parte. Plagae valles tenent tonitrua circumfuso sponte videre. Cuncta undis plagae sic cum et fecit diu alta. Terrenae diverso innabilis utramque. Pronaque levius deducite speciem iunctarum caeleste indigestaque neu. Perveniunt pace effervescere pinus cingebant secrevit.\n\nInnabilis illas caligine fronde triones! Lege qui fuerat induit melioris. Natus aethere caesa adsiduis gravitate. Lucis nabataeaque locis nam. Sed hominum regat temperiemque spisso toto secrevit timebat. Mundo videre sanctius ut umor viseret addidit sui. Utramque descenderat ventis timebat coeperunt retinebat triones praeter.\n\nImagine spisso caligine phoebe sectamque lucis? Distinxit natura radiis reparabat erectos evolvit umor. Aethera glomeravit ardentior frigore subsidere mortales siccis fixo iudicis? His mutastis densior. His non peregrinum astra consistere secuit sidera liberioris. Quam sublime locum securae qui perveniunt undis derecti iners liberioris!]]></ProductDescription>\n\n<ProductPrice><![CDATA[1234]]></ProductPrice>\n\n<ProductWeight><![CDATA[123123]]></ProductWeight>\n\n\n-<Categories>\n\n<CategoryID><![CDATA[{2E04C9B1-C0AE-4655-8D78-E67871C21014}]]></CategoryID>\n\n</Categories>\n\n\n-<Images>\n\n<Image><![CDATA[http://www.awesomedemosite.com/clientdata/D4874F13-9422-4C3B-B734-E117495A9BAE/files/amplitube-irig.png]]></Image>\n\n<Image><![CDATA[]]></Image>\n\n<Image><![CDATA[]]></Image>\n<Image><![CDATA[]]></Image>\n\n</Images>\n\n</Product>\n\n\n\n\n\n<Product id=\"{8534E230-0B97-483F-8316-4D1B11FAED0E}\">\n\n<SKU><![CDATA[HAT-2]]></SKU>\n\n<ProductName><![CDATA[Top Hat]]></ProductName>\n\n<ProductShortDescription><![CDATA[This is another hat.]]></ProductShortDescription>\n\n<ProductDescription><![CDATA[This really, really is another hat.]]></ProductDescription>\n\n<ProductPrice><![CDATA[70]]></ProductPrice>\n\n<ProductWeight><![CDATA[30]]></ProductWeight>\n\n\n-<Categories>\n\n<CategoryID><![CDATA[{5146CEAF-1E9E-4833-BEBE-43B7AEA6FBA6}]]></CategoryID>\n\n</Categories>\n\n\n-<Images>\n\n<Image><![CDATA[http://www.awesomedemosite.com/clientdata/D4874F13-9422-4C3B-B734-E117495A9BAE/files/tophat.jpeg]]></Image>\n\n<Image><![CDATA[]]></Image>\n\n<Image><![CDATA[]]></Image>\n<Image><![CDATA[]]></Image>\n\n</Images>\n\n</Product>\n\n\n\n</products></XML>";
+  });
+templates['single_product'] = template(function (Handlebars,depth0,helpers,partials,data) {
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
+  var buffer = "", stack1, helper, options, functionType="function", escapeExpression=this.escapeExpression, helperMissing=helpers.helperMissing, self=this;
+
+function program1(depth0,data) {
+  
+  var buffer = "";
+  buffer += "\n          <div class=\"small-photo\">\n            <img class=\"next-product-image\" src="
+    + escapeExpression((typeof depth0 === functionType ? depth0.apply(depth0) : depth0))
+    + " onclick=\"window.parent.ShoppingCartPlugin.changeToImage('"
+    + escapeExpression((typeof depth0 === functionType ? depth0.apply(depth0) : depth0))
+    + "');return false;\">\n          </div>\n        ";
+  return buffer;
+  }
+
+  buffer += "<div class=\"shopping-cart-widget ";
+  if (helper = helpers.theme) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.theme); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "\">\n  <div class=\"single-product simpleCart_shelfItem\">\n    <div class='top-section'>\n      <a href=\"javascript:;\" onclick=\"window.parent.ShoppingCartPlugin.changeToMain()\" class=\"small-home-link\">\n        <span class=\"glyphicons ";
+  if (helper = helpers.themeColor) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.themeColor); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + " circle_arrow_left single-home-arrow-link\"></span>\n        Back to ";
+  if (helper = helpers.currentCategoryName) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.currentCategoryName); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "\n      </a>\n      <span class=\"product-name-heading item_name\">";
+  if (helper = helpers.ProductName) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.ProductName); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "</span>\n      <a href=\"javascript:;\" onclick=\"window.parent.ShoppingCartPlugin.changeToMain()\" class='home-link'>\n        <span class=\"glyphicons ";
+  if (helper = helpers.themeColor) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.themeColor); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + " circle_arrow_left home-arrow-link big-home-arrow-link\"></span>\n        Back to ";
+  if (helper = helpers.currentCategoryName) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.currentCategoryName); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "\n      </a>\n    </div>\n    <div class=\"photos-section\">\n      <img class=\"hidden-thumbnail item_thumb\" src="
+    + escapeExpression((helper = helpers.first || (depth0 && depth0.first),options={hash:{},data:data},helper ? helper.call(depth0, ((stack1 = (depth0 && depth0.Images)),stack1 == null || stack1 === false ? stack1 : stack1.Image), options) : helperMissing.call(depth0, "first", ((stack1 = (depth0 && depth0.Images)),stack1 == null || stack1 === false ? stack1 : stack1.Image), options)))
+    + " alt=";
+  if (helper = helpers.ProductName) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.ProductName); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + ">\n      <div class=\"main-photo\">\n        <div class=\"magnify\">\n        <div class=\"large\">\n        </div>\n          <div class=\"imgbox\">\n            <img class=\"first-product-image thumb\" src=";
+  if (helper = helpers.currentMainImageURL) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.currentMainImageURL); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + " alt=";
+  if (helper = helpers.ProductName) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.ProductName); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + " />\n          </div>\n        </div>\n      </div>\n      <div class=\"small-photos\">\n        ";
+  stack1 = (helper = helpers.each_next_four || (depth0 && depth0.each_next_four),options={hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data},helper ? helper.call(depth0, ((stack1 = (depth0 && depth0.Images)),stack1 == null || stack1 === false ? stack1 : stack1.Image), options) : helperMissing.call(depth0, "each_next_four", ((stack1 = (depth0 && depth0.Images)),stack1 == null || stack1 === false ? stack1 : stack1.Image), options));
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\n      </div>\n    </div>\n    <div class=\"right-section\">\n      <div class=\"sku\">";
+  if (helper = helpers.SKU) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.SKU); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "</div>\n      <div class=\"long-description\">";
+  if (helper = helpers.ProductDescription) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.ProductDescription); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "</div>\n      <div class=\"product-price item_price\">";
+  if (helper = helpers.currency_symbol) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.currency_symbol); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1);
+  if (helper = helpers.ProductPrice) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.ProductPrice); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "</div>\n      <div class=\"quantity-text\">Quantity:</div>\n      <div class=\"add-section\">\n        <input class='item_Quantity quantity-input' type='text' value='1'></input>\n        <a class=\"build-addtocart-button product-addtocart-button cart-button cart-button-animate item_add\" href=\"javascript:;\">\n          <span class=\"value\">Add to Cart</span>\n          <span class=\"glyphicon glyphicon-plus-sign glyphicons ";
+  if (helper = helpers.themeColor) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.themeColor); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + " circle_plus\"></span>\n        </a>\n        <div class=\"build-cart-animation\" style=\"display:none\">1</div>\n      </div>\n    </div>\n  </div>\n</div>";
+  return buffer;
+  });
+})();
+
+(function() {
+  var template = Handlebars.template, templates = Handlebars.templates = Handlebars.templates || {};
+Handlebars.partials['product'] = template(function (Handlebars,depth0,helpers,partials,data) {
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
+  var buffer = "", stack1, helper, options, functionType="function", escapeExpression=this.escapeExpression, helperMissing=helpers.helperMissing;
+
+
+  buffer += "<div class=\"product simpleCart_shelfItem\">\n  <div class=\"product-page-links\" onclick=\"window.parent.ShoppingCartPlugin.changeToProduct('";
+  if (helper = helpers.id) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.id); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "');return false;\">\n    <div class=\"product-image-div\">\n      <img class=\"product-image item_thumb\" src="
+    + escapeExpression((helper = helpers.first || (depth0 && depth0.first),options={hash:{},data:data},helper ? helper.call(depth0, ((stack1 = (depth0 && depth0.Images)),stack1 == null || stack1 === false ? stack1 : stack1.Image), options) : helperMissing.call(depth0, "first", ((stack1 = (depth0 && depth0.Images)),stack1 == null || stack1 === false ? stack1 : stack1.Image), options)))
+    + " alt=";
+  if (helper = helpers.ProductName) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.ProductName); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + ">\n    </div>\n    <div class=\"product-name item_name\">";
+  if (helper = helpers.ProductName) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.ProductName); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "</div>\n    <div class=\"product-weight item_weight\" style=\"display:none\">";
+  if (helper = helpers.ProductWeight) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.ProductWeight); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "</div>\n    <div class=\"product-short-description\">";
+  if (helper = helpers.ProductShortDescription) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.ProductShortDescription); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "</div>\n    <span class=\"product-price item_price\">";
+  if (helper = helpers.currency_symbol) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.currency_symbol); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1);
+  if (helper = helpers.ProductPrice) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.ProductPrice); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "</span><br>\n  </div>\n  <a class=\"build-addtocart-button product-addtocart-button cart-button cart-button-animate item_add\" href=\"javascript:;\">\n    <span class=\"value\">Add to Cart</span>\n    <span class=\"glyphicon glyphicon-plus-sign glyphicons ";
+  if (helper = helpers.themeColor) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.themeColor); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + " circle_plus\"></span>\n  </a>\n  <input type=\"text\" value=\"1\" class=\"item_Quantity single-item-quantity\">\n  <div class=\"build-cart-animation\" style=\"display:none\">1</div>\n</div>\n";
+  return buffer;
+  });
+})();
 
 
 Handlebars.registerHelper('first', function(items, options) {
