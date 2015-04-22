@@ -1411,10 +1411,6 @@ Handlebars.registerHelper("currency_symbol", function(options) {
   return typeof Build !== 'undefined'? Build.cartPrefix || '$' : '$';
 });
 
-Handlebars.registerHelper("sortedProductPrices", function(items) {
-  return items;
-});
-
 ShoppingCartPlugin = {
   currentPage: 1,
   productsPerPage: 8,
@@ -1445,6 +1441,13 @@ ShoppingCartPlugin = {
     if (this.products.constructor !== Array){
       this.products = [this.products];
     }
+    this.products.forEach(function(product){
+      if(product.ProductSizes){
+        product.ProductSizes.Size = product.ProductSizes.Size.sort(function(sizeA, sizeB){
+          return sizeA.SizePrice > sizeB.SizePrice;
+        });
+      }
+    });
   },
   categoriesCallback: function(data){
     this.categoriesJSON = jQuery.xml2json(data);
