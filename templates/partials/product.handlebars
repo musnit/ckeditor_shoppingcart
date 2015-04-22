@@ -20,7 +20,7 @@
           <div class="from-text">
             from {{currency_symbol}}{{lowestPrice}}
           </div>
-          <select class="product-size-selector">
+          <select class="product-size-selector" onchange="window.parent.ShoppingCartPlugin.selectProduct(this)">
             {{#each ProductSizes.Size}}
               <option value="{{SizeName}}">{{SizeName}} - {{currency_symbol}}{{SizePrice}}</option>
             {{/each}}

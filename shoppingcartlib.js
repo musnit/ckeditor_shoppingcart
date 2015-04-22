@@ -1134,7 +1134,7 @@ function program6(depth0,data) {
   if (helper = helpers.lowestPrice) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.lowestPrice); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + "\n            </div>\n            <select class=\"product-size-selector\">\n              ";
+    + "\n            </div>\n            <select class=\"product-size-selector\" onchange=\"window.parent.ShoppingCartPlugin.selectProduct(this)\">\n              ";
   stack1 = helpers.each.call(depth0, ((stack1 = (depth0 && depth0.ProductSizes)),stack1 == null || stack1 === false ? stack1 : stack1.Size), {hash:{},inverse:self.noop,fn:self.program(7, program7, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "\n            </select>\n            <span class=\"chosen-size item_size\">\n              ";
@@ -1288,7 +1288,7 @@ function program4(depth0,data) {
   if (helper = helpers.lowestPrice) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.lowestPrice); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + "\n          </div>\n          <select class=\"product-size-selector\">\n            ";
+    + "\n          </div>\n          <select class=\"product-size-selector\" onchange=\"window.parent.ShoppingCartPlugin.selectProduct(this)\">\n            ";
   stack1 = helpers.each.call(depth0, ((stack1 = (depth0 && depth0.ProductSizes)),stack1 == null || stack1 === false ? stack1 : stack1.Size), {hash:{},inverse:self.noop,fn:self.program(5, program5, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "\n          </select>\n          <span class=\"chosen-size item_size\">\n            ";
@@ -1661,13 +1661,10 @@ ShoppingCartPlugin = {
     this.imageChanging = true;
     this.insertIntoDiv();
   },
-  addToCart: function(product){
-    simpleCart.add({
-        name: product.name,
-        price: product.price,
-        size: product.size,
-        quantity: product.quantity
-    });
+  selectProduct: function(size){
+    sizeDetails = size.selectedOptions[0].text.split(' - ');
+    size.parentElement.getElementsByClassName('chosen-size')[0].innerText = sizeDetails[0];
+    size.parentElement.getElementsByClassName('chosen-price')[0].innerText = sizeDetails[1];
   }
 };
 
