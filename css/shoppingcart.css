@@ -2,6 +2,13 @@
   display: inline-block;
 }
 
+.chosen-size {
+  display: none;
+}
+
+.chosen-price {
+  display: none;
+}
 
 .product-size-selector{
   padding: 5px;

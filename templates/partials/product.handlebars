@@ -7,10 +7,15 @@
     <div class="product-weight item_weight" style="display:none">{{ProductWeight}}</div>
     <div class="product-short-description">{{ProductShortDescription}}</div>
   </div>
-    <span class="product-price item_price">
+    <span class="product-price">
       {{#if ProductSizes.Size}}
         {{#if OneSizeOnly}}
-          {{ProductSizes.Size.SizeName}} - {{currency_symbol}}{{ProductSizes.Size.SizePrice}}
+          <span class="item_size">
+            {{ProductSizes.Size.SizeName}}
+          </span> - 
+          <span class="item_price">
+            {{currency_symbol}}{{ProductSizes.Size.SizePrice}}
+          </span>
         {{else}}
           <div class="from-text">
             from {{currency_symbol}}{{lowestPrice}}
@@ -20,9 +25,17 @@
               <option value="{{SizeName}}">{{SizeName}} - {{currency_symbol}}{{SizePrice}}</option>
             {{/each}}
           </select>
+          <span class="chosen-size item_size">
+            {{lowestSizeName}}
+          </span>
+          <span class="chosen-price item_price">
+            {{currency_symbol}}{{lowestPrice}}
+          </span>
         {{/if}}
       {{else}}
-        {{currency_symbol}}{{ProductPrice}}
+        <span class="item_price">
+          {{currency_symbol}}{{ProductPrice}}
+        </span>
       {{/if}}
     </span>
   <a class="build-addtocart-button product-addtocart-button cart-button cart-button-animate item_add" href="javascript:;">

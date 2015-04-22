@@ -1104,7 +1104,7 @@ function program1(depth0,data) {
 function program3(depth0,data) {
   
   var buffer = "", stack1;
-  buffer += "\n          ";
+  buffer += "\n        ";
   stack1 = helpers['if'].call(depth0, (depth0 && depth0.OneSizeOnly), {hash:{},inverse:self.program(6, program6, data),fn:self.program(4, program4, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "\n        ";
@@ -1113,14 +1113,14 @@ function program3(depth0,data) {
 function program4(depth0,data) {
   
   var buffer = "", stack1, helper;
-  buffer += "\n            "
+  buffer += "\n          <span class=\"item_size\">\n            "
     + escapeExpression(((stack1 = ((stack1 = ((stack1 = (depth0 && depth0.ProductSizes)),stack1 == null || stack1 === false ? stack1 : stack1.Size)),stack1 == null || stack1 === false ? stack1 : stack1.SizeName)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + " - ";
+    + "\n          </span> - \n          <span class=\"item_price\">\n            ";
   if (helper = helpers.currency_symbol) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.currency_symbol); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
     + escapeExpression(((stack1 = ((stack1 = ((stack1 = (depth0 && depth0.ProductSizes)),stack1 == null || stack1 === false ? stack1 : stack1.Size)),stack1 == null || stack1 === false ? stack1 : stack1.SizePrice)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "\n          ";
+    + "\n          </span>\n          ";
   return buffer;
   }
 
@@ -1137,7 +1137,18 @@ function program6(depth0,data) {
     + "\n            </div>\n            <select class=\"product-size-selector\">\n              ";
   stack1 = helpers.each.call(depth0, ((stack1 = (depth0 && depth0.ProductSizes)),stack1 == null || stack1 === false ? stack1 : stack1.Size), {hash:{},inverse:self.noop,fn:self.program(7, program7, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n            </select>\n          ";
+  buffer += "\n            </select>\n            <span class=\"chosen-size item_size\">\n              ";
+  if (helper = helpers.lowestSizeName) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.lowestSizeName); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "\n            </span>\n            <span class=\"chosen-price item_price\">\n              ";
+  if (helper = helpers.currency_symbol) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.currency_symbol); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1);
+  if (helper = helpers.lowestPrice) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.lowestPrice); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "\n            </span>\n          ";
   return buffer;
   }
 function program7(depth0,data) {
@@ -1165,14 +1176,14 @@ function program7(depth0,data) {
 function program9(depth0,data) {
   
   var buffer = "", stack1, helper;
-  buffer += "\n          ";
+  buffer += "\n          <span class=\"item_price\">\n            ";
   if (helper = helpers.currency_symbol) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.currency_symbol); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1);
   if (helper = helpers.ProductPrice) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.ProductPrice); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + "\n        ";
+    + "\n          </span>\n        ";
   return buffer;
   }
 
@@ -1225,7 +1236,7 @@ function program9(depth0,data) {
   if (helper = helpers.ProductDescription) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.ProductDescription); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + "</div>\n      <div class=\"product-price item_price\">\n        ";
+    + "</div>\n      <div class=\"product-price\">\n        ";
   stack1 = helpers['if'].call(depth0, ((stack1 = (depth0 && depth0.ProductSizes)),stack1 == null || stack1 === false ? stack1 : stack1.Size), {hash:{},inverse:self.program(9, program9, data),fn:self.program(3, program3, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "\n      </div>\n      <div class=\"quantity-text\">Quantity:</div>\n      <div class=\"add-section\">\n        <input class='item_Quantity quantity-input' type='text' value='1'></input>\n        <a class=\"build-addtocart-button product-addtocart-button cart-button cart-button-animate item_add\" href=\"javascript:;\">\n          <span class=\"value\">Add to Cart</span>\n          <span class=\"glyphicon glyphicon-plus-sign glyphicons ";
@@ -1256,14 +1267,14 @@ function program1(depth0,data) {
 function program2(depth0,data) {
   
   var buffer = "", stack1, helper;
-  buffer += "\n          "
+  buffer += "\n          <span class=\"item_size\">\n            "
     + escapeExpression(((stack1 = ((stack1 = ((stack1 = (depth0 && depth0.ProductSizes)),stack1 == null || stack1 === false ? stack1 : stack1.Size)),stack1 == null || stack1 === false ? stack1 : stack1.SizeName)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + " - ";
+    + "\n          </span> - \n          <span class=\"item_price\">\n            ";
   if (helper = helpers.currency_symbol) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.currency_symbol); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
     + escapeExpression(((stack1 = ((stack1 = ((stack1 = (depth0 && depth0.ProductSizes)),stack1 == null || stack1 === false ? stack1 : stack1.Size)),stack1 == null || stack1 === false ? stack1 : stack1.SizePrice)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "\n        ";
+    + "\n          </span>\n        ";
   return buffer;
   }
 
@@ -1280,7 +1291,18 @@ function program4(depth0,data) {
     + "\n          </div>\n          <select class=\"product-size-selector\">\n            ";
   stack1 = helpers.each.call(depth0, ((stack1 = (depth0 && depth0.ProductSizes)),stack1 == null || stack1 === false ? stack1 : stack1.Size), {hash:{},inverse:self.noop,fn:self.program(5, program5, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n          </select>\n        ";
+  buffer += "\n          </select>\n          <span class=\"chosen-size item_size\">\n            ";
+  if (helper = helpers.lowestSizeName) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.lowestSizeName); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "\n          </span>\n          <span class=\"chosen-price item_price\">\n            ";
+  if (helper = helpers.currency_symbol) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.currency_symbol); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1);
+  if (helper = helpers.lowestPrice) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.lowestPrice); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "\n          </span>\n        ";
   return buffer;
   }
 function program5(depth0,data) {
@@ -1308,14 +1330,14 @@ function program5(depth0,data) {
 function program7(depth0,data) {
   
   var buffer = "", stack1, helper;
-  buffer += "\n        ";
+  buffer += "\n        <span class=\"item_price\">\n          ";
   if (helper = helpers.currency_symbol) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.currency_symbol); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1);
   if (helper = helpers.ProductPrice) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.ProductPrice); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + "\n      ";
+    + "\n        </span>\n      ";
   return buffer;
   }
 
@@ -1341,7 +1363,7 @@ function program7(depth0,data) {
   if (helper = helpers.ProductShortDescription) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.ProductShortDescription); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + "</div>\n  </div>\n    <span class=\"product-price item_price\">\n      ";
+    + "</div>\n  </div>\n    <span class=\"product-price\">\n      ";
   stack1 = helpers['if'].call(depth0, ((stack1 = (depth0 && depth0.ProductSizes)),stack1 == null || stack1 === false ? stack1 : stack1.Size), {hash:{},inverse:self.program(7, program7, data),fn:self.program(1, program1, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "\n    </span>\n  <a class=\"build-addtocart-button product-addtocart-button cart-button cart-button-animate item_add\" href=\"javascript:;\">\n    <span class=\"value\">Add to Cart</span>\n    <span class=\"glyphicon glyphicon-plus-sign glyphicons ";
@@ -1498,6 +1520,7 @@ ShoppingCartPlugin = {
             return sizeA.SizePrice > sizeB.SizePrice;
           });
           product.lowestPrice = product.ProductSizes.Size[0].SizePrice;
+          product.lowestSizeName = product.ProductSizes.Size[0].SizeName;
         }
         product.ProductPrice = undefined;
       }
@@ -1637,6 +1660,14 @@ ShoppingCartPlugin = {
     this.currentMainImageURL = imageURL;
     this.imageChanging = true;
     this.insertIntoDiv();
+  },
+  addToCart: function(product){
+    simpleCart.add({
+        name: product.name,
+        price: product.price,
+        size: product.size,
+        quantity: product.quantity
+    });
   }
 };
 
