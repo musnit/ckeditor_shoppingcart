@@ -34,15 +34,19 @@
       <div class="sku">{{SKU}}</div>
       <div class="long-description">{{ProductDescription}}</div>
       <div class="product-price item_price">
-        {{#if ProductSizes}}
-        <div class="from-text">
-          from {{currency_symbol}}{{ProductPrice}}
-        </div>
-          <select class="product-size-selector">
-            {{#each ProductSizes.Size}}
-              <option value="{{SizeName}}">{{SizeName}} - {{currency_symbol}}{{SizePrice}}</option>
-            {{/each}}
-          </select>
+        {{#if ProductSizes.Size}}
+          {{#if OneSizeOnly}}
+            {{ProductSizes.Size.SizeName}} - {{currency_symbol}}{{ProductSizes.Size.SizePrice}}
+          {{else}}
+            <div class="from-text">
+              from {{currency_symbol}}{{lowestPrice}}
+            </div>
+            <select class="product-size-selector">
+              {{#each ProductSizes.Size}}
+                <option value="{{SizeName}}">{{SizeName}} - {{currency_symbol}}{{SizePrice}}</option>
+              {{/each}}
+            </select>
+          {{/if}}
         {{else}}
           {{currency_symbol}}{{ProductPrice}}
         {{/if}}
