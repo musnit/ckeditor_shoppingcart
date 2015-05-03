@@ -6,6 +6,17 @@
         Back to {{currentCategoryName}}
       </a>
       <span class="product-name-heading item_name">{{ProductName}}</span>
+      <div class="product-weight item_weight" style="display:none">
+        {{#if ProductSizes.Size}}
+          {{#if OneSizeOnly}}
+            {{ProductSizes.Size.SizeWeight}}
+          {{else}}
+            {{lowestWeight}}
+          {{/if}}
+        {{else}}
+          {{ProductWeight}}
+        {{/if}}
+      </div>
       <a href="javascript:;" onclick="window.parent.ShoppingCartPlugin.changeToMain()" class='home-link'>
         <span class="glyphicons {{themeColor}} circle_arrow_left home-arrow-link big-home-arrow-link"></span>
         Back to {{currentCategoryName}}
@@ -33,37 +44,38 @@
     <div class="right-section">
       <div class="sku">{{SKU}}</div>
       <div class="long-description">{{ProductDescription}}</div>
-      <div class="product-price">
-        {{#if ProductSizes.Size}}
+    <div class="product-sizes">
+      {{#if ProductSizes.Size}}
         {{#if OneSizeOnly}}
           <span class="item_size">
             {{ProductSizes.Size.SizeName}}
-          </span> - 
-          <span class="item_price">
-            {{currency_symbol}}{{ProductSizes.Size.SizePrice}}
           </span>
-          {{else}}
-            <div class="from-text">
-              from {{currency_symbol}}{{lowestPrice}}
-            </div>
-            <select class="product-size-selector" onchange="window.parent.ShoppingCartPlugin.selectProduct(this)">
-              {{#each ProductSizes.Size}}
-                <option value="{{SizeName}}">{{SizeName}} - {{currency_symbol}}{{SizePrice}}</option>
-              {{/each}}
-            </select>
-            <span class="chosen-size item_size">
-              {{lowestSizeName}}
-            </span>
-            <span class="chosen-price item_price">
-              {{currency_symbol}}{{lowestPrice}}
-            </span>
-          {{/if}}
         {{else}}
-          <span class="item_price">
-            {{currency_symbol}}{{ProductPrice}}
+          <div class="from-text">
+            from {{currency_symbol}}{{lowestPrice}}
+          </div>
+          <select class="product-size-selector" onchange="window.parent.ShoppingCartPlugin.selectProduct(this)">
+            {{#each ProductSizes.Size}}
+              <option value="{{SizeName}}">{{SizeName}} - {{currency_symbol}}{{SizePrice}} - {{SizeWeight}}kg</option>
+            {{/each}}
+          </select>
+          <span class="chosen-size item_size">
+            {{lowestSizeName}}
           </span>
         {{/if}}
-      </div>
+      {{/if}}
+    </div>
+    <div class="product-price item_price">
+      {{#if ProductSizes.Size}}
+        {{#if OneSizeOnly}}
+          {{currency_symbol}}{{ProductSizes.Size.SizePrice}}
+        {{else}}
+          {{currency_symbol}}{{lowestPrice}}
+        {{/if}}
+      {{else}}
+        {{currency_symbol}}{{ProductPrice}}
+      {{/if}}
+    </div>
       <div class="quantity-text">Quantity:</div>
       <div class="add-section">
         <input class='item_Quantity quantity-input' type='text' value='1'></input>

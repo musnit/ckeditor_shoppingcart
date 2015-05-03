@@ -1,6 +1,4 @@
 productHasSizes (make it, make sure it konws when null sizes array vs empty sizes array vs array with stuff in it vs array with one size)
 ProductSizes, SizePrice, SizeName (make sure they there in right place)
 check html/how looks on big and small
-change to use simplecart add method, or some hack with html so that the default simplecart thing is fine - whatever works
 test if works
-update size/price thing to change on select change for simplecart after testing if simplecart works on single product with size

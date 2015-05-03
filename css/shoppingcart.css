@@ -6,17 +6,13 @@
   display: none;
 }
 
-.chosen-price {
-  display: none;
-}
-
 .product-size-selector{
   padding: 5px;
   background: none;
   border-radius: 3px;
   margin-right: 9px;
   border: 1px solid rgb(133, 133, 133);
-  height: 33px;
+  max-width: 100%;
   border-radius: 4px;
   font-size: 18px;
   text-align: center;
@@ -97,7 +93,8 @@
 
 
 
-.shopping-cart .single-product .product-price {
+.shopping-cart .single-product .product-price,
+.shopping-cart .single-product .product-sizes, {
 
   padding: 20px 0;
   margin-top: 20px;
