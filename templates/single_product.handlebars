@@ -65,17 +65,21 @@
         {{/if}}
       {{/if}}
     </div>
-    <div class="product-price item_price">
-      {{#if ProductSizes.Size}}
-        {{#if OneSizeOnly}}
+    {{#if ProductSizes.Size}}
+      {{#if OneSizeOnly}}
+        <div class="product-price item_price">
           {{currency_symbol}}{{ProductSizes.Size.SizePrice}}
-        {{else}}
-          {{currency_symbol}}{{lowestPrice}}
-        {{/if}}
+        </div>
       {{else}}
-        {{currency_symbol}}{{ProductPrice}}
+        <div class="product-price item_price hidden-price">
+          {{currency_symbol}}{{lowestPrice}}
+        </div>
       {{/if}}
-    </div>
+    {{else}}
+      <div class="product-price item_price">
+        {{currency_symbol}}{{ProductPrice}}
+      </div>
+    {{/if}}
       <div class="quantity-text">Quantity:</div>
       <div class="add-section">
         <input class='item_Quantity quantity-input' type='text' value='1'></input>
