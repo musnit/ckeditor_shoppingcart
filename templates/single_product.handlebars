@@ -42,52 +42,56 @@
       </div>
     </div>
     <div class="right-section">
-      <div class="sku">{{SKU}}</div>
-      <div class="long-description">{{ProductDescription}}</div>
-    <div class="product-sizes">
-      {{#if ProductSizes.Size}}
-        {{#if OneSizeOnly}}
-          <span class="item_size">
-            {{ProductSizes.Size.SizeName}}
-          </span>
-        {{else}}
-          <div class="from-text">
-            from {{currency_symbol}}{{lowestPrice}}
-          </div>
-          <select class="product-size-selector" onchange="window.parent.ShoppingCartPlugin.selectProduct(this)">
-            {{#each ProductSizes.Size}}
-              <option value="{{SizeName}}">{{SizeName}} - {{currency_symbol}}{{SizePrice}} - {{SizeWeight}}kg</option>
-            {{/each}}
-          </select>
-          <span class="chosen-size item_size">
-            {{lowestSizeName}}
-          </span>
-        {{/if}}
-      {{/if}}
-    </div>
-    {{#if ProductSizes.Size}}
-      {{#if OneSizeOnly}}
-        <div class="product-price item_price">
-          {{currency_symbol}}{{ProductSizes.Size.SizePrice}}
-        </div>
-      {{else}}
-        <div class="product-price item_price hidden-price">
-          {{currency_symbol}}{{lowestPrice}}
-        </div>
-      {{/if}}
-    {{else}}
-      <div class="product-price item_price">
-        {{currency_symbol}}{{ProductPrice}}
+      <div class="product-details">
+        <div class="sku">{{SKU}}</div>
+        <div class="long-description">{{ProductDescription}}</div>
       </div>
-    {{/if}}
-      <div class="quantity-text">Quantity:</div>
-      <div class="add-section">
-        <input class='item_Quantity quantity-input' type='text' value='1'></input>
-        <a class="build-addtocart-button product-addtocart-button cart-button cart-button-animate item_add" href="javascript:;">
-          <span class="value">Add to Cart</span>
-          <span class="glyphicon glyphicon-plus-sign glyphicons {{themeColor}} circle_plus"></span>
-        </a>
-        <div class="build-cart-animation" style="display:none">1</div>
+      <div class="product-actions">
+        <div class="product-sizes">
+          {{#if ProductSizes.Size}}
+            {{#if OneSizeOnly}}
+              <span class="item_size">
+                {{ProductSizes.Size.SizeName}}
+              </span>
+            {{else}}
+              <div class="from-text">
+                from {{currency_symbol}}{{lowestPrice}}
+              </div>
+              <select class="product-size-selector" onchange="window.parent.ShoppingCartPlugin.selectProduct(this)">
+                {{#each ProductSizes.Size}}
+                  <option value="{{SizeName}}">{{SizeName}} - {{currency_symbol}}{{SizePrice}} - {{SizeWeight}}kg</option>
+                {{/each}}
+              </select>
+              <span class="chosen-size item_size">
+                {{lowestSizeName}}
+              </span>
+            {{/if}}
+          {{/if}}
+        </div>
+        {{#if ProductSizes.Size}}
+          {{#if OneSizeOnly}}
+            <div class="product-price item_price">
+              {{currency_symbol}}{{ProductSizes.Size.SizePrice}}
+            </div>
+          {{else}}
+            <div class="product-price item_price hidden-price">
+              {{currency_symbol}}{{lowestPrice}}
+            </div>
+          {{/if}}
+        {{else}}
+          <div class="product-price item_price">
+            {{currency_symbol}}{{ProductPrice}}
+          </div>
+        {{/if}}
+        <div class="quantity-text">Quantity:</div>
+        <div class="add-section">
+          <input class='item_Quantity quantity-input' type='text' value='1'></input>
+          <a class="build-addtocart-button product-addtocart-button cart-button cart-button-animate item_add" href="javascript:;">
+            <span class="value">Add to Cart</span>
+            <span class="glyphicon glyphicon-plus-sign glyphicons {{themeColor}} circle_plus"></span>
+          </a>
+          <div class="build-cart-animation" style="display:none">1</div>
+        </div>
       </div>
     </div>
   </div>
