@@ -6,6 +6,10 @@
   display: none;
 }
 
+.hidden-price {
+  display: none !important;
+}
+
 .product-size-selector{
   padding: 5px;
   background: none;
@@ -17,6 +21,7 @@
   font-size: 18px;
   text-align: center;
   transition: all .3s;
+  margin-bottom: 5px;
 }
 
 .single-product .product-size-selector {

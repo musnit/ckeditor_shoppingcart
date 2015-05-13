@@ -38,17 +38,21 @@
       {{/if}}
     {{/if}}
   </div>
-  <div class="product-price item_price">
-    {{#if ProductSizes.Size}}
-      {{#if OneSizeOnly}}
+  {{#if ProductSizes.Size}}
+    {{#if OneSizeOnly}}
+      <div class="product-price item_price">
         {{currency_symbol}}{{ProductSizes.Size.SizePrice}}
-      {{else}}
-        {{currency_symbol}}{{lowestPrice}}
-      {{/if}}
+      </div>
     {{else}}
-      {{currency_symbol}}{{ProductPrice}}
+      <div class="product-price item_price hidden-price">
+        {{currency_symbol}}{{lowestPrice}}
+      </div>
     {{/if}}
-  </div>
+  {{else}}
+    <div class="product-price item_price">
+      {{currency_symbol}}{{ProductPrice}}
+    </div>
+  {{/if}}
   <a class="build-addtocart-button product-addtocart-button cart-button cart-button-animate item_add" href="javascript:;">
     <span class="value">Add to Cart</span>
     <span class="glyphicon glyphicon-plus-sign glyphicons {{themeColor}} circle_plus"></span>
