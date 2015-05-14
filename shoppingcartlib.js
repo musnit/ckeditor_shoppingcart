@@ -1304,7 +1304,7 @@ function program21(depth0,data) {
   buffer += "\n        </div>\n        ";
   stack1 = helpers['if'].call(depth0, ((stack1 = (depth0 && depth0.ProductSizes)),stack1 == null || stack1 === false ? stack1 : stack1.Size), {hash:{},inverse:self.program(21, program21, data),fn:self.program(16, program16, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n        <div class=\"quantity-text\">Quantity:</div>\n        <div class=\"add-section\">\n          <input class='item_Quantity quantity-input' type='text' value='1'></input>\n          <a class=\"build-addtocart-button product-addtocart-button cart-button cart-button-animate item_add\" href=\"javascript:;\">\n            <span class=\"value\">Add to Cart</span>\n            <span class=\"glyphicon glyphicon-plus-sign glyphicons ";
+  buffer += "\n        <div class=\"quantity-text\">Quantity:</div>\n        <div class=\"add-section\">\n          <input class='item_Quantity quantity-input' type='text' value='1'></input>\n          <a class=\"build-addtocart-button product-addtocart-button cart-button cart-button-animate\" onclick=\"ShoppingCartPlugin.addToSimpleCart(this)\">\n            <span class=\"value\">Add to Cart</span>\n            <span class=\"glyphicon glyphicon-plus-sign glyphicons ";
   if (helper = helpers.themeColor) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.themeColor); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
@@ -1500,7 +1500,7 @@ function program19(depth0,data) {
   buffer += "\n    </div>\n    ";
   stack1 = helpers['if'].call(depth0, ((stack1 = (depth0 && depth0.ProductSizes)),stack1 == null || stack1 === false ? stack1 : stack1.Size), {hash:{},inverse:self.program(19, program19, data),fn:self.program(14, program14, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n    <a class=\"build-addtocart-button product-addtocart-button cart-button cart-button-animate item_add\" href=\"javascript:;\">\n      <span class=\"value\">Add to Cart</span>\n      <span class=\"glyphicon glyphicon-plus-sign glyphicons ";
+  buffer += "\n    <a class=\"build-addtocart-button product-addtocart-button cart-button cart-button-animate\" onclick=\"ShoppingCartPlugin.addToSimpleCart(this)\">\n      <span class=\"value\">Add to Cart</span>\n      <span class=\"glyphicon glyphicon-plus-sign glyphicons ";
   if (helper = helpers.themeColor) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.themeColor); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
@@ -1798,12 +1798,62 @@ ShoppingCartPlugin = {
     this.insertIntoDiv();
   },
   selectProduct: function(size){
+    var productHTML = size.parentElement.parentElement.parentElement;
+    if (!productHTML.classList.contains('simpleCart_shelfItem')){
+      productHTML = productHTML.parentElement.parentElement.parentElement;
+    }
     sizeDetails = size.selectedOptions[0].text.split(' - ');
-    size.parentElement.parentElement.getElementsByClassName('chosen-size')[0].innerText = sizeDetails[0];
-    size.parentElement.parentElement.getElementsByClassName('product-price')[0].innerText = sizeDetails[1];
+    productHTML.getElementsByClassName('chosen-size')[0].innerText = sizeDetails[0];
+    productHTML.getElementsByClassName('product-price')[0].innerText = sizeDetails[1];
     var weightText = sizeDetails[2];
-    var weigth = weightText.substring(0, weightText.length-2);
-    size.parentElement.parentElement.getElementsByClassName('product-weight')[0].innerText = weigth;
+    var weight = weightText.substring(0, weightText.length-2);
+    productHTML.getElementsByClassName('product-weight')[0].innerText = weight;
+  },
+  addToSimpleCart: function(clickHTML){
+
+    var productHTML = clickHTML.parentElement.parentElement;
+    if (!productHTML.classList.contains('simpleCart_shelfItem')){
+      productHTML = productHTML.parentElement.parentElement;
+    }
+    var thumb = ("" + (productHTML.getElementsByClassName('item_thumb')[0] || {}).src).trim();
+    var name = ("" + (productHTML.getElementsByClassName('item_name')[0] || {}).textContent).trim();
+    var weight = parseFloat(("" + (productHTML.getElementsByClassName('item_weight')[0] || {}).textContent).trim());
+    var size = ("" + (productHTML.getElementsByClassName('item_size')[0] || {}).textContent).trim();
+    var price = ("" + (productHTML.getElementsByClassName('item_price')[0] || {}).textContent).trim();
+    var quantity = ("" + (productHTML.getElementsByClassName('item_Quantity')[0] || {}).value).trim();
+
+    if (size && size != 'undefined'){
+      name = name.trim() + ' - ' + size.trim();
+    }
+
+    var id = name + thumb + weight + size + price.replace(/\D/g,'');
+    id = id.replace(/ /g,'').replace(/_/g,'').replace(/\n/g,'');
+
+    var oldItem = false;
+    simpleCart.each(function(item,x){
+      var loopItemID = item.get("name") + item.get("thumb") + item.get("weight") + item.get("size") + ("" + item.get("price")).replace(/\D/g,'');
+      loopItemID = loopItemID.replace(/ /g,'').replace(/_/g,'').replace(/\n/g,'');
+
+      if(loopItemID == id){
+        oldItem = true;
+        item.quantity(item.quantity() + parseInt(quantity));
+        return;
+      }
+    });
+
+    if(oldItem){
+      simpleCart.update();
+      return;
+    }
+
+    simpleCart.add({
+        thumb: thumb ,
+        name: name ,
+        weight: weight ,
+        size: size ,
+        price: price ,
+        quantity: quantity
+    });
   }
 };
 
