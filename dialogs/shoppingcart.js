@@ -14,7 +14,10 @@ CKEDITOR.dialog.add( 'shoppingcart', function( editor ) {
                         label: 'Theme',
                         items: [
                             [ 'Light', 'light-theme' ],
-                            [ 'Dark', 'dark-theme' ]
+                            [ 'Dark', 'dark-theme' ],
+                            [ 'Blue', 'blue-theme' ],
+                            [ 'Red', 'red-theme' ],
+                            [ 'Pink', 'pink-theme' ]
                         ],
                         setup: function( widget ) {
                             this.setValue( ShoppingCartPlugin.theme );

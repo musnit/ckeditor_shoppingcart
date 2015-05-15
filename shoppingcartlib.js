@@ -1258,11 +1258,7 @@ function program21(depth0,data) {
   if (helper = helpers.theme) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.theme); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
-    + "\">\n  <div class=\"single-product simpleCart_shelfItem\">\n    <div class='top-section'>\n      <a href=\"javascript:;\" onclick=\"window.parent.ShoppingCartPlugin.changeToMain()\" class='home-link'>\n        <span class=\"glyphicons ";
-  if (helper = helpers.themeColor) { stack1 = helper.call(depth0, {hash:{},data:data}); }
-  else { helper = (depth0 && depth0.themeColor); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
-  buffer += escapeExpression(stack1)
-    + " circle_arrow_left home-arrow-link big-home-arrow-link\"></span>\n        Back to ";
+    + "\">\n  <div class=\"single-product simpleCart_shelfItem\">\n    <div class='top-section'>\n      <a href=\"javascript:;\" onclick=\"window.parent.ShoppingCartPlugin.changeToMain()\" class='home-link'>\n        <span class=\"glyphicons circle_arrow_left home-arrow-link big-home-arrow-link\"></span>\n        Back to ";
   if (helper = helpers.currentCategoryName) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.currentCategoryName); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
@@ -1304,11 +1300,7 @@ function program21(depth0,data) {
   buffer += "\n        </div>\n        ";
   stack1 = helpers['if'].call(depth0, ((stack1 = (depth0 && depth0.ProductSizes)),stack1 == null || stack1 === false ? stack1 : stack1.Size), {hash:{},inverse:self.program(21, program21, data),fn:self.program(16, program16, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n        <div class=\"quantity-text\">Quantity:</div>\n        <div class=\"add-section\">\n          <input class='item_Quantity quantity-input' type='text' value='1'></input>\n          <a class=\"build-addtocart-button product-addtocart-button cart-button cart-button-animate\" onclick=\"ShoppingCartPlugin.addToSimpleCart(this)\">\n            <span class=\"value\">Add to Cart</span>\n            <span class=\"glyphicon glyphicon-plus-sign glyphicons ";
-  if (helper = helpers.themeColor) { stack1 = helper.call(depth0, {hash:{},data:data}); }
-  else { helper = (depth0 && depth0.themeColor); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
-  buffer += escapeExpression(stack1)
-    + " circle_plus\"></span>\n          </a>\n          <div class=\"build-cart-animation\" style=\"display:none\">1</div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>";
+  buffer += "\n        <div class=\"quantity-text\">Quantity:</div>\n        <div class=\"add-section\">\n          <input class='item_Quantity quantity-input' type='text' value='1'></input>\n          <a class=\"build-addtocart-button product-addtocart-button cart-button cart-button-animate\" onclick=\"ShoppingCartPlugin.addToSimpleCart(this)\">\n            <span class=\"value\">Add to Cart</span>\n            <span class=\"glyphicon glyphicon-plus-sign glyphicons circle_plus\"></span>\n          </a>\n          <div class=\"build-cart-animation\" style=\"display:none\">1</div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>";
   return buffer;
   });
 })();
@@ -1500,11 +1492,7 @@ function program19(depth0,data) {
   buffer += "\n    </div>\n    ";
   stack1 = helpers['if'].call(depth0, ((stack1 = (depth0 && depth0.ProductSizes)),stack1 == null || stack1 === false ? stack1 : stack1.Size), {hash:{},inverse:self.program(19, program19, data),fn:self.program(14, program14, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n    <a class=\"build-addtocart-button product-addtocart-button cart-button cart-button-animate\" onclick=\"ShoppingCartPlugin.addToSimpleCart(this)\">\n      <span class=\"value\">Add to Cart</span>\n      <span class=\"glyphicon glyphicon-plus-sign glyphicons ";
-  if (helper = helpers.themeColor) { stack1 = helper.call(depth0, {hash:{},data:data}); }
-  else { helper = (depth0 && depth0.themeColor); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
-  buffer += escapeExpression(stack1)
-    + " circle_plus\"></span>\n    </a>\n    <input type=\"text\" value=\"1\" class=\"item_Quantity single-item-quantity\">\n    <div class=\"build-cart-animation\" style=\"display:none\">1</div>\n  </div>\n</div>\n";
+  buffer += "\n    <a class=\"build-addtocart-button product-addtocart-button cart-button cart-button-animate\" onclick=\"ShoppingCartPlugin.addToSimpleCart(this)\">\n      <span class=\"value\">Add to Cart</span>\n      <span class=\"glyphicon glyphicon-plus-sign glyphicons circle_plus\"></span>\n    </a>\n    <input type=\"text\" value=\"1\" class=\"item_Quantity single-item-quantity\">\n    <div class=\"build-cart-animation\" style=\"display:none\">1</div>\n  </div>\n</div>\n";
   return buffer;
   });
 })();
@@ -1520,10 +1508,6 @@ Handlebars.registerHelper('currentCategoryName', function(options) {
 
 Handlebars.registerHelper('theme', function(options) {
   return ShoppingCartPlugin.theme;
-});
-
-Handlebars.registerHelper('themeColor', function(options) {
-  return (ShoppingCartPlugin.theme === 'dark-theme')? 'white' : '';
 });
 
 Handlebars.registerHelper('currentMainImageURL', function(options) {
@@ -1626,8 +1610,11 @@ ShoppingCartPlugin = {
     this.getCategoriesXML(AI);
     var widget = $('.shopping-cart-widget');
     var classes = widget.attr('class');
-    if (classes && classes.includes('light')){
-      this.theme = 'light-theme';
+    if (classes){
+      var theme = classes.split(' ').filter(function(classs){
+        return classs.includes('theme');
+      })[0];
+      this.theme = theme;
     }
   },
   makeCurrentRoute: function(){
