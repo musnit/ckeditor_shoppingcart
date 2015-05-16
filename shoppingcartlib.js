@@ -1714,35 +1714,35 @@ ShoppingCartPlugin = {
   insertIntoDiv: function() {
     if(this.dataIsLoaded()){
       this.currentProducts = this.getProductsForCategory(this.currentCategory);
-    cart = this;
-    divToFade = this.divToInsert;
-    if (this.divToInsert.find('.products').length !== 0){
-      divToFade = this.divToInsert.find('.products');
-    }
-    else if(this.imageChanging){
-      divToFade = this.divToInsert.find('.main-photo');
-      this.imageChanging = false;
-    }
-    divToFade.fadeOut(200, function(){
-      cart.divToInsert.html(cart.makeCurrentRoute());
-      if (cart.CKEditorWidget === undefined){
-        CreateCartAnimations();
-        insertMagnifier();
+      cart = this;
+      divToFade = this.divToInsert;
+      if (this.divToInsert.find('.products').length !== 0){
+        divToFade = this.divToInsert.find('.products');
       }
-      else if (cart.CKEditorWidget.isReady()){
-        CreateCartAnimations();
-        insertMagnifier();
+      else if(this.imageChanging){
+        divToFade = this.divToInsert.find('.main-photo');
+        this.imageChanging = false;
       }
-      else{
-        cart.CKEditorWidget.on('ready',function(){
+      divToFade.fadeOut(200, function(){
+        cart.divToInsert.html(cart.makeCurrentRoute());
+        if (cart.CKEditorWidget === undefined){
           CreateCartAnimations();
-        insertMagnifier();
-        });
-      }
-      cart.divToInsert.fadeIn(200);
-    });
-
-
+          insertMagnifier();
+        }
+        else if (cart.CKEditorWidget.isReady()){
+          CreateCartAnimations();
+          insertMagnifier();
+        }
+        else{
+          cart.CKEditorWidget.on('ready',function(){
+            CreateCartAnimations();
+          insertMagnifier();
+          });
+        }
+        cart.divToInsert.fadeIn(200);
+        var event = new CustomEvent('shoppingCartInitComplete');
+        document.dispatchEvent(event);
+      });
     }
   },
   changePage: function(pageNumber){
@@ -1850,5 +1850,6 @@ $( document ).ready(function() {
     ShoppingCartPlugin.initialize(SCVOAccountID, divToInsert);
   }
 });
+
 
 
